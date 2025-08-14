@@ -3,11 +3,16 @@
 void telaPrincipal();
 void telaInicial();
 void telaSair();
-void equipe();
-void sobre();
+void telaEquipe();
+void telaSobre();
 
 int main(void) {
-    
+    telaInicial();
+    telaPrincipal();
+    telaEquipe();
+    telaSobre();
+    telaSair();
+
 
     return 0;
 }
@@ -50,7 +55,7 @@ void telaSair(){
     printf("Digite sua escolha: ");
 }
 
-void equipe() {
+void telaEquipe() {
     printf("╔═══════════════════════════════════╗\n");
     printf("║              EQUIPE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
@@ -63,7 +68,7 @@ void equipe() {
     printf("║ Git:https://github.com/ThomasReyel║\n");
     printf("╚═══════════════════════════════════╝\n");
 }
-void sobre() {
+void telaSobre() {
 printf("╔═══════════════════════════════════╗\n");
 printf("║               SOBRE               ║\n");
 printf("╠═══════════════════════════════════╣\n");
