@@ -1,11 +1,18 @@
 #include <stdio.h>
 
 void telaPrincipal();
+void telaInicial();
 void telaSair();
 void equipe();
 void sobre();
 
 int main(void) {
+    
+
+    return 0;
+}
+
+void telaInicial(){
     printf("╔══════════════════════════╗\n");
     printf("║           MENU           ║\n");
     printf("╠══════════════════════════╣\n");
@@ -15,8 +22,6 @@ int main(void) {
     printf("║ 4. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
-
-    return 0;
 }
 
 void telaPrincipal() {
