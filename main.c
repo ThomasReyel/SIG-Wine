@@ -59,12 +59,14 @@ void equipe() {
     printf("╚═══════════════════════════════════╝\n");
 }
 void sobre() {
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║               SOBRE               ║\n");
-    printf("╠═══════════════════════════════════╣\n");
-    printf("║  SigWine, um projeto para os      ║\n");
-    printf("║  mais apaixonados amantes de      ║\n");
-    printf("║  vinho. Aqui, você vai ter os     ║\n");
-    printf("║  melhores vinhos do mercado.      ║\n");
-    printf("╚═══════════════════════════════════╝\n");
+printf("╔═══════════════════════════════════╗\n");
+printf("║               SOBRE               ║\n");
+printf("╠═══════════════════════════════════╣\n");
+printf("║ Projeto acadêmico desenvolvido na ║\n");
+printf("║ disciplina de Programação do      ║\n");
+printf("║ curso de Sistemas de Informação   ║\n");
+printf("║ na UFRN. Contém todos os módulos  ║\n");
+printf("║ e funcionalidades exigidos pela   ║\n");
+printf("║ disciplina                        ║\n");
+printf("╚═══════════════════════════════════╝\n");
 }
