@@ -50,7 +50,12 @@ void equipe() {
     printf("║              EQUIPE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
     printf("║ Guilherme Fernandes e Silva       ║\n");
+    printf("║ Email:                            ║\n");
+    printf("║ Git:                              ║\n");
+    printf("║                                   ║\n");
     printf("║ Thomas Reyel da Silva Morais      ║\n");
+    printf("║ Email:thomasreyel2231@gmail.com   ║\n");
+    printf("║ Git:https://github.com/ThomasReyel║\n");
     printf("╚═══════════════════════════════════╝\n");
 }
 void sobre() {
