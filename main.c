@@ -2,6 +2,8 @@
 
 void telaPrincipal();
 void telaSair();
+void equipe();
+void sobre();
 
 int main(void) {
     printf("╔══════════════════════════╗\n");
@@ -12,7 +14,7 @@ int main(void) {
     printf("║ 3. Equipe                ║\n");
     printf("║ 4. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+    printf("Digite sua escolha: \n");
 
     return 0;
 }
@@ -41,4 +43,23 @@ void telaSair(){
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: ");
+}
+
+void equipe() {
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║              EQUIPE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Guilherme Fernandes e Silva       ║\n");
+    printf("║ Thomas Reyel da Silva Morais      ║\n");
+    printf("╚═══════════════════════════════════╝\n");
+}
+void sobre() {
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║               SOBRE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║  SigWine, um projeto para os      ║\n");
+    printf("║  mais apaixonados amantes de      ║\n");
+    printf("║  vinho. Aqui, você vai ter os     ║\n");
+    printf("║  melhores vinhos do mercado.      ║\n");
+    printf("╚═══════════════════════════════════╝\n");
 }
