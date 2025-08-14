@@ -40,7 +40,7 @@ void telaPrincipal() {
     printf("║ 5. Módulo Relatórios     ║\n");
     printf("║ 6. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+    printf("Digite sua escolha: \n");
 
 }
 
@@ -52,7 +52,7 @@ void telaSair(){
     printf("║ 1. Não                   ║\n");
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+    printf("Digite sua escolha: \n");
 }
 
 void telaEquipe() {
@@ -69,14 +69,14 @@ void telaEquipe() {
     printf("╚═══════════════════════════════════╝\n");
 }
 void telaSobre() {
-printf("╔═══════════════════════════════════╗\n");
-printf("║               SOBRE               ║\n");
-printf("╠═══════════════════════════════════╣\n");
-printf("║ Projeto acadêmico desenvolvido na ║\n");
-printf("║ disciplina de Programação do      ║\n");
-printf("║ curso de Sistemas de Informação   ║\n");
-printf("║ na UFRN. Contém todos os módulos  ║\n");
-printf("║ e funcionalidades exigidos pela   ║\n");
-printf("║ disciplina                        ║\n");
-printf("╚═══════════════════════════════════╝\n");
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║               SOBRE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Projeto acadêmico desenvolvido na ║\n");
+    printf("║ disciplina de Programação do      ║\n");
+    printf("║ curso de Sistemas de Informação   ║\n");
+    printf("║ na UFRN. Contém todos os módulos  ║\n");
+    printf("║ e funcionalidades exigidos pela   ║\n");
+    printf("║ disciplina                        ║\n");
+    printf("╚═══════════════════════════════════╝\n");
 }
