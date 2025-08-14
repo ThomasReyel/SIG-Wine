@@ -1,10 +1,11 @@
 #include <stdio.h>
 
 void telaPrincipal();
+void telaSair();
 
 int main(void) {
     printf("╔══════════════════════════╗\n");
-    printf("║         MENU             ║\n");
+    printf("║           MENU           ║\n");
     printf("╠══════════════════════════╣\n");
     printf("║ 1. Tela Principal        ║\n");
     printf("║ 2. Sobre                 ║\n");
@@ -29,4 +30,15 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: ");
 
+}
+
+void telaSair(){
+    printf("╔══════════════════════════╗\n");
+    printf("║        Tem certeza       ║\n");
+    printf("║     que deseja sair?     ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Não                   ║\n");
+    printf("║ 2. Sim                   ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: ");
 }
