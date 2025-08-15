@@ -2,6 +2,9 @@
 
 void telaPrincipal();
 void telaInicial();
+void telaProdutos();
+void telaAssinante();
+void telaAssinaturas();
 void telaSair();
 void telaEquipe();
 void telaSobre();
@@ -9,6 +12,8 @@ void telaSobre();
 int main(void) {
     telaInicial();
     telaPrincipal();
+    telaAssinante();
+    telaAssinaturas();
     telaEquipe();
     telaSobre();
     telaSair();
@@ -43,6 +48,46 @@ void telaPrincipal() {
     printf("Digite sua escolha: \n");
 
 }
+
+void telaProdutos(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO PRODUTOS      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Produtos    ║\n");
+    printf("║ 2. Checar Produtos       ║\n");
+    printf("║ 3. Alterar Produtos      ║\n");
+    printf("║ 4. Excluir Produtos      ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+void telaAssinante(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO ASSINANTES    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Assinantes  ║\n");
+    printf("║ 2. Checar Assinantes     ║\n");
+    printf("║ 3. Alterar Assinantes    ║\n");
+    printf("║ 4. Excluir Assinantes    ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+void telaAssinaturas(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO ASSINATURAS   ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Assinaturas ║\n");
+    printf("║ 2. Checar Assinaturas    ║\n");
+    printf("║ 3. Alterar Assinaturas   ║\n");
+    printf("║ 4. Excluir Assinaturas   ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
 
 void telaSair(){
     printf("╔══════════════════════════╗\n");
