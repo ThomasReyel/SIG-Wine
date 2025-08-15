@@ -1,9 +1,23 @@
 #include <stdio.h>
 
 void telaPrincipal();
+void telaInicial();
 void telaSair();
+void telaEquipe();
+void telaSobre();
 
 int main(void) {
+    telaInicial();
+    telaPrincipal();
+    telaEquipe();
+    telaSobre();
+    telaSair();
+
+
+    return 0;
+}
+
+void telaInicial(){
     printf("╔══════════════════════════╗\n");
     printf("║           MENU           ║\n");
     printf("╠══════════════════════════╣\n");
@@ -12,9 +26,7 @@ int main(void) {
     printf("║ 3. Equipe                ║\n");
     printf("║ 4. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
-
-    return 0;
+    printf("Digite sua escolha: \n");
 }
 
 void telaPrincipal() {
@@ -28,7 +40,7 @@ void telaPrincipal() {
     printf("║ 5. Módulo Relatórios     ║\n");
     printf("║ 6. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+    printf("Digite sua escolha: \n");
 
 }
 
@@ -40,5 +52,31 @@ void telaSair(){
     printf("║ 1. Não                   ║\n");
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+    printf("Digite sua escolha: \n");
+}
+
+void telaEquipe() {
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║              EQUIPE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Guilherme Fernandes e Silva       ║\n");
+    printf("║ Email:                            ║\n");
+    printf("║ Git:                              ║\n");
+    printf("║                                   ║\n");
+    printf("║ Thomas Reyel da Silva Morais      ║\n");
+    printf("║ Email:thomasreyel2231@gmail.com   ║\n");
+    printf("║ Git:https://github.com/ThomasReyel║\n");
+    printf("╚═══════════════════════════════════╝\n");
+}
+void telaSobre() {
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║               SOBRE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Projeto acadêmico desenvolvido na ║\n");
+    printf("║ disciplina de Programação do      ║\n");
+    printf("║ curso de Sistemas de Informação   ║\n");
+    printf("║ na UFRN. Contém todos os módulos  ║\n");
+    printf("║ e funcionalidades exigidos pela   ║\n");
+    printf("║ disciplina                        ║\n");
+    printf("╚═══════════════════════════════════╝\n");
 }
