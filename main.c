@@ -2,6 +2,8 @@
 
 void telaPrincipal();
 void telaInicial();
+void telaProdutos();
+void telaAssinante();
 void telaSair();
 void telaEquipe();
 void telaSobre();
@@ -9,6 +11,7 @@ void telaSobre();
 int main(void) {
     telaInicial();
     telaPrincipal();
+    telaAssinante();
     telaEquipe();
     telaSobre();
     telaSair();
@@ -42,6 +45,19 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 
+}
+
+void telaProdutos(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO PRODUTOS      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Produtos    ║\n");
+    printf("║ 2. Checar Produtos       ║\n");
+    printf("║ 3. Alterar Produtos      ║\n");
+    printf("║ 4. Excluir Produtos      ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
 }
 
 void telaSair(){
