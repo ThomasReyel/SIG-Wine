@@ -5,6 +5,7 @@ void telaInicial();
 void telaProdutos();
 void telaAssinante();
 void telaAssinaturas();
+void telaPlano();
 void telaSair();
 void telaEquipe();
 void telaSobre();
@@ -70,6 +71,19 @@ void telaAssinante(){
     printf("║ 2. Checar Assinantes     ║\n");
     printf("║ 3. Alterar Assinantes    ║\n");
     printf("║ 4. Excluir Assinantes    ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+void telaAssinante(){
+    printf("╔══════════════════════════╗\n");
+    printf("║       MÓDULO PLANOS      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Plano       ║\n");
+    printf("║ 2. Checar Planos         ║\n");
+    printf("║ 3. Alterar Plano         ║\n");
+    printf("║ 4. Excluir Plano         ║\n");
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
