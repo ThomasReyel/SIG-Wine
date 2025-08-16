@@ -1,28 +1,49 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void telaPrincipal();
 void telaInicial();
 void telaProdutos();
 void telaAssinante();
 void telaAssinaturas();
-void telaSair();
+void telaPlano();
+void telaFinanceiro();
+void telaRelatorios();
+int telaSair();
 void telaEquipe();
 void telaSobre();
 
 int main(void) {
-    telaInicial();
-    telaPrincipal();
-    telaAssinante();
-    telaAssinaturas();
-    telaEquipe();
-    telaSobre();
-    telaSair();
-
-
+    int Ctrl_Nav_Inicial = 0;
+    int Ctrl_Nav_Geral = 1;
+    while (Ctrl_Nav_Geral == 1)
+    {
+       telaInicial();
+       scanf("%d", &Ctrl_Nav_Inicial);
+       switch (Ctrl_Nav_Inicial)
+       {
+       case 1:
+            telaPrincipal();
+        break;
+       case 2:
+            telaSobre();
+        break;
+        case 3:
+            telaEquipe();
+        break;
+        case 4:
+            Ctrl_Nav_Geral = telaSair();
+        break;
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
     return 0;
 }
 
 void telaInicial(){
+    system("clear||cls");
     printf("╔══════════════════════════╗\n");
     printf("║           MENU           ║\n");
     printf("╠══════════════════════════╣\n");
@@ -35,6 +56,8 @@ void telaInicial(){
 }
 
 void telaPrincipal() {
+    system("clear||cls");
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║      MENU PRINCIPAL      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -46,6 +69,7 @@ void telaPrincipal() {
     printf("║ 6. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d",&opcao);
 
 }
 
@@ -75,6 +99,19 @@ void telaAssinante(){
     printf("Digite sua escolha: \n");
 }
 
+void telaPlano(){
+    printf("╔══════════════════════════╗\n");
+    printf("║       MÓDULO PLANOS      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Plano       ║\n");
+    printf("║ 2. Checar Planos         ║\n");
+    printf("║ 3. Alterar Plano         ║\n");
+    printf("║ 4. Excluir Plano         ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
 void telaAssinaturas(){
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO ASSINATURAS   ║\n");
@@ -87,9 +124,36 @@ void telaAssinaturas(){
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 }
+void telaFinanceiro(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO Financeiro    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Relatório de pagamento║\n");
+    printf("║ 2. Caixa Mensal          ║\n");
+    printf("║ 3. lorem ipsum           ║\n");
+    printf("║ 4. lorem ipsum           ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+void telaRelatorios(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO Relatórios    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Faixa etária          ║\n");
+    printf("║ 2. Vizualizar Assinantes ║\n");
+    printf("║ 3. Vizualizar Assinaturas║\n");
+    printf("║ 4. lorem ipsum           ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
 
 
-void telaSair(){
+int telaSair(){
+    system("clear||cls");
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║        Tem certeza       ║\n");
     printf("║     que deseja sair?     ║\n");
@@ -98,9 +162,13 @@ void telaSair(){
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", &opcao);
+    return opcao;
+
 }
 
 void telaEquipe() {
+    system("clear||cls");
     printf("╔═══════════════════════════════════╗\n");
     printf("║              EQUIPE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
@@ -112,8 +180,13 @@ void telaEquipe() {
     printf("║ Email:thomasreyel2231@gmail.com   ║\n");
     printf("║ Git:https://github.com/ThomasReyel║\n");
     printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+    getchar();
 }
 void telaSobre() {
+    system("clear||cls");
     printf("╔═══════════════════════════════════╗\n");
     printf("║               SOBRE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
@@ -124,4 +197,8 @@ void telaSobre() {
     printf("║ e funcionalidades exigidos pela   ║\n");
     printf("║ disciplina                        ║\n");
     printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+    getchar();
 }
