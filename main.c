@@ -7,6 +7,7 @@ void telaAssinante();
 void telaAssinaturas();
 void telaPlano();
 void telaFinanceiro();
+void telaRelatorios();
 void telaSair();
 void telaEquipe();
 void telaSobre();
@@ -102,13 +103,26 @@ void telaAssinaturas(){
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 }
-void telaAssinaturas(){
+void telaFinanceiro(){
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO Financeiro    ║\n");
     printf("╠══════════════════════════╣\n");
     printf("║ 1. Relatório de pagamento║\n");
     printf("║ 2. Caixa Mensal          ║\n");
     printf("║ 3. lorem ipsum           ║\n");
+    printf("║ 4. lorem ipsum           ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+void telaRelatorios(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO Relatórios    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Faixa etária          ║\n");
+    printf("║ 2. Vizualizar Assinantes ║\n");
+    printf("║ 3. Vizualizar Assinaturas║\n");
     printf("║ 4. lorem ipsum           ║\n");
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
