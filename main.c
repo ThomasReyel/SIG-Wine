@@ -6,6 +6,7 @@ void telaProdutos();
 void telaAssinante();
 void telaAssinaturas();
 void telaPlano();
+void telaFinanceiro();
 void telaSair();
 void telaEquipe();
 void telaSobre();
@@ -76,7 +77,7 @@ void telaAssinante(){
     printf("Digite sua escolha: \n");
 }
 
-void telaAssinante(){
+void telaPlano(){
     printf("╔══════════════════════════╗\n");
     printf("║       MÓDULO PLANOS      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -97,6 +98,18 @@ void telaAssinaturas(){
     printf("║ 2. Checar Assinaturas    ║\n");
     printf("║ 3. Alterar Assinaturas   ║\n");
     printf("║ 4. Excluir Assinaturas   ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+void telaAssinaturas(){
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO Financeiro    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Relatório de pagamento║\n");
+    printf("║ 2. Caixa Mensal          ║\n");
+    printf("║ 3. lorem ipsum           ║\n");
+    printf("║ 4. lorem ipsum           ║\n");
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
