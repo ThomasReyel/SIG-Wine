@@ -1,4 +1,5 @@
 #include <stdio.h>
+#include <stdlib.h>
 
 void telaPrincipal();
 void telaInicial();
@@ -17,7 +18,6 @@ int main(void) {
     int Ctrl_Nav_Geral = 1;
     while (Ctrl_Nav_Geral == 1)
     {
-        printf("%d",Ctrl_Nav_Geral);
        telaInicial();
        scanf("%d", &Ctrl_Nav_Inicial);
        switch (Ctrl_Nav_Inicial)
@@ -43,6 +43,7 @@ int main(void) {
 }
 
 void telaInicial(){
+    system("clear||cls");
     printf("╔══════════════════════════╗\n");
     printf("║           MENU           ║\n");
     printf("╠══════════════════════════╣\n");
@@ -55,6 +56,8 @@ void telaInicial(){
 }
 
 void telaPrincipal() {
+    system("clear||cls");
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║      MENU PRINCIPAL      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -66,6 +69,7 @@ void telaPrincipal() {
     printf("║ 6. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d",&opcao);
 
 }
 
@@ -148,6 +152,7 @@ void telaRelatorios(){
 
 
 int telaSair(){
+    system("clear||cls");
     int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║        Tem certeza       ║\n");
@@ -163,6 +168,7 @@ int telaSair(){
 }
 
 void telaEquipe() {
+    system("clear||cls");
     printf("╔═══════════════════════════════════╗\n");
     printf("║              EQUIPE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
@@ -174,8 +180,13 @@ void telaEquipe() {
     printf("║ Email:thomasreyel2231@gmail.com   ║\n");
     printf("║ Git:https://github.com/ThomasReyel║\n");
     printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+    getchar();
 }
 void telaSobre() {
+    system("clear||cls");
     printf("╔═══════════════════════════════════╗\n");
     printf("║               SOBRE               ║\n");
     printf("╠═══════════════════════════════════╣\n");
@@ -186,4 +197,8 @@ void telaSobre() {
     printf("║ e funcionalidades exigidos pela   ║\n");
     printf("║ disciplina                        ║\n");
     printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+    getchar();
 }
