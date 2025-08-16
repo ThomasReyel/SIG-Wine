@@ -8,7 +8,7 @@ void telaAssinaturas();
 void telaPlano();
 void telaFinanceiro();
 void telaRelatorios();
-void telaSair(int controlador);
+int telaSair();
 void telaEquipe();
 void telaSobre();
 
@@ -17,8 +17,9 @@ int main(void) {
     int Ctrl_Nav_Geral = 1;
     while (Ctrl_Nav_Geral == 1)
     {
+        printf("%d",Ctrl_Nav_Geral);
        telaInicial();
-       scanf("%d", Ctrl_Nav_Inicial);
+       scanf("%d", &Ctrl_Nav_Inicial);
        switch (Ctrl_Nav_Inicial)
        {
        case 1:
@@ -31,7 +32,7 @@ int main(void) {
             telaEquipe();
         break;
         case 4:
-            telaSair(Ctrl_Nav_Geral);
+            Ctrl_Nav_Geral = telaSair();
         break;
        default:
             printf("Você inseriu uma opção inválida, tente novamete\n");
@@ -146,7 +147,8 @@ void telaRelatorios(){
 }
 
 
-void telaSair(int controlador){
+int telaSair(){
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║        Tem certeza       ║\n");
     printf("║     que deseja sair?     ║\n");
@@ -155,7 +157,8 @@ void telaSair(int controlador){
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
-    scanf("%d", controlador);
+    scanf("%d", &opcao);
+    return opcao;
 
 }
 
