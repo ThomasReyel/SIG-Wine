@@ -8,20 +8,36 @@ void telaAssinaturas();
 void telaPlano();
 void telaFinanceiro();
 void telaRelatorios();
-void telaSair();
+void telaSair(int controlador);
 void telaEquipe();
 void telaSobre();
 
 int main(void) {
-    telaInicial();
-    telaPrincipal();
-    telaAssinante();
-    telaAssinaturas();
-    telaEquipe();
-    telaSobre();
-    telaSair();
-
-
+    int Ctrl_Nav_Inicial = 0;
+    int Ctrl_Nav_Geral = 1;
+    while (Ctrl_Nav_Geral == 1)
+    {
+       telaInicial();
+       scanf("%d", Ctrl_Nav_Inicial);
+       switch (Ctrl_Nav_Inicial)
+       {
+       case 1:
+            telaPrincipal();
+        break;
+       case 2:
+            telaSobre();
+        break;
+        case 3:
+            telaEquipe();
+        break;
+        case 4:
+            telaSair(Ctrl_Nav_Geral);
+        break;
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
     return 0;
 }
 
@@ -130,7 +146,7 @@ void telaRelatorios(){
 }
 
 
-void telaSair(){
+void telaSair(int controlador){
     printf("╔══════════════════════════╗\n");
     printf("║        Tem certeza       ║\n");
     printf("║     que deseja sair?     ║\n");
@@ -139,6 +155,8 @@ void telaSair(){
     printf("║ 2. Sim                   ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", controlador);
+
 }
 
 void telaEquipe() {
