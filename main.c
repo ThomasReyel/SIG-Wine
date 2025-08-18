@@ -15,7 +15,6 @@ void telaSobre();
 
 int main(void) {
     int Ctrl_Nav_Inicial = 0;
-    int Ctrl_Nav_Principal = 0;
     int Ctrl_Nav_Geral = 1;
     while (Ctrl_Nav_Geral == 1)
     {
@@ -156,7 +155,7 @@ void telaProdutos(){
 }
 
 void telaAssinante(){
-    
+
     void cadastrar_assinantes();
     void checar_assinantes();
     void alterar_assinantes();
@@ -202,6 +201,13 @@ void telaAssinante(){
 }
 
 void telaPlano(){
+
+    void cadastrar_planos();
+    void checar_planos();
+    void alterar_planos();
+    void excluir_planos();
+
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║       MÓDULO PLANOS      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -212,6 +218,32 @@ void telaPlano(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", opcao);
+    int Ctrl_Mod_Planos = 1;
+    while (Ctrl_Mod_Planos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastrar_planos();
+        break;
+        case 2:
+            checar_planos();
+        break;
+        case 3:
+            alterar_planos();
+        break;
+        case 4:
+            excluir_planos();
+        break;
+        case 5:
+            Ctrl_Mod_Planos= telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinaturas(){
