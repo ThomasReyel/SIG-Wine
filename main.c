@@ -82,7 +82,6 @@ void telaPrincipal() {
     int Ctrl_Menu_Principal = 1;
     while (Ctrl_Menu_Principal == 1)
     {
-       scanf("%d", &opcao);
        switch (opcao)
        {
         case 1:
@@ -122,29 +121,29 @@ void telaProdutos(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
-    int Ctrl_Nav_Geral = 1;
-    while (Ctrl_Nav_Geral == 1)
+    scanf("%d",&opcao);
+    int Ctrl_Mod_Produtos = 1;
+    while (Ctrl_Mod_Produtos == 1)
     {
-       scanf("%d", &opcao);
        switch (opcao)
        {
         case 1:
-            telaAssinante();
+            printf("Funcionalidade em desenvolvimento");
         break;
         case 2:
-            telaAssinaturas();
+            printf("Funcionalidade em desenvolvimento");
         break;
         case 3:
-            telaPlano();
+            printf("Funcionalidade em desenvolvimento");
         break;
         case 4:
-            telaProdutos();
+            printf("Funcionalidade em desenvolvimento");
         break;
         case 5:
-            telaRelatorios();
+            printf("Funcionalidade em desenvolvimento");
         break;
         case 6:
-            telaSair();
+            printf("Funcionalidade em desenvolvimento");;
         break;        
        default:
             printf("Você inseriu uma opção inválida, tente novamete\n");
