@@ -79,8 +79,8 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
     scanf("%d",&opcao);
-    int Ctrl_Nav_Geral = 1;
-    while (Ctrl_Nav_Geral == 1)
+    int Ctrl_Menu_Principal = 1;
+    while (Ctrl_Menu_Principal == 1)
     {
        scanf("%d", &opcao);
        switch (opcao)
@@ -111,6 +111,7 @@ void telaPrincipal() {
 }    
 
 void telaProdutos(){
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO PRODUTOS      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -121,6 +122,35 @@ void telaProdutos(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    int Ctrl_Nav_Geral = 1;
+    while (Ctrl_Nav_Geral == 1)
+    {
+       scanf("%d", &opcao);
+       switch (opcao)
+       {
+        case 1:
+            telaAssinante();
+        break;
+        case 2:
+            telaAssinaturas();
+        break;
+        case 3:
+            telaPlano();
+        break;
+        case 4:
+            telaProdutos();
+        break;
+        case 5:
+            telaRelatorios();
+        break;
+        case 6:
+            telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinante(){
