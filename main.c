@@ -156,6 +156,12 @@ void telaProdutos(){
 }
 
 void telaAssinante(){
+    
+    void cadastrar_assinantes();
+    void checar_assinantes();
+    void alterar_assinantes();
+    void excluir_assinantes(); 
+
     int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO ASSINANTES    ║\n");
@@ -174,22 +180,19 @@ void telaAssinante(){
        switch (opcao)
        {
         case 1:
-            printf("Funcionalidade em desenvolvimento");
+            cadastrar_assinantes();
         break;
         case 2:
-            printf("Funcionalidade em desenvolvimento");
+            checar_assinantes();
         break;
         case 3:
-            printf("Funcionalidade em desenvolvimento");
+            alterar_assinantes();
         break;
         case 4:
-            printf("Funcionalidade em desenvolvimento");
+            excluir_assinantes();
         break;
         case 5:
-            printf("Funcionalidade em desenvolvimento");
-        break;
-        case 6:
-            printf("Funcionalidade em desenvolvimento");;
+            Ctrl_Mod_Assinantes = telaSair();
         break;        
        default:
             printf("Você inseriu uma opção inválida, tente novamete\n");
