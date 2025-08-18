@@ -15,6 +15,7 @@ void telaSobre();
 
 int main(void) {
     int Ctrl_Nav_Inicial = 0;
+    int Ctrl_Nav_Principal = 0;
     int Ctrl_Nav_Geral = 1;
     while (Ctrl_Nav_Geral == 1)
     {
@@ -22,10 +23,10 @@ int main(void) {
        scanf("%d", &Ctrl_Nav_Inicial);
        switch (Ctrl_Nav_Inicial)
        {
-       case 1:
+        case 1:
             telaPrincipal();
         break;
-       case 2:
+        case 2:
             telaSobre();
         break;
         case 3:
@@ -78,8 +79,36 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
     scanf("%d",&opcao);
-
-}
+    int Ctrl_Nav_Geral = 1;
+    while (Ctrl_Nav_Geral == 1)
+    {
+       scanf("%d", &opcao);
+       switch (opcao)
+       {
+        case 1:
+            telaAssinante();
+        break;
+        case 2:
+            telaAssinaturas();
+        break;
+        case 3:
+            telaPlano();
+        break;
+        case 4:
+            telaProdutos();
+        break;
+        case 5:
+            telaRelatorios();
+        break;
+        case 6:
+            telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
+}    
 
 void telaProdutos(){
     printf("╔══════════════════════════╗\n");
