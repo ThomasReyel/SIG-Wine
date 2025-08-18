@@ -22,10 +22,10 @@ int main(void) {
        scanf("%d", &Ctrl_Nav_Inicial);
        switch (Ctrl_Nav_Inicial)
        {
-       case 1:
+        case 1:
             telaPrincipal();
         break;
-       case 2:
+        case 2:
             telaSobre();
         break;
         case 3:
@@ -78,10 +78,44 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
     scanf("%d",&opcao);
-
-}
+    int Ctrl_Menu_Principal = 1;
+    while (Ctrl_Menu_Principal == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            telaAssinante();
+        break;
+        case 2:
+            telaAssinaturas();
+        break;
+        case 3:
+            telaPlano();
+        break;
+        case 4:
+            telaProdutos();
+        break;
+        case 5:
+            telaRelatorios();
+        break;
+        case 6:
+            Ctrl_Menu_Principal = telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
+}    
 
 void telaProdutos(){
+
+    void cadastro_produtos();
+    void checar_produtos();
+    void alterar_produtos();
+    void excluir_produtos();
+
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO PRODUTOS      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -92,9 +126,42 @@ void telaProdutos(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d",&opcao);
+    int Ctrl_Mod_Produtos = 1;
+    while (Ctrl_Mod_Produtos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastro_produtos();
+        break;
+        case 2:
+            checar_produtos();
+        break;
+        case 3:
+            alterar_produtos();
+        break;
+        case 4:
+            excluir_produtos();
+        break;
+        case 5:
+            Ctrl_Mod_Produtos = telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinante(){
+
+    void cadastrar_assinantes();
+    void checar_assinantes();
+    void alterar_assinantes();
+    void excluir_assinantes(); 
+
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO ASSINANTES    ║\n");
     printf("╠══════════════════════════╣\n");
@@ -105,9 +172,42 @@ void telaAssinante(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", &opcao);
+    int Ctrl_Mod_Assinantes = 1;
+    while (Ctrl_Mod_Assinantes == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastrar_assinantes();
+        break;
+        case 2:
+            checar_assinantes();
+        break;
+        case 3:
+            alterar_assinantes();
+        break;
+        case 4:
+            excluir_assinantes();
+        break;
+        case 5:
+            Ctrl_Mod_Assinantes = telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaPlano(){
+
+    void cadastrar_planos();
+    void checar_planos();
+    void alterar_planos();
+    void excluir_planos();
+
+    int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║       MÓDULO PLANOS      ║\n");
     printf("╠══════════════════════════╣\n");
@@ -118,6 +218,32 @@ void telaPlano(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", opcao);
+    int Ctrl_Mod_Planos = 1;
+    while (Ctrl_Mod_Planos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastrar_planos();
+        break;
+        case 2:
+            checar_planos();
+        break;
+        case 3:
+            alterar_planos();
+        break;
+        case 4:
+            excluir_planos();
+        break;
+        case 5:
+            Ctrl_Mod_Planos= telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinaturas(){
