@@ -100,7 +100,7 @@ void telaPrincipal() {
             telaRelatorios();
         break;
         case 6:
-            telaSair();
+            Ctrl_Menu_Principal = telaSair();
         break;        
        default:
             printf("Você inseriu uma opção inválida, tente novamete\n");
@@ -110,6 +110,12 @@ void telaPrincipal() {
 }    
 
 void telaProdutos(){
+
+    void cadastro_produtos();
+    void checar_produtos();
+    void alterar_produtos();
+    void excluir_produtos();
+
     int opcao;
     printf("╔══════════════════════════╗\n");
     printf("║     MÓDULO PRODUTOS      ║\n");
@@ -124,6 +130,46 @@ void telaProdutos(){
     scanf("%d",&opcao);
     int Ctrl_Mod_Produtos = 1;
     while (Ctrl_Mod_Produtos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastro_produtos();
+        break;
+        case 2:
+            checar_produtos();
+        break;
+        case 3:
+            alterar_produtos();
+        break;
+        case 4:
+            excluir_produtos();
+        break;
+        case 5:
+            Ctrl_Mod_Produtos = telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
+}
+
+void telaAssinante(){
+    int opcao;
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO ASSINANTES    ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Assinantes  ║\n");
+    printf("║ 2. Checar Assinantes     ║\n");
+    printf("║ 3. Alterar Assinantes    ║\n");
+    printf("║ 4. Excluir Assinantes    ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+    scanf("%d", &opcao);
+    int Ctrl_Mod_Assinantes = 1;
+    while (Ctrl_Mod_Assinantes == 1)
     {
        switch (opcao)
        {
@@ -150,19 +196,6 @@ void telaProdutos(){
         break;
        }
     }
-}
-
-void telaAssinante(){
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO ASSINANTES    ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Assinantes  ║\n");
-    printf("║ 2. Checar Assinantes     ║\n");
-    printf("║ 3. Alterar Assinantes    ║\n");
-    printf("║ 4. Excluir Assinantes    ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
 }
 
 void telaPlano(){
