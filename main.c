@@ -18,7 +18,7 @@ void telaAssinaturas();
 void telaPlano();
 void telaFinanceiro();
 void telaRelatorios();
-int telaSair();
+char telaSair();
 void telaEquipe();
 void telaSobre();
 
@@ -44,7 +44,7 @@ int main(void) {
             Ctrl_Nav_Geral = telaSair();
         break;
        default:
-            printf("Você inseriu uma opção inválida, tente novamete\n");
+            printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
             while (getchar() != '\n');
         break;
@@ -123,7 +123,9 @@ void telaPrincipal() {
            Ctrl_Menu_Principal = 0; 
         break;        
        default:
-            printf("Você inseriu uma opção inválida, tente novamete\n");
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            while (getchar() != '\n')
         break;
        }
     }
@@ -214,19 +216,36 @@ void telaRelatorios(){
 }
 
 
-int telaSair(){
-    system("clear||cls");
-    int opcao;
-    printf("╔══════════════════════════╗\n");
-    printf("║        Tem certeza       ║\n");
-    printf("║     que deseja sair?     ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Não                   ║\n");
-    printf("║ 2. Sim                   ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
-    scanf("%d", &opcao);
-    return opcao;
+char telaSair(){
+    char opcao[10];
+    int ctrl_saida = 0;
+    while (ctrl_saida == 0)
+    {
+        system("clear||cls");
+        printf("╔══════════════════════════╗\n");
+        printf("║        Tem certeza       ║\n");
+        printf("║     que deseja sair?     ║\n");
+        printf("╠══════════════════════════╣\n");
+        printf("║ 1. Não                   ║\n");
+        printf("║ 2. Sim                   ║\n");
+        printf("╚══════════════════════════╝\n");
+        printf("Digite sua escolha: \n");
+        fgets(opcao,sizeof(opcao),stdin);
+        switch (opcao[0])
+        {
+        case '1':
+            return 1;
+            break;
+        case '2':
+            return opcao[0];
+            break;
+        default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            while (getchar() != '\n');
+            break;
+        }
+    }
 
 }
 
@@ -246,7 +265,6 @@ void telaEquipe() {
     printf("\n");
     printf(">>> Tecle <ENTER> para continuar...\n");
     while (getchar() != '\n');
-    getchar();
 }
 void telaSobre() {
     system("clear||cls");
@@ -263,5 +281,4 @@ void telaSobre() {
     printf("\n");
     printf(">>> Tecle <ENTER> para continuar...\n");
     while (getchar() != '\n');
-    getchar();
 }
