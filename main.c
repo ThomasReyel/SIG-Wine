@@ -117,7 +117,7 @@ void telaPrincipal() {
         case '5':
             telaRelatorios();
             printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n')
+            while (getchar() != '\n');
         break;
         case '6':
            Ctrl_Menu_Principal = 0; 
