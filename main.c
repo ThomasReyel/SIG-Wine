@@ -143,6 +143,32 @@ void telaProdutos(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d",&opcao);
+    int Ctrl_Mod_Produtos = 1;
+    while (Ctrl_Mod_Produtos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastro_produtos();
+        break;
+        case 2:
+            checar_produtos();
+        break;
+        case 3:
+            alterar_produtos();
+        break;
+        case 4:
+            excluir_produtos();
+        break;
+        case 5:
+            Ctrl_Mod_Produtos = telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinante(){
@@ -172,6 +198,32 @@ void telaPlano(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+    scanf("%d", opcao);
+    int Ctrl_Mod_Planos = 1;
+    while (Ctrl_Mod_Planos == 1)
+    {
+       switch (opcao)
+       {
+        case 1:
+            cadastrar_planos();
+        break;
+        case 2:
+            checar_planos();
+        break;
+        case 3:
+            alterar_planos();
+        break;
+        case 4:
+            excluir_planos();
+        break;
+        case 5:
+            Ctrl_Mod_Planos= telaSair();
+        break;        
+       default:
+            printf("Você inseriu uma opção inválida, tente novamete\n");
+        break;
+       }
+    }
 }
 
 void telaAssinaturas(){
