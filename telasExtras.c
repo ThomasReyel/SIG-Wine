@@ -1,0 +1,68 @@
+#include <stdio.h>
+#include <stdlib.h>
+char telaSair(){
+    char opcao[10];
+    int ctrl_saida = 0;
+    while (ctrl_saida == 0)
+    {
+        system("clear||cls");
+        printf("╔══════════════════════════╗\n");
+        printf("║        Tem certeza       ║\n");
+        printf("║     que deseja sair?     ║\n");
+        printf("╠══════════════════════════╣\n");
+        printf("║ 1. Não                   ║\n");
+        printf("║ 2. Sim                   ║\n");
+        printf("╚══════════════════════════╝\n");
+        printf("Digite sua escolha: \n");
+        fgets(opcao,sizeof(opcao),stdin);
+        switch (opcao[0])
+        {
+        case '1':
+            return 1;
+            break;
+        case '2':
+            return opcao[0];
+            break;
+        default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            while (getchar() != '\n');
+            break;
+        }
+    }
+
+}
+
+void telaEquipe() {
+    system("clear||cls");
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║              EQUIPE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Guilherme Fernandes e Silva       ║\n");
+    printf("║ Email:                            ║\n");
+    printf("║ Git:                              ║\n");
+    printf("║                                   ║\n");
+    printf("║ Thomas Reyel da Silva Morais      ║\n");
+    printf("║ Email:thomasreyel2231@gmail.com   ║\n");
+    printf("║ Git:https://github.com/ThomasReyel║\n");
+    printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+}
+void telaSobre() {
+    system("clear||cls");
+    printf("╔═══════════════════════════════════╗\n");
+    printf("║               SOBRE               ║\n");
+    printf("╠═══════════════════════════════════╣\n");
+    printf("║ Projeto acadêmico desenvolvido na ║\n");
+    printf("║ disciplina de Programação do      ║\n");
+    printf("║ curso de Sistemas de Informação   ║\n");
+    printf("║ na UFRN. Contém todos os módulos  ║\n");
+    printf("║ e funcionalidades exigidos pela   ║\n");
+    printf("║ disciplina                        ║\n");
+    printf("╚═══════════════════════════════════╝\n");
+    printf("\n");
+    printf(">>> Tecle <ENTER> para continuar...\n");
+    while (getchar() != '\n');
+}
