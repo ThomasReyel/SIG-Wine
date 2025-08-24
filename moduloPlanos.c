@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdio.h>
 void telaPlano();
 void menuPlanos();
 void cadastroPlano();
@@ -24,7 +26,7 @@ char opcao[10];
     int crtl_plano = 1;
     while (crtl_plano == 1)
     {
-        telaPlanos();
+        telaPlano();
         fgets(opcao,sizeof(opcao),stdin);
         switch (opcao[0])
         {

@@ -1,3 +1,5 @@
+#include <stdlib.h>
+#include <stdio.h>
 void telaProdutos();
 void menuProdutos();
 void cadastroProduto();
@@ -73,7 +75,6 @@ void checarProdutos(){
     printf("║                         Produtos                       ║\n");
     printf("╠════════════════════════════════════════════════════════╣\n");
     printf("║ ID: 1 | Nome: |Tipo: |Marca: |Ano de Produção: \n");
-
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     while (getchar() != '\n');

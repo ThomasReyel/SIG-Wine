@@ -1,4 +1,11 @@
+#include <stdlib.h>
+#include <stdio.h>
 void telaAssinaturas();
+void menuAssinaturas();
+void cadastroAssinatura();
+void checarAssinaturas();
+void alterarAssinatura();
+void excluirAssinatura();
 
 void telaAssinaturas(){
     system("clear||cls");
@@ -12,4 +19,53 @@ void telaAssinaturas(){
     printf("║ 5. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
+}
+
+void menuAssinaturas(){
+char opcao[10];
+    int crtl_assinatura = 1;
+    while (crtl_assinatura == 1)
+    {
+        telaPlano();
+        fgets(opcao,sizeof(opcao),stdin);
+        switch (opcao[0])
+        {
+        case '1':
+            cadastroAssinatura();
+        break;
+        case '2':
+            checarAssinaturas();
+        break;
+        case '3':
+            alterarAssinatura();
+        break;
+        case '4':
+            excluirAssinatura();
+        break;
+        case '5':
+            crtl_assinatura = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            while (getchar() != '\n')
+        break;
+       }
+    }    
+}
+
+void cadastroAssinatura(){
+    char idAssinante[50];
+    char idPlanos[50];
+    char data_assinatura[10];
+    char data_pagamento[10];
+
+    printf("Insira o id do assinante:\n");
+    fgets(idAssinante,sizeof(idAssinante),stdin);
+    printf("Insira o id de Planos:\n");
+    fgets(idPlanos,sizeof(idPlanos),stdin);
+    printf("Insira a data de assinatura (dd/mm/aa):\n");
+    fgets(data_assinatura,sizeof(data_assinatura),stdin);
+    printf("Insira o tempo limite de pagamento (dias):\n");
+    fgets(data_pagamento,sizeof(data_pagamento),stdin);
 }
