@@ -1,3 +1,5 @@
+void telaRelatorios();
+
 void telaRelatorios(){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");

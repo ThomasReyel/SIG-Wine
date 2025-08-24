@@ -37,9 +37,7 @@ void telaPrincipal() {
         switch (opcao[0])
         {
         case '1':
-            telaAssinante();
-            printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n');
+            moduloAssinante();
         break;
         case '2':
             telaAssinaturas();

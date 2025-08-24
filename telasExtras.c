@@ -1,5 +1,9 @@
 #include <stdio.h>
 #include <stdlib.h>
+char telaSair();
+void telaEquipe();
+void telaSobre();
+
 char telaSair(){
     char opcao[10];
     int ctrl_saida = 0;
@@ -18,7 +22,7 @@ char telaSair(){
         switch (opcao[0])
         {
         case '1':
-            return 1;
+            return '1';
             break;
         case '2':
             return opcao[0];
@@ -30,6 +34,7 @@ char telaSair(){
             break;
         }
     }
+    return '1';
 
 }
 

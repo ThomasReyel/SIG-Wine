@@ -1,3 +1,4 @@
+void telaFinanceiro();
 void telaFinanceiro(){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");

@@ -1,3 +1,5 @@
+void telaPlano();
+
 void telaPlano(){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");

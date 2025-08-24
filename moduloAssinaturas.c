@@ -1,3 +1,5 @@
+void telaAssinaturas();
+
 void telaAssinaturas(){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");

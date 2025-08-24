@@ -1,3 +1,5 @@
+void telaProdutos();
+
 void telaProdutos(){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");
