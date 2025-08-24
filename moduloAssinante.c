@@ -5,6 +5,7 @@ void moduloAssinante();
 void cadastroAssinante();
 void checarAssinantes();
 void alterarAssinante();
+void excluirAssinante();
 
 void telaAssinante(){
     system("clear||cls");
@@ -104,4 +105,12 @@ void alterarAssinante(){
     fgets(data_nascimento,sizeof(data_nascimento),stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
+}
+
+void excluirAssinante(){
+    char id[5];
+
+    printf("Insira o id do cliente a ser excluído: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("Assinante excluído com sucesso");
 }
