@@ -69,3 +69,13 @@ void cadastroAssinatura(){
     printf("Insira o tempo limite de pagamento (dias):\n");
     fgets(data_pagamento,sizeof(data_pagamento),stdin);
 }
+
+void checarAssinatura(){
+    printf("╔══════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                       Assinaturas                                    ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════════════════════════╣\n");
+    printf("║ ID: 1 | nome do assinante: |nome do plano: |data de assinatura: |data pagamento: \n");
+    printf("╚══════════════════════════════════════════════════════════════════════════════════════╝\n");
+    printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
+    while (getchar() != '\n');   
+}
