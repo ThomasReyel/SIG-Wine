@@ -4,6 +4,7 @@ void telaAssinante();
 void moduloAssinante();
 void cadastroAssinante();
 void checarAssinantes();
+void alterarAssinante();
 
 void telaAssinante(){
     system("clear||cls");
@@ -36,7 +37,7 @@ void moduloAssinante(){
             checarAssinantes();
         break;
         case '3':
-
+            alterarAssinante();
         break;
         case '4':
 
@@ -80,4 +81,27 @@ void checarAssinantes(){
     printf("║ 1. Nome: |Email: |CPF: |Endereço: | Data de Nascimento:   \n");
 
     printf("╚══════════════════════════╝\n");
+}
+
+void alterarAssinante(){
+    char nome[50];
+    char email[50];
+    char cpf[12];
+    char data_nascimento[10];
+    char endereco[50];
+    char id[5];
+
+    printf("Insira o id do cliente a ser alterado: \n");
+    fgets(id,sizeof(id),stdin);
+
+    printf("Insira o novo nome do Assinante:\n");
+    fgets(nome,sizeof(nome),stdin);
+    printf("Insira o novo email:\n");
+    fgets(email,sizeof(email),stdin);
+    printf("Insira o novo CPF:\n");
+    fgets(cpf,sizeof(cpf),stdin);
+    printf("Insira a novo data de nascimento (dd/mm/aa):\n");
+    fgets(data_nascimento,sizeof(data_nascimento),stdin);
+    printf("Insira o novo endereço:\n");
+    fgets(endereco,sizeof(endereco),stdin);
 }
