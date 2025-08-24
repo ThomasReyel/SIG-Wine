@@ -41,7 +41,7 @@ void moduloAssinante(){
             alterarAssinante();
         break;
         case '4':
-
+            excluirAssinante();
         break;
         case '5':
             crtl_assinante = 0;
@@ -82,6 +82,8 @@ void checarAssinantes(){
     printf("║ 1. Nome: |Email: |CPF: |Endereço: | Data de Nascimento:   \n");
 
     printf("╚══════════════════════════╝\n");
+    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    while (getchar() != '\n')
 }
 
 void alterarAssinante(){
@@ -112,5 +114,5 @@ void excluirAssinante(){
 
     printf("Insira o id do cliente a ser excluído: \n");
     fgets(id,sizeof(id),stdin);
-    printf("Assinante excluído com sucesso");
+    printf("Assinante excluído com sucesso\n");
 }
