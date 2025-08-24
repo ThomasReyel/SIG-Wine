@@ -5,12 +5,12 @@
 ///                  Disciplina DCT1106 -- Programação                      ///
 ///                  Projeto Sistema de Gestão Escolar                      ///
 ///////////////////////////////////////////////////////////////////////////////
-///                                Semana 1                                 ///
+///                                Semana 2                                 ///
 ///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
-#include "telaPrincipal.c"
-#include "telasExtras.c"
+#include "./src/telaPrincipal.c"
+#include "./src/telasExtras.c"
 
 void telaPrincipal();
 void telaInicial();

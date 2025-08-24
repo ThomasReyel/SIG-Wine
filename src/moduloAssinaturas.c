@@ -26,7 +26,7 @@ char opcao[10];
     int crtl_assinatura = 1;
     while (crtl_assinatura == 1)
     {
-        telaPlano();
+        telaAssinaturas();
         fgets(opcao,sizeof(opcao),stdin);
         switch (opcao[0])
         {
@@ -70,7 +70,7 @@ void cadastroAssinatura(){
     fgets(data_pagamento,sizeof(data_pagamento),stdin);
 }
 
-void checarAssinatura(){
+void checarAssinaturas(){
     printf("╔══════════════════════════════════════════════════════════════════════════════════════╗\n");
     printf("║                                       Assinaturas                                    ║\n");
     printf("╠══════════════════════════════════════════════════════════════════════════════════════╣\n");
@@ -102,9 +102,9 @@ void alterarAssinatura(){
 void excluirAssinatura(){
     char id[5];
 
-    printf("Insira o id da assinatura a ser excluído: \n");
+    printf("║ Insira o id da assinatura a ser excluído: \n");
     fgets(id,sizeof(id),stdin);
-    printf("plano excluído com sucesso\n");
-    printf("\nPressione Enter para voltar ao módulo de planos \n");
+    printf("║ plano excluído com sucesso\n");
+    printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
     while (getchar() != '\n');
 }

@@ -76,7 +76,7 @@ void checarPlanos(){
     printf("╠════════════════════════════════════════════════════════╣\n");
     printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos: \n");
     printf("╚════════════════════════════════════════════════════════╝\n");
-    printf("\nPressione Enter para voltar ao módulo de produtos \n");
+    printf("\nPressione Enter para voltar ao módulo de planos \n");
     while (getchar() != '\n');   
 }
 
@@ -102,9 +102,9 @@ void alterarPlano(){
 void excluirPlano(){
     char id[5];
 
-    printf("Insira o id do plano a ser excluído: \n");
+    printf("║ Insira o id do plano a ser excluído: \n");
     fgets(id,sizeof(id),stdin);
-    printf("plano excluído com sucesso\n");
-    printf("\nPressione Enter para voltar ao módulo de planos \n");
+    printf("║ plano excluído com sucesso!\n");
+    printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
     while (getchar() != '\n');
 }

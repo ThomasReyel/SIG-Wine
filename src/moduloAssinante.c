@@ -111,9 +111,9 @@ void alterarAssinante(){
 void excluirAssinante(){
     char id[5];
 
-    printf("Insira o id do cliente a ser excluído: \n");
+    printf("║ Insira o id do cliente a ser excluído: \n");
     fgets(id,sizeof(id),stdin);
-    printf("Assinante excluído com sucesso\n");
-    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    printf("║ Assinante excluído com sucesso!\n");
+    printf("\n> Pressione Enter para voltar ao módulo de assinantes <\n");
     while (getchar() != '\n');
 }

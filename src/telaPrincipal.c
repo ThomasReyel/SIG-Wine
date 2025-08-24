@@ -7,11 +7,11 @@
 #include "moduloProduto.c"
 #include "moduloRelatorios.c"
 
-void telaAssinante();
-void telaAssinaturas();
+void menuAssinante();
+void menuAssinaturas();
 void telaFinanceiro();
-void telaPlano();
-void telaProdutos();
+void menuPlanos();
+void menuProdutos();
 void telaRelatorios();
 
 
@@ -30,7 +30,8 @@ void telaPrincipal() {
     printf("║ 3. Módulo Planos         ║\n");
     printf("║ 4. Módulo Produtos       ║\n");
     printf("║ 5. Módulo Relatórios     ║\n");
-    printf("║ 6. Sair                  ║\n");
+    printf("║ 6. Módulo Financeiro     ║\n");
+    printf("║ 7. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
     fgets(opcao,sizeof(opcao),stdin);
@@ -40,7 +41,7 @@ void telaPrincipal() {
             menuAssinante();
         break;
         case '2':
-            telaAssinaturas();
+            menuAssinaturas();
         break;
         case '3':
             menuPlanos();
@@ -50,10 +51,17 @@ void telaPrincipal() {
         break;
         case '5':
             telaRelatorios();
+            printf("\nPressione Enter para voltar para tela principal \n");
+            while (getchar() != '\n');
         break;
         case '6':
-           Ctrl_Menu_Principal = 0; 
-        break;        
+            telaFinanceiro();
+            printf("\nPressione Enter para voltar para tela principal \n");
+            while (getchar() != '\n'); 
+        break; 
+        case '7':
+            Ctrl_Menu_Principal = 0;
+        break;          
        default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
