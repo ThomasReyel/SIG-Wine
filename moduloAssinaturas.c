@@ -98,3 +98,13 @@ void alterarAssinatura(){
     printf("Insira o novo tempo limite de pagamento (dias):\n");
     fgets(data_pagamento,sizeof(data_pagamento),stdin);
 }
+
+void excluirAssinatura(){
+    char id[5];
+
+    printf("Insira o id da assinatura a ser excluído: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("plano excluído com sucesso\n");
+    printf("\nPressione Enter para voltar ao módulo de planos \n");
+    while (getchar() != '\n');
+}
