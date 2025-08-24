@@ -57,7 +57,6 @@ void cadastroProduto(){
     char tipo[50];
     char marca[12];
     char ano_producao[10];
-    char endereco[50];
 
     printf("Insira o nome do vinho:\n");
     fgets(nome,sizeof(nome),stdin);
@@ -65,7 +64,7 @@ void cadastroProduto(){
     fgets(tipo,sizeof(tipo),stdin);
     printf("Insira a marca:\n");
     fgets(marca,sizeof(marca),stdin);
-    printf("Insira a data de produção do vinho (dd/mm/aa):\n");
+    printf("Insira o ano de produção do vinho:\n");
     fgets(ano_producao,sizeof(ano_producao),stdin);
 }
 
@@ -73,9 +72,29 @@ void checarProdutos(){
     printf("╔══════════════════════════╗\n");
     printf("║         Produtos         ║\n");
     printf("╠══════════════════════════╣\n");
-    printf("║ 1. Nome: |Tipo: |Marca: |Ano de Produção: \n");
+    printf("║ ID: 1 | Nome: |Tipo: |Marca: |Ano de Produção: \n");
 
     printf("╚══════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     while (getchar() != '\n');
+}
+
+void alterarProduto(){
+    char nome[50];
+    char tipo[50];
+    char marca[12];
+    char ano_producao[10];
+    char id[5];
+
+    printf("Insira o id do produto a ser alterado: \n");
+    fgets(id,sizeof(id),stdin);
+
+    printf("Insira o novo nome do vinho:\n");
+    fgets(nome,sizeof(nome),stdin);
+    printf("Insira o novo tipo:\n");
+    fgets(tipo,sizeof(tipo),stdin);
+    printf("Insira a nova marca:\n");
+    fgets(marca,sizeof(marca),stdin);
+    printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
+    fgets(ano_producao,sizeof(ano_producao),stdin);
 }
