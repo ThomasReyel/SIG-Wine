@@ -105,4 +105,6 @@ void excluirProduto(){
     printf("Insira o id do produto a ser excluído: \n");
     fgets(id,sizeof(id),stdin);
     printf("produto excluído com sucesso\n");
+    printf("\nPressione Enter para voltar ao módulo de produtos \n");
+    while (getchar() != '\n');
 }

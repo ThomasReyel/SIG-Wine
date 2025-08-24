@@ -43,7 +43,7 @@ void telaPrincipal() {
             telaAssinaturas();
         break;
         case '3':
-            telaPlano();
+            menuPlanos();
         break;
         case '4':
             menuProdutos();
