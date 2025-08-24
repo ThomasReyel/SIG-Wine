@@ -51,3 +51,19 @@ char opcao[10];
        }
     }   
 }
+
+void cadastroPlano(){
+    char nome[50];
+    char preco[50];
+    char periodo[12];
+    char produtos[10];
+
+    printf("Insira o nome do plano:\n");
+    fgets(nome,sizeof(nome),stdin);
+    printf("Insira o preço:\n");
+    fgets(preco,sizeof(preco),stdin);
+    printf("Insira a período:\n");
+    fgets(periodo,sizeof(periodo),stdin);
+    printf("Insira a lista de produtos:\n");
+    fgets(produtos,sizeof(produtos),stdin);
+}
