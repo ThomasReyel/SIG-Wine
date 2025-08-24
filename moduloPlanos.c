@@ -73,8 +73,26 @@ void checarPlanos(){
     printf("║                          Planos                        ║\n");
     printf("╠════════════════════════════════════════════════════════╣\n");
     printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos: \n");
-
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     while (getchar() != '\n');   
+}
+
+void alterarPlanos(){    
+    char nome[50];
+    char preco[50];
+    char periodo[12];
+    char produtos[10];
+    char id[5];
+
+    printf("Insira o id do plano a ser alterado: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("Insira o novo nome do plano:\n");
+    fgets(nome,sizeof(nome),stdin);
+    printf("Insira o novo preço:\n");
+    fgets(preco,sizeof(preco),stdin);
+    printf("Insira o novo período:\n");
+    fgets(periodo,sizeof(periodo),stdin);
+    printf("Insira a nova lista de produtos:\n");
+    fgets(produtos,sizeof(produtos),stdin);
 }
