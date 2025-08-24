@@ -1,7 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 void telaAssinante();
-void moduloAssinante();
+void menuAssinante();
 void cadastroAssinante();
 void checarAssinantes();
 void alterarAssinante();
@@ -22,7 +22,7 @@ void telaAssinante(){
 
 }
 
-void moduloAssinante(){
+void menuAssinante(){
     char opcao[10];
     int crtl_assinante = 1;
     while (crtl_assinante == 1)
@@ -83,7 +83,7 @@ void checarAssinantes(){
 
     printf("╚══════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-    while (getchar() != '\n')
+    while (getchar() != '\n');
 }
 
 void alterarAssinante(){
