@@ -78,7 +78,7 @@ void checarPlanos(){
     while (getchar() != '\n');   
 }
 
-void alterarPlanos(){    
+void alterarPlano(){    
     char nome[50];
     char preco[50];
     char periodo[12];
@@ -95,4 +95,14 @@ void alterarPlanos(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
+}
+
+void excluirPlano(){
+    char id[5];
+
+    printf("Insira o id do plano a ser excluído: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("plano excluído com sucesso\n");
+    printf("\nPressione Enter para voltar ao módulo de planos \n");
+    while (getchar() != '\n');
 }
