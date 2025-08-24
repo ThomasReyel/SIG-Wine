@@ -67,3 +67,14 @@ void cadastroPlano(){
     printf("Insira a lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
 }
+
+void checarPlanos(){
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                          Planos                        ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+    printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos: \n");
+
+    printf("╚════════════════════════════════════════════════════════╝\n");
+    printf("\nPressione Enter para voltar ao módulo de produtos \n");
+    while (getchar() != '\n');   
+}
