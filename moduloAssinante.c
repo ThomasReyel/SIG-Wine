@@ -3,6 +3,7 @@
 void telaAssinante();
 void moduloAssinante();
 void cadastroAssinante();
+void checarAssinantes();
 
 void telaAssinante(){
     system("clear||cls");
@@ -32,7 +33,7 @@ void moduloAssinante(){
             cadastroAssinante();
         break;
         case '2':
-
+            checarAssinantes();
         break;
         case '3':
 
@@ -41,11 +42,8 @@ void moduloAssinante(){
 
         break;
         case '5':
-
-        break;
-        case '6':
-           crtl_assinante = 0; 
-        break;        
+            crtl_assinante = 0;
+        break; 
        default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
@@ -73,4 +71,13 @@ void cadastroAssinante(){
     fgets(data_nascimento,sizeof(data_nascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
+}
+
+void checarAssinantes(){
+    printf("╔══════════════════════════╗\n");
+    printf("║         Assinantes       ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Nome: |Email: |CPF: |Endereço: | Data de Nascimento:   \n");
+
+    printf("╚══════════════════════════╝\n");
 }
