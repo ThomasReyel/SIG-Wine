@@ -69,12 +69,12 @@ void cadastroProduto(){
 }
 
 void checarProdutos(){
-    printf("╔══════════════════════════╗\n");
-    printf("║         Produtos         ║\n");
-    printf("╠══════════════════════════╣\n");
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                         Produtos                       ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
     printf("║ ID: 1 | Nome: |Tipo: |Marca: |Ano de Produção: \n");
 
-    printf("╚══════════════════════════╝\n");
+    printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     while (getchar() != '\n');
 }
@@ -97,4 +97,12 @@ void alterarProduto(){
     fgets(marca,sizeof(marca),stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(ano_producao,sizeof(ano_producao),stdin);
+}
+
+void excluirProduto(){
+    char id[5];
+
+    printf("Insira o id do produto a ser excluído: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("produto excluído com sucesso\n");
 }

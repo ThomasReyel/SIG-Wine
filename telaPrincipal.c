@@ -41,23 +41,15 @@ void telaPrincipal() {
         break;
         case '2':
             telaAssinaturas();
-            printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n');
         break;
         case '3':
             telaPlano();
-            printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n');
         break;
         case '4':
             menuProdutos();
-            printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n');
         break;
         case '5':
             telaRelatorios();
-            printf("\nPressione Enter para voltar ao menu principal...\n");
-            while (getchar() != '\n');
         break;
         case '6':
            Ctrl_Menu_Principal = 0; 
