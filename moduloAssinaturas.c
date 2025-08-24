@@ -79,3 +79,22 @@ void checarAssinatura(){
     printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
     while (getchar() != '\n');   
 }
+
+void alterarAssinatura(){
+    char idAssinante[50];
+    char idPlanos[50];
+    char data_assinatura[10];
+    char data_pagamento[10];
+    char id[5];
+
+    printf("Insira o id da assinatura a ser alterada: \n");
+    fgets(id,sizeof(id),stdin);
+    printf("Insira o novo id do assinante:\n");
+    fgets(idAssinante,sizeof(idAssinante),stdin);
+    printf("Insira o novo id de Planos:\n");
+    fgets(idPlanos,sizeof(idPlanos),stdin);
+    printf("Insira a nova data de assinatura (dd/mm/aa):\n");
+    fgets(data_assinatura,sizeof(data_assinatura),stdin);
+    printf("Insira o novo tempo limite de pagamento (dias):\n");
+    fgets(data_pagamento,sizeof(data_pagamento),stdin);
+}
