@@ -9,8 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
-#include "./src/telaPrincipal.c"
-#include "./src/telasExtras.c"
+#include "menuPrincipal.h"
 
 void telaPrincipal();
 void telaInicial();

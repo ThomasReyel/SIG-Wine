@@ -1,11 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "moduloAssinante.c"
-#include "moduloAssinaturas.c"
-#include "moduloFinanceiro.c"
-#include "moduloPlanos.c"
-#include "moduloProduto.c"
-#include "moduloRelatorios.c"
+#include "modulos.h"
 
 void menuAssinante();
 void menuAssinaturas();
