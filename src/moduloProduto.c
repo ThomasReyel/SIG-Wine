@@ -23,8 +23,8 @@ void telaProdutos(){
 
 void menuProdutos(){
 char opcao[10];
-    int crtl_produto = 1;
-    while (crtl_produto == 1)
+    int crtlProduto = 1;
+    while (crtlProduto == 1)
     {
         telaProdutos();
         fgets(opcao,sizeof(opcao),stdin);
@@ -43,7 +43,7 @@ char opcao[10];
             excluirProduto();
         break;
         case '5':
-            crtl_produto = 0;
+            crtlProduto = 0;
         break; 
        default:
             printf("Você inseriu uma opção inválida\n");
@@ -58,7 +58,7 @@ void cadastroProduto(){
     char nome[50];
     char tipo[50];
     char marca[12];
-    char ano_producao[10];
+    char anoProducao[10];
 
     printf("Insira o nome do vinho:\n");
     fgets(nome,sizeof(nome),stdin);
@@ -67,7 +67,7 @@ void cadastroProduto(){
     printf("Insira a marca:\n");
     fgets(marca,sizeof(marca),stdin);
     printf("Insira o ano de produção do vinho:\n");
-    fgets(ano_producao,sizeof(ano_producao),stdin);
+    fgets(anoProducao,sizeof(anoProducao),stdin);
 }
 
 void checarProdutos(){
@@ -84,7 +84,7 @@ void alterarProduto(){
     char nome[50];
     char tipo[50];
     char marca[12];
-    char ano_producao[10];
+    char anoProducao[10];
     char id[5];
 
     printf("Insira o id do produto a ser alterado: \n");
@@ -97,7 +97,7 @@ void alterarProduto(){
     printf("Insira a nova marca:\n");
     fgets(marca,sizeof(marca),stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
-    fgets(ano_producao,sizeof(ano_producao),stdin);
+    fgets(anoProducao,sizeof(anoProducao),stdin);
 }
 
 void excluirProduto(){

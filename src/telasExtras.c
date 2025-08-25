@@ -6,8 +6,8 @@ void telaSobre();
 
 char telaSair(){
     char opcao[10];
-    int ctrl_saida = 0;
-    while (ctrl_saida == 0)
+    int ctrlSaida = 0;
+    while (ctrlSaida == 0)
     {
         system("clear||cls");
         printf("╔══════════════════════════╗\n");

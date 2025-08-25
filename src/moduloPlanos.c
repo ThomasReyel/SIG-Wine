@@ -23,8 +23,8 @@ void telaPlano(){
 
 void menuPlanos(){
 char opcao[10];
-    int crtl_plano = 1;
-    while (crtl_plano == 1)
+    int crtlPlano = 1;
+    while (crtlPlano == 1)
     {
         telaPlano();
         fgets(opcao,sizeof(opcao),stdin);
@@ -43,7 +43,7 @@ char opcao[10];
             excluirPlano();
         break;
         case '5':
-            crtl_plano = 0;
+            crtlPlano = 0;
         break; 
        default:
             printf("Você inseriu uma opção inválida\n");

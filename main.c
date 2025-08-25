@@ -18,13 +18,13 @@ void telaEquipe();
 void telaSobre();
 
 int main(void) {
-    char Ctrl_Nav_Inicial[10];
-    int Ctrl_Nav_Geral = 1;
-    while (Ctrl_Nav_Geral == 1)
+    char ctrlNavInicial[10];
+    int ctrlNavGeral = 1;
+    while (ctrlNavGeral == 1)
     {
        telaInicial();
-       fgets(Ctrl_Nav_Inicial,sizeof(Ctrl_Nav_Inicial),stdin);
-       switch (Ctrl_Nav_Inicial[0])
+       fgets(ctrlNavInicial,sizeof(ctrlNavInicial),stdin);
+       switch (ctrlNavInicial[0])
        {
         case '1':
             telaPrincipal();
@@ -36,7 +36,7 @@ int main(void) {
             telaEquipe();
         break;
         case '4':
-            Ctrl_Nav_Geral = telaSair();
+            ctrlNavGeral = telaSair();
         break;
        default:
             printf("Você inseriu uma opção inválida\n");

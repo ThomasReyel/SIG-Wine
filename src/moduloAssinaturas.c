@@ -23,8 +23,8 @@ void telaAssinaturas(){
 
 void menuAssinaturas(){
 char opcao[10];
-    int crtl_assinatura = 1;
-    while (crtl_assinatura == 1)
+    int crtlAssinatura = 1;
+    while (crtlAssinatura == 1)
     {
         telaAssinaturas();
         fgets(opcao,sizeof(opcao),stdin);
@@ -43,7 +43,7 @@ char opcao[10];
             excluirAssinatura();
         break;
         case '5':
-            crtl_assinatura = 0;
+            crtlAssinatura = 0;
         break; 
        default:
             printf("Você inseriu uma opção inválida\n");
@@ -57,17 +57,17 @@ char opcao[10];
 void cadastroAssinatura(){
     char idAssinante[50];
     char idPlanos[50];
-    char data_assinatura[10];
-    char data_pagamento[10];
+    char dataAssinatura[10];
+    char dataPagamento[10];
 
     printf("Insira o id do assinante:\n");
     fgets(idAssinante,sizeof(idAssinante),stdin);
     printf("Insira o id de Planos:\n");
     fgets(idPlanos,sizeof(idPlanos),stdin);
     printf("Insira a data de assinatura (dd/mm/aa):\n");
-    fgets(data_assinatura,sizeof(data_assinatura),stdin);
+    fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
     printf("Insira o tempo limite de pagamento (dias):\n");
-    fgets(data_pagamento,sizeof(data_pagamento),stdin);
+    fgets(dataPagamento,sizeof(dataPagamento),stdin);
 }
 
 void checarAssinaturas(){
@@ -83,8 +83,8 @@ void checarAssinaturas(){
 void alterarAssinatura(){
     char idAssinante[50];
     char idPlanos[50];
-    char data_assinatura[10];
-    char data_pagamento[10];
+    char dataAssinatura[10];
+    char dataPagamento[10];
     char id[5];
 
     printf("Insira o id da assinatura a ser alterada: \n");
@@ -94,9 +94,9 @@ void alterarAssinatura(){
     printf("Insira o novo id de Planos:\n");
     fgets(idPlanos,sizeof(idPlanos),stdin);
     printf("Insira a nova data de assinatura (dd/mm/aa):\n");
-    fgets(data_assinatura,sizeof(data_assinatura),stdin);
+    fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
     printf("Insira o novo tempo limite de pagamento (dias):\n");
-    fgets(data_pagamento,sizeof(data_pagamento),stdin);
+    fgets(dataPagamento,sizeof(dataPagamento),stdin);
 }
 
 void excluirAssinatura(){

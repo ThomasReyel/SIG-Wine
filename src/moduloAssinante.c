@@ -24,8 +24,8 @@ void telaAssinante(){
 
 void menuAssinante(){
     char opcao[10];
-    int crtl_assinante = 1;
-    while (crtl_assinante == 1)
+    int crtlAssinante = 1;
+    while (crtlAssinante == 1)
     {
         telaAssinante();
         fgets(opcao,sizeof(opcao),stdin);
@@ -44,7 +44,7 @@ void menuAssinante(){
             excluirAssinante();
         break;
         case '5':
-            crtl_assinante = 0;
+            crtlAssinante = 0;
         break; 
        default:
             printf("Você inseriu uma opção inválida\n");
@@ -60,7 +60,7 @@ void cadastroAssinante(){
     char nome[50];
     char email[50];
     char cpf[12];
-    char data_nascimento[10];
+    char dataNascimento[10];
     char endereco[50];
 
     printf("Insira o nome do Assinante:\n");
@@ -70,7 +70,7 @@ void cadastroAssinante(){
     printf("Insira o CPF:\n");
     fgets(cpf,sizeof(cpf),stdin);
     printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(data_nascimento,sizeof(data_nascimento),stdin);
+    fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
 }
@@ -89,7 +89,7 @@ void alterarAssinante(){
     char nome[50];
     char email[50];
     char cpf[12];
-    char data_nascimento[10];
+    char dataNascimento[10];
     char endereco[50];
     char id[5];
 
@@ -103,7 +103,7 @@ void alterarAssinante(){
     printf("Insira o novo CPF:\n");
     fgets(cpf,sizeof(cpf),stdin);
     printf("Insira a novo data de nascimento (dd/mm/aa):\n");
-    fgets(data_nascimento,sizeof(data_nascimento),stdin);
+    fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
 }

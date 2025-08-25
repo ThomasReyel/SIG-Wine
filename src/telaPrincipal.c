@@ -13,8 +13,8 @@ void telaRelatorios();
 
 void telaPrincipal() {
     char opcao[10];
-    int Ctrl_Menu_Principal = 1;
-    while (Ctrl_Menu_Principal == 1)
+    int ctrlMenuPrincipal = 1;
+    while (ctrlMenuPrincipal == 1)
     {
     system("clear||cls");
     printf("╔══════════════════════════╗\n");
@@ -55,7 +55,7 @@ void telaPrincipal() {
             while (getchar() != '\n'); 
         break; 
         case '7':
-            Ctrl_Menu_Principal = 0;
+            ctrlMenuPrincipal = 0;
         break;          
        default:
             printf("Você inseriu uma opção inválida\n");
