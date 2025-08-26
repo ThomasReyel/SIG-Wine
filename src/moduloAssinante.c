@@ -76,7 +76,6 @@ void cadastroAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
-    system("clear || cls");
     printf("╔═══════════════════════════╗\n");
     printf("║   Cadastro de Assinantes  ║\n");
     printf("╠═══════════════════════════╣\n");
