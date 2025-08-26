@@ -62,7 +62,10 @@ void cadastroAssinante(){
     char cpf[12];
     char dataNascimento[10];
     char endereco[50];
-
+    char opcao[10];
+    int ctrlCadastro = 1;
+    while (ctrlCadastro == 1)
+    {
     printf("Insira o nome do Assinante:\n");
     fgets(nome,sizeof(nome),stdin);
     printf("Insira o email:\n");
@@ -73,6 +76,31 @@ void cadastroAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
+    system("clear || cls");
+    printf("╔═══════════════════════════╗\n");
+    printf("║   Cadastro de Assinantes  ║\n");
+    printf("╠═══════════════════════════╣\n");
+    printf("║ Nome: %s                  ║\n", nome);
+    printf("║ Email: %s                 ║\n", email);
+    printf("║ CPF: %s                   ║\n", cpf);
+    printf("║ Data: %s                  ║\n", dataNascimento);
+    printf("║ Endereço: %s              ║\n", endereco);
+    printf("╚═══════════════════════════╝\n");
+    printf("Você deseja cancelar o cadastro (1 - Sim, 0 - Não)?");
+    fgets(opcao, sizeof(opcao), stdin);
+    switch (opcao[0]) {
+        case '1':
+            printf("Cadastro realizado com sucesso!\n");
+            break;
+        case '0':
+            printf("Cadastro cancelado!\n");     
+            ctrlCadastro = 0;
+            break;
+        default:
+            printf("Opção inválida!\n");
+            break;        
+    }
+    }
 }
 
 void checarAssinantes(){
