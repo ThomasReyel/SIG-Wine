@@ -22,7 +22,7 @@ char telaSair(){
         switch (opcao[0])
         {
         case '1':
-            return '1';
+            return 1;
             break;
         case '2':
             return opcao[0];
@@ -34,7 +34,7 @@ char telaSair(){
             break;
         }
     }
-    return '1';
+    return 1;
 
 }
 
