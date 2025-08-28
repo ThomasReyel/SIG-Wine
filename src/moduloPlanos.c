@@ -74,7 +74,7 @@ void checarPlanos(){
     printf("╔════════════════════════════════════════════════════════╗\n");
     printf("║                          Planos                        ║\n");
     printf("╠════════════════════════════════════════════════════════╣\n");
-    printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos: \n");
+    printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos:     ║\n");
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de planos \n");
     while (getchar() != '\n');   
