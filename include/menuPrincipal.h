@@ -5,6 +5,9 @@
 void telaPrincipal();
 void telaInicial();
 
-//modulos
+//telas extras
+char telaSair();
+void telaEquipe();
+void telaSobre();
 
 #endif

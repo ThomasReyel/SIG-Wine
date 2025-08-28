@@ -1,9 +1,10 @@
+#Código feito com base no código cedido por Pedro Henrique da Silva
 # Variáveis
 CC = gcc
 CFLAGS = -Iinclude -Wall
 
 # Arquivos do projeto
-SRC = main.c $(wildcard src/*.c) $(wildcard src/people/*.c)
+SRC = main.c $(wildcard src/*.c) 
 OUT = test.exe
 
 # Regra padrão

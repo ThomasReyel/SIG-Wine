@@ -2,14 +2,6 @@
 #include <stdlib.h>
 #include "modulos.h"
 
-void menuAssinante();
-void menuAssinaturas();
-void telaFinanceiro();
-void menuPlanos();
-void menuProdutos();
-void telaRelatorios();
-
-
 
 void telaPrincipal() {
     char opcao[10];
