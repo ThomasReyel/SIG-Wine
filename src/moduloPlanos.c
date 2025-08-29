@@ -6,6 +6,7 @@ void cadastroPlano();
 void checarPlanos();
 void alterarPlano();
 void excluirPlano();
+char confirmarInfoPlan(char[],char[],char[],char[]);
 
 void telaPlano(){
     system("clear||cls");
@@ -68,6 +69,18 @@ void cadastroPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
+    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
+    if ( confirmador == 1)
+    {
+        printf("Cadastro realizado com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Cadastro cancelado!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void checarPlanos(){
@@ -97,6 +110,18 @@ void alterarPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
+    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
+    if ( confirmador == 1)
+    {
+        printf("Atualização realizada com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Atualização cancelada!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void excluirPlano(){
@@ -107,4 +132,40 @@ void excluirPlano(){
     printf("║ plano excluído com sucesso!\n");
     printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
     while (getchar() != '\n');
+}
+
+char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[]){
+    char opcao[5];
+    int controleCI = 0;
+    while (controleCI == 0)
+    {
+        printf("╔═════════════════════════════╗\n");
+        printf("║          Confirmação        ║\n");
+        printf("╠═════════════════════════════╝\n");
+        printf("║ Nome do Plano: %s", nome);
+        printf("║ Preço do Plano: %s", preco);
+        printf("║ Período do plano: %s", periodo);
+        printf("║ Produtos contidos: %s", produtos);
+        printf("╠═════════════════════════════╗\n");
+        printf("║ Deseja manter essas infos?  ║\n");
+        printf("║ 1. Sim                      ║\n");
+        printf("║ 2. Não                      ║\n");
+        printf("╚═════════════════════════════╝\n");
+        fgets(opcao, sizeof(opcao), stdin);
+        switch (opcao[0]) {
+            case '1':
+                controleCI = 1;
+                return 1;
+                break;
+            case '2':
+                controleCI = 1;
+                return 2;
+                break;
+            default:
+                printf("\nPressione Enter para tentar novamente \n");
+                while (getchar() != '\n')
+                break;        
+        }
+    }
+    return 1;
 }

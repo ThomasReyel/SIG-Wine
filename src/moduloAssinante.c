@@ -6,7 +6,7 @@ void cadastroAssinante();
 void checarAssinantes();
 void alterarAssinante();
 void excluirAssinante();
-char confirmarInfo(char[],char[],char[],char[],char[]);
+char confirmarInfoAss(char[],char[],char[],char[],char[]);
 
 void telaAssinante(){
     system("clear||cls");
@@ -73,7 +73,7 @@ void cadastroAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
-    int confirmador = confirmarInfo(nome,email,cpf,dataNascimento,endereco);
+    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
         printf("Cadastro realizado com sucesso!\n");
@@ -119,6 +119,18 @@ void alterarAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
+    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
+    if ( confirmador == 1)
+    {
+        printf("Atualização realizada com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Atualização cancelada!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void excluirAssinante(){
@@ -130,13 +142,13 @@ void excluirAssinante(){
     while (getchar() != '\n');
 }
 
-char confirmarInfo(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
     char opcao[5];
     int controleCI = 0;
     while (controleCI == 0)
     {
         printf("╔═════════════════════════════╗\n");
-        printf("║   Cadastro de Assinantes    ║\n");
+        printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
         printf("║ Nome: %s", nome);
         printf("║ Email: %s", email);
@@ -144,7 +156,7 @@ char confirmarInfo(char nome[], char email[], char cpf[], char dataNascimento[],
         printf("║ Data: %s", dataNascimento);
         printf("║ Endereço: %s", endereco);
         printf("╠═════════════════════════════╗\n");
-        printf("║ Deseja manter esse cadastro?║\n");
+        printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
