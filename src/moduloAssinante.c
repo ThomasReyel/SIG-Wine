@@ -119,6 +119,18 @@ void alterarAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
+    int confirmador = confirmarInfo(nome,email,cpf,dataNascimento,endereco);
+    if ( confirmador == 1)
+    {
+        printf("Atualização realizada com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Atualização cancelada!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void excluirAssinante(){
@@ -136,7 +148,7 @@ char confirmarInfo(char nome[], char email[], char cpf[], char dataNascimento[],
     while (controleCI == 0)
     {
         printf("╔═════════════════════════════╗\n");
-        printf("║   Cadastro de Assinantes    ║\n");
+        printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
         printf("║ Nome: %s", nome);
         printf("║ Email: %s", email);
@@ -144,7 +156,7 @@ char confirmarInfo(char nome[], char email[], char cpf[], char dataNascimento[],
         printf("║ Data: %s", dataNascimento);
         printf("║ Endereço: %s", endereco);
         printf("╠═════════════════════════════╗\n");
-        printf("║ Deseja manter esse cadastro?║\n");
+        printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
