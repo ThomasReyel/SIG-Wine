@@ -69,6 +69,18 @@ void cadastroPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
+    int confirmador = confirmarInfoAss(nome,preco,periodo,produtos);
+    if ( confirmador == 1)
+    {
+        printf("Cadastro realizado com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Cadastro cancelado!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void checarPlanos(){
@@ -98,6 +110,18 @@ void alterarPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
+    int confirmador = confirmarInfoAss(nome,preco,periodo,produtos);
+    if ( confirmador == 1)
+    {
+        printf("Atualização realizada com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Atualização cancelada!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void excluirPlano(){
