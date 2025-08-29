@@ -6,7 +6,7 @@ void cadastroAssinante();
 void checarAssinantes();
 void alterarAssinante();
 void excluirAssinante();
-char confirmarInfo(char[],char[],char[],char[],char[]);
+char confirmarInfoAss(char[],char[],char[],char[],char[]);
 
 void telaAssinante(){
     system("clear||cls");
@@ -73,7 +73,7 @@ void cadastroAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
-    int confirmador = confirmarInfo(nome,email,cpf,dataNascimento,endereco);
+    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
         printf("Cadastro realizado com sucesso!\n");
@@ -119,7 +119,7 @@ void alterarAssinante(){
     fgets(dataNascimento,sizeof(dataNascimento),stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
-    int confirmador = confirmarInfo(nome,email,cpf,dataNascimento,endereco);
+    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
         printf("Atualização realizada com sucesso!\n");
@@ -142,7 +142,7 @@ void excluirAssinante(){
     while (getchar() != '\n');
 }
 
-char confirmarInfo(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
     char opcao[5];
     int controleCI = 0;
     while (controleCI == 0)

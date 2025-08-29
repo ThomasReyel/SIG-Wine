@@ -6,6 +6,7 @@ void cadastroAssinatura();
 void checarAssinaturas();
 void alterarAssinatura();
 void excluirAssinatura();
+char confirmarInfoAsstura(char[],char[],char[],char[]);
 
 void telaAssinaturas(){
     system("clear||cls");
@@ -68,15 +69,15 @@ void cadastroAssinatura(){
     fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
     printf("Insira o tempo limite de pagamento (dias):\n");
     fgets(dataVencimento,sizeof(dataVencimento),stdin);
-    int confirmador = confirmarInfo(idAssinante,idPlano,dataAssinatura,dataVencimento);
+    int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1)
     {
-        printf("Atualização realizada com sucesso!\n");
+        printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');  
     } else if (confirmador == 2)
     {
-        printf("Atualização cancelada!\n"); 
+        printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');
     }
@@ -110,7 +111,7 @@ void alterarAssinatura(){
     fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
     printf("Insira o novo tempo limite de pagamento (dias):\n");
     fgets(dataVencimento,sizeof(dataVencimento),stdin);
-    int confirmador = confirmarInfo(idAssinante,idPlano,dataAssinatura,dataVencimento);
+    int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1)
     {
         printf("Atualização realizada com sucesso!\n");
@@ -134,7 +135,7 @@ void excluirAssinatura(){
     while (getchar() != '\n');
 }
 
-char confirmarInfo(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
+char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
     char opcao[5];
     int controleCI = 0;
     while (controleCI == 0)
