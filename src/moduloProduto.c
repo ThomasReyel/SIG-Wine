@@ -69,7 +69,7 @@ void cadastroProduto(){
     fgets(marca,sizeof(marca),stdin);
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
-    int confirmador = confirmarInfoAsstura(nome,tipo,marca,anoProducao);
+    int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1)
     {
         printf("Cadastro realizado com sucesso!\n");
@@ -111,7 +111,7 @@ void alterarProduto(){
     fgets(marca,sizeof(marca),stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
-    int confirmador = confirmarInfoAsstura(nome,tipo,marca,anoProducao);
+    int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1)
     {
         printf("Atualização realizada com sucesso!\n");

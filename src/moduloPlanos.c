@@ -69,7 +69,7 @@ void cadastroPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
-    int confirmador = confirmarInfoAss(nome,preco,periodo,produtos);
+    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1)
     {
         printf("Cadastro realizado com sucesso!\n");
@@ -110,7 +110,7 @@ void alterarPlano(){
     fgets(periodo,sizeof(periodo),stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,sizeof(produtos),stdin);
-    int confirmador = confirmarInfoAss(nome,preco,periodo,produtos);
+    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1)
     {
         printf("Atualização realizada com sucesso!\n");
