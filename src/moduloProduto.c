@@ -69,6 +69,18 @@ void cadastroProduto(){
     fgets(marca,sizeof(marca),stdin);
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
+    int confirmador = confirmarInfoAsstura(nome,tipo,marca,anoProducao);
+    if ( confirmador == 1)
+    {
+        printf("Cadastro realizado com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Cadastro cancelado!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void checarProdutos(){
@@ -99,6 +111,18 @@ void alterarProduto(){
     fgets(marca,sizeof(marca),stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
+    int confirmador = confirmarInfoAsstura(nome,tipo,marca,anoProducao);
+    if ( confirmador == 1)
+    {
+        printf("Atualização realizada com sucesso!\n");
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');  
+    } else if (confirmador == 2)
+    {
+        printf("Atualização cancelada!\n"); 
+        printf("\nPressione Enter para voltar \n");
+        while (getchar() != '\n');
+    }
 }
 
 void excluirProduto(){
