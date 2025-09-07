@@ -79,11 +79,12 @@ void cadastroAssinante(){
     if ( confirmador == 1)
     {
         Assinantes reg;
-        reg.id = 1;
+        reg.id = totalAssinantes;
         strcpy(reg.nome, nome);
         strcpy(reg.email, email);
         strcpy(reg.cpf, cpf);
         strcpy(reg.dataNascimento, dataNascimento);
+        strcpy(reg.endereco, endereco);
         SetAssinantes(reg);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");

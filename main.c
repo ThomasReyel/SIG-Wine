@@ -15,6 +15,7 @@
 int main(void) {
     char ctrlNavInicial[10];
     int ctrlNavGeral = 1;
+    resgatarAssinantesJSON();
     while (ctrlNavGeral == 1)
     {
        telaInicial();

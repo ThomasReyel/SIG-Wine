@@ -46,6 +46,43 @@ void salvarAssinantesJSON(FILE *fp, Assinantes Assinantes[], int total) {
     fclose(fp); 
 }
 
+int resgatarAssinantesJSON() {
+    fp = fopen("dados.json", "r");
+    if (fp == NULL) {
+        perror("Erro ao abrir arquivo");
+        return 1;
+    }
+    fseek(fp, 0, SEEK_END);
+    long tamanho = ftell(fp);
+    rewind(fp);
+    char *buffer = malloc(tamanho + 1);
+    fread(buffer, 1, tamanho, fp);
+    buffer[tamanho] = '\0';
+    fclose(fp);
+    char *ptr = buffer;
+    while ((ptr = strstr(ptr, "\"id\"")) != NULL) {
+        Assinantes novo = {0};
+
+        sscanf(ptr, "\"id\" : %d", &novo.id);
+        char *pNome = strstr(ptr, "\"nome\"");
+        sscanf(pNome, "\"nome\" : \"%[^\"]\"", novo.nome);
+        char *pEmail = strstr(ptr, "\"email\"");
+        sscanf(pEmail, "\"email\" : \"%[^\"]\"", novo.email);
+        char *pCpf = strstr(ptr, "\"cpf\"");
+        sscanf(pCpf, "\"cpf\" : \"%[^\"]\"", novo.cpf);
+        char *pData = strstr(ptr, "\"dataNascimento\"");
+        sscanf(pData, "\"dataNascimento\" : \"%[^\"]\"", novo.dataNascimento);
+        if (totalAssinantes < 50) {
+            bdLocal[totalAssinantes] = novo;
+            totalAssinantes++;
+        }
+        ptr++;
+    }
+
+    free(buffer);
+    return 0;
+}
+
 void limparString(char *str){
     str[strcspn(str, "\n")] = '\0';
 }

@@ -16,5 +16,6 @@ extern int totalAssinantes;
 
 void SetAssinantes(Assinantes novoAssinante);
 void salvarAssinantesJSON(FILE *fp, Assinantes Assinantes[], int total);
+int resgatarAssinantesJSON();
 
 #endif
