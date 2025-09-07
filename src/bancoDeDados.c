@@ -13,7 +13,6 @@ void SetAssinantes(Assinantes novoAssinante){
         totalAssinantes++;
     }    
 }
-
 void salvarAssinantesJSON(FILE *fp, Assinantes Assinantes[], int total) {
 
     fp = fopen("dados.json", "w");
