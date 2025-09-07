@@ -10,12 +10,12 @@ typedef struct {
     char dataNascimento[20];
 } Assinantes;
 
-extern Assinantes bdLocal[50];
-extern FILE *fp;
+extern Assinantes regAssinantes[50];
+extern FILE *bdAssin;
 extern int totalAssinantes;
 
 void SetAssinantes(Assinantes novoAssinante);
-void salvarAssinantesJSON(FILE *fp, Assinantes Assinantes[], int total);
+void salvarAssinantesJSON(Assinantes Assinantes[], int total);
 int resgatarAssinantesJSON();
 
 #endif

@@ -9,6 +9,7 @@ void checarAssinantes();
 void alterarAssinante();
 void excluirAssinante();
 char confirmarInfoAss(char[],char[],char[],char[],char[]);
+void tratarStrings(char[],char[],char[],char[],char[]);
 
 void telaAssinante(){
     system("clear||cls");
@@ -78,6 +79,7 @@ void cadastroAssinante(){
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
+        tratarStrings(nome,email,cpf,dataNascimento,endereco);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');  

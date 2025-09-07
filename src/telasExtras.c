@@ -26,7 +26,7 @@ char telaSair(){
             return 1;
             break;
         case '2':
-            salvarAssinantesJSON(fp, bdLocal, totalAssinantes);
+            salvarAssinantesJSON(regAssinantes, totalAssinantes);
             return opcao[0];
             break;
         default:
