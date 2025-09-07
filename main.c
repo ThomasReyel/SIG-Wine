@@ -10,6 +10,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menuPrincipal.h"
+#include "bd.h"
 
 int main(void) {
     char ctrlNavInicial[10];

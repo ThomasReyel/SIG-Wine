@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+#include "bd.h"
 void telaAssinante();
 void menuAssinante();
 void cadastroAssinante();
@@ -76,6 +78,13 @@ void cadastroAssinante(){
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
+        Assinantes reg;
+        reg.id = 1;
+        strcpy(reg.nome, nome);
+        strcpy(reg.email, email);
+        strcpy(reg.cpf, cpf);
+        strcpy(reg.dataNascimento, dataNascimento);
+        SetAssinantes(reg);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');  
