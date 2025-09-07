@@ -1,0 +1,36 @@
+{
+  "Assinantes": [
+    {
+      "id": 0,
+      "nome": "Thomas",
+      "email": "t",
+      "cpf": "t",
+      "endereco": "",
+      "dataNascimento": "t"
+    },
+    {
+      "id": 1,
+      "nome": "Lucas",
+      "email": "l",
+      "cpf": "l",
+      "endereco": "",
+      "dataNascimento": "l"
+    },
+    {
+      "id": 2,
+      "nome": "Caio",
+      "email": "c",
+      "cpf": "c",
+      "endereco": "",
+      "dataNascimento": "c"
+    },
+    {
+      "id": 3,
+      "nome": "Pedro",
+      "email": "p",
+      "cpf": "p",
+      "endereco": "p",
+      "dataNascimento": "p"
+    }
+  ]
+}

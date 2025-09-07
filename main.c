@@ -10,10 +10,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "menuPrincipal.h"
+#include "bd.h"
 
 int main(void) {
     char ctrlNavInicial[10];
     int ctrlNavGeral = 1;
+    resgatarAssinantesJSON();
     while (ctrlNavGeral == 1)
     {
        telaInicial();

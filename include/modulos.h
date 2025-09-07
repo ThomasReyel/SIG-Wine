@@ -8,6 +8,5 @@ void telaFinanceiro();
 void menuPlanos();
 void menuProdutos();
 void telaRelatorios();
-//modulos
 
 #endif

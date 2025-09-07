@@ -1,5 +1,7 @@
 #include <stdlib.h>
+#include <string.h>
 #include <stdio.h>
+#include "bd.h"
 void telaAssinante();
 void menuAssinante();
 void cadastroAssinante();
@@ -122,6 +124,7 @@ void alterarAssinante(){
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1)
     {
+        tratarStrings(nome,email,cpf,dataNascimento,endereco);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');  
@@ -177,4 +180,15 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
         }
     }
     return 1;
+}
+
+void tratarStrings(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+        Assinantes reg;
+        reg.id = totalAssinantes;
+        strcpy(reg.nome, nome);
+        strcpy(reg.email, email);
+        strcpy(reg.cpf, cpf);
+        strcpy(reg.dataNascimento, dataNascimento);
+        strcpy(reg.endereco, endereco);
+        SetAssinantes(reg);
 }

@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include "bd.h"
 char telaSair();
 void telaEquipe();
 void telaSobre();
@@ -25,6 +26,7 @@ char telaSair(){
             return 1;
             break;
         case '2':
+            salvarAssinantesJSON(fp, bdLocal, totalAssinantes);
             return opcao[0];
             break;
         default:
