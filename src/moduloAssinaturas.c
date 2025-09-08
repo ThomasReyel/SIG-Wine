@@ -8,29 +8,13 @@ void alterarAssinatura();
 void excluirAssinatura();
 char confirmarInfoAsstura(char[],char[],char[],char[]);
 
-void telaAssinaturas(){
-    system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO ASSINATURAS   ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Assinaturas ║\n");
-    printf("║ 2. Checar Assinaturas    ║\n");
-    printf("║ 3. Alterar Assinaturas   ║\n");
-    printf("║ 4. Excluir Assinaturas   ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
-}
-
 void menuAssinaturas(){
 char opcao[10];
     int crtlAssinatura = 1;
-    while (crtlAssinatura == 1)
-    {
+    while (crtlAssinatura == 1){
         telaAssinaturas();
         fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
+        switch (opcao[0]){
         case '1':
             cadastroAssinatura();
         break;
@@ -49,10 +33,24 @@ char opcao[10];
        default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
-            while (getchar() != '\n')
+            getchar();
         break;
        }
     }    
+}
+
+void telaAssinaturas(){
+    system("clear||cls");
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO ASSINATURAS   ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Assinaturas ║\n");
+    printf("║ 2. Checar Assinaturas    ║\n");
+    printf("║ 3. Alterar Assinaturas   ║\n");
+    printf("║ 4. Excluir Assinaturas   ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
 }
 
 void cadastroAssinatura(){
@@ -70,16 +68,14 @@ void cadastroAssinatura(){
     printf("Insira o tempo limite de pagamento (dias):\n");
     fgets(dataVencimento,sizeof(dataVencimento),stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
-    if ( confirmador == 1)
-    {
+    if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
     
 }
@@ -91,7 +87,7 @@ void checarAssinaturas(){
     printf("║ ID: 1 | nome do assinante: |nome do plano: |data de assinatura: |data pagamento:     ║\n");
     printf("╚══════════════════════════════════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
-    while (getchar() != '\n');   
+    getchar();   
 }
 
 void alterarAssinatura(){
@@ -112,16 +108,14 @@ void alterarAssinatura(){
     printf("Insira o novo tempo limite de pagamento (dias):\n");
     fgets(dataVencimento,sizeof(dataVencimento),stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
-    if ( confirmador == 1)
-    {
+    if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Atualização cancelada!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
 }
 
@@ -132,14 +126,13 @@ void excluirAssinatura(){
     fgets(id,sizeof(id),stdin);
     printf("║ plano excluído com sucesso\n");
     printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
     char opcao[5];
-    int controleCI = 0;
-    while (controleCI == 0)
-    {
+    int controleCI = 1;
+    while (controleCI == 1){
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -155,16 +148,16 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
         fgets(opcao, sizeof(opcao), stdin);
         switch (opcao[0]) {
             case '1':
-                controleCI = 1;
+                controleCI = 0;
                 return 1;
                 break;
             case '2':
-                controleCI = 1;
+                controleCI = 0;
                 return 2;
                 break;
             default:
                 printf("\nPressione Enter para tentar novamente \n");
-                while (getchar() != '\n')
+                getchar();
                 break;        
         }
     }

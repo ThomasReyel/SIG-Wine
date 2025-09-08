@@ -1,3 +1,5 @@
+// Código de conecção de banco de dados. EM FASE DE TESTES
+// NÃO ESTÁ INTERFERINDO NO CÓDIGO NO MOMENTO
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,16 +8,16 @@ int totalAssinantes = 0;
 Assinantes regAssinantes[50];
 FILE *bdAssin;
 void limparString(char *str);
+int buscarAssinantes(Assinantes[],int);
 void SetAssinantes(Assinantes novoAssinante){
-    if (totalAssinantes < 50)
-    {
+    if (totalAssinantes < 50){
         regAssinantes[totalAssinantes]=novoAssinante;
         totalAssinantes++;
     }    
 }
 void salvarAssinantesJSON(Assinantes Assinantes[], int total) {
 
-    FILE *bdAssin = fopen("dados.json", "w");
+    bdAssin = fopen("dados.json", "w");
     fprintf(bdAssin, "{\n");
     fprintf(bdAssin, "  \"Assinantes\": [\n");
 
@@ -87,4 +89,16 @@ int resgatarAssinantesJSON() {
 
 void limparString(char *str){
     str[strcspn(str, "\n")] = '\0';
+}
+
+int buscarAssinantes(Assinantes assinantes[], int id){
+    for (int i = 0; i < totalAssinantes; i++){
+        if (assinantes[i].id == id){
+            return i;
+        }
+        
+    }
+    return -1;
+
+    
 }

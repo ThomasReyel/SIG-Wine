@@ -1,3 +1,5 @@
+// Código de conecção de banco de dados. EM FASE DE TESTES
+// NÃO ESTÁ INTERFERINDO NO CÓDIGO NO MOMENTO
 #ifndef BANCO_DE_DADOS_H
 #define BANCO_DE_DADOS_H
 
@@ -15,7 +17,8 @@ extern FILE *bdAssin;
 extern int totalAssinantes;
 
 void SetAssinantes(Assinantes novoAssinante);
-void salvarAssinantesJSON(Assinantes Assinantes[], int total);
+int buscarAssinantes(Assinantes assinantes[], int id);
+void salvarAssinantesJSON(Assinantes assinantes[], int total);
 int resgatarAssinantesJSON();
 
 #endif

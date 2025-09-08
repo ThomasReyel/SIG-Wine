@@ -5,11 +5,43 @@
 void telaAssinante();
 void menuAssinante();
 void cadastroAssinante();
-void checarAssinantes();
+void checarAssinantes(Assinantes[]);
 void alterarAssinante();
 void excluirAssinante();
 char confirmarInfoAss(char[],char[],char[],char[],char[]);
-void tratarStrings(char[],char[],char[],char[],char[]);
+//void tratarStrings(char[],char[],char[],char[],char[]);
+
+void menuAssinante(){
+    char opcao[10];
+    int crtlAssinante = 1;
+    while (crtlAssinante == 1){
+        telaAssinante();
+        fgets(opcao,sizeof(opcao),stdin);
+        switch (opcao[0]){
+        case '1':
+            cadastroAssinante();
+        break;
+        case '2':
+            checarAssinantes(regAssinantes);
+        break;
+        case '3':
+            alterarAssinante();
+        break;
+        case '4':
+            excluirAssinante();
+        break;
+        case '5':
+            crtlAssinante = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            getchar();
+        break;
+       }
+    }
+    
+}
 
 void telaAssinante(){
     system("clear||cls");
@@ -24,40 +56,6 @@ void telaAssinante(){
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 
-}
-
-void menuAssinante(){
-    char opcao[10];
-    int crtlAssinante = 1;
-    while (crtlAssinante == 1)
-    {
-        telaAssinante();
-        fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
-        case '1':
-            cadastroAssinante();
-        break;
-        case '2':
-            checarAssinantes();
-        break;
-        case '3':
-            alterarAssinante();
-        break;
-        case '4':
-            excluirAssinante();
-        break;
-        case '5':
-            crtlAssinante = 0;
-        break; 
-       default:
-            printf("Você inseriu uma opção inválida\n");
-            printf("\nPressione Enter para tentar novamente \n");
-            while (getchar() != '\n')
-        break;
-       }
-    }
-    
 }
 
 void cadastroAssinante(){
@@ -77,29 +75,26 @@ void cadastroAssinante(){
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
-    if ( confirmador == 1)
-    {
-        tratarStrings(nome,email,cpf,dataNascimento,endereco);
+    if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
     
 }
 
-void checarAssinantes(){
+void checarAssinantes(Assinantes assinantes[]){
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
     printf("║                              Assinantes                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╣\n");
-    printf("║ 1. Nome: |Email: |CPF: |Endereço: | Data de Nascimento:          ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ .Nome: |Email: |CPF: |Endereço: | Data de Nascimento:  \n");
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 void alterarAssinante(){
@@ -124,34 +119,27 @@ void alterarAssinante(){
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
-    if ( confirmador == 1)
-    {
-        tratarStrings(nome,email,cpf,dataNascimento,endereco);
+    if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Atualização cancelada!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
 }
 
 void excluirAssinante(){
-    char id[5];
-    printf("Insira o id do cliente a ser excluído: \n");
-    fgets(id,sizeof(id),stdin);
     printf("Assinante excluído com sucesso!\n");
     printf("\n> Pressione Enter para voltar ao módulo de assinantes <\n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
     char opcao[5];
-    int controleCI = 0;
-    while (controleCI == 0)
-    {
+    int controleCI = 1;
+    while (controleCI == 1){
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -177,14 +165,14 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
                 break;
             default:
                 printf("\nPressione Enter para tentar novamente \n");
-                while (getchar() != '\n')
+                getchar();
                 break;        
         }
     }
     return 1;
 }
 
-void tratarStrings(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+/*void tratarStrings(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
         Assinantes reg;
         reg.id = totalAssinantes;
         strcpy(reg.nome, nome);
@@ -193,4 +181,4 @@ void tratarStrings(char nome[], char email[], char cpf[], char dataNascimento[],
         strcpy(reg.dataNascimento, dataNascimento);
         strcpy(reg.endereco, endereco);
         SetAssinantes(reg);
-}
+}*/

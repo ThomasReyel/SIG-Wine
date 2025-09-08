@@ -8,29 +8,13 @@ void alterarProduto();
 void excluirProduto();
 int confirmarInfoProd(char[],char[],char[],char[]);
 
-void telaProdutos(){
-    system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO PRODUTOS      ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Produtos    ║\n");
-    printf("║ 2. Checar Produtos       ║\n");
-    printf("║ 3. Alterar Produtos      ║\n");
-    printf("║ 4. Excluir Produtos      ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
-}
-
 void menuProdutos(){
 char opcao[10];
     int crtlProduto = 1;
-    while (crtlProduto == 1)
-    {
+    while (crtlProduto == 1){
         telaProdutos();
         fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
+        switch (opcao[0]){
         case '1':
             cadastroProduto();
         break;
@@ -55,6 +39,21 @@ char opcao[10];
     }   
 }
 
+void telaProdutos(){
+    system("clear||cls");
+    printf("╔══════════════════════════╗\n");
+    printf("║     MÓDULO PRODUTOS      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Cadastrar Produtos    ║\n");
+    printf("║ 2. Checar Produtos       ║\n");
+    printf("║ 3. Alterar Produtos      ║\n");
+    printf("║ 4. Excluir Produtos      ║\n");
+    printf("║ 5. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
+}
+
+
 void cadastroProduto(){
     char nome[50];
     char tipo[50];
@@ -70,16 +69,14 @@ void cadastroProduto(){
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
-    if ( confirmador == 1)
-    {
+    if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
 }
 
@@ -90,7 +87,7 @@ void checarProdutos(){
     printf("║ ID: 1 | Nome: |Tipo: |Marca: |Ano de Produção: \n");
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 void alterarProduto(){
@@ -112,16 +109,14 @@ void alterarProduto(){
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,sizeof(anoProducao),stdin);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
-    if ( confirmador == 1)
-    {
+    if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+        getchar();  
+    } else if (confirmador == 2){
         printf("Atualização cancelada!\n"); 
         printf("\nPressione Enter para voltar \n");
-        while (getchar() != '\n');
+        getchar();
     }
 }
 
@@ -132,14 +127,13 @@ void excluirProduto(){
     fgets(id,sizeof(id),stdin);
     printf("║ produto excluído com sucesso!\n");
     printf("\n> Pressione Enter para voltar ao módulo de produtos <\n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]){
     char opcao[5];
-    int controleCI = 0;
-    while (controleCI == 0)
-    {
+    int controleCI = 1;
+    while (controleCI == 1){
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -155,16 +149,16 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
         fgets(opcao, sizeof(opcao), stdin);
         switch (opcao[0]) {
             case '1':
-                controleCI = 1;
+                controleCI = 0;
                 return 1;
                 break;
             case '2':
-                controleCI = 1;
+                controleCI = 0;
                 return 2;
                 break;
             default:
                 printf("\nPressione Enter para tentar novamente \n");
-                while (getchar() != '\n')
+                getchar();
                 break;        
         }
     }

@@ -5,23 +5,19 @@
 ///                  Disciplina DCT1106 -- Programação                      ///
 ///                  Projeto Sistema de Gestão Escolar                      ///
 ///////////////////////////////////////////////////////////////////////////////
-///                                Semana 3                                 ///
+///                                Semana 5                                 ///
 ///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
 #include "menuPrincipal.h"
-#include "bd.h"
 
 int main(void) {
     char ctrlNavInicial[10];
     int ctrlNavGeral = 1;
-    resgatarAssinantesJSON();
-    while (ctrlNavGeral == 1)
-    {
+    while (ctrlNavGeral == 1){
        telaInicial();
        fgets(ctrlNavInicial,sizeof(ctrlNavInicial),stdin);
-       switch (ctrlNavInicial[0])
-       {
+       switch (ctrlNavInicial[0]){
         case '1':
             telaPrincipal();
         break;
@@ -37,7 +33,7 @@ int main(void) {
        default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
-            while (getchar() != '\n');
+            getchar();
         break;
        }
     }
