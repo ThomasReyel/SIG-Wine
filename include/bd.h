@@ -15,7 +15,8 @@ extern FILE *bdAssin;
 extern int totalAssinantes;
 
 void SetAssinantes(Assinantes novoAssinante);
-void salvarAssinantesJSON(Assinantes Assinantes[], int total);
+Assinantes buscarAssinantes(Assinantes assinantes[], int id);
+void salvarAssinantesJSON(Assinantes assinantes[], int total);
 int resgatarAssinantesJSON();
 
 #endif

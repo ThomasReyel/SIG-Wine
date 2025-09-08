@@ -29,17 +29,15 @@ void telaAssinante(){
 void menuAssinante(){
     char opcao[10];
     int crtlAssinante = 1;
-    while (crtlAssinante == 1)
-    {
+    while (crtlAssinante == 1){
         telaAssinante();
         fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
+        switch (opcao[0]){
         case '1':
             cadastroAssinante();
         break;
         case '2':
-            checarAssinantes();
+            checarAssinantes(regAssinantes);
         break;
         case '3':
             alterarAssinante();
@@ -77,14 +75,12 @@ void cadastroAssinante(){
     printf("Insira o endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
-    if ( confirmador == 1)
-    {
+    if ( confirmador == 1){
         tratarStrings(nome,email,cpf,dataNascimento,endereco);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');  
-    } else if (confirmador == 2)
-    {
+    } else if (confirmador == 2){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         while (getchar() != '\n');
@@ -92,14 +88,18 @@ void cadastroAssinante(){
     
 }
 
-void checarAssinantes(){
+void checarAssinantes(Assinantes assinantes[]){
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
     printf("║                              Assinantes                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╣\n");
-    printf("║ 1. Nome: |Email: |CPF: |Endereço: | Data de Nascimento:          ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    for (int i = 0; i <totalAssinantes; i++){
+        printf("║ %d.Nome:%s |Email:%s |CPF:%s |Endereço:%s | Data de Nascimento:%s  \n", 
+        assinantes[i].id, assinantes[i].nome, assinantes[i].email, assinantes[i].cpf, 
+        assinantes[i].endereco, assinantes[i].dataNascimento);
+    }
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 void alterarAssinante(){

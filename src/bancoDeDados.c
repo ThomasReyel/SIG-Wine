@@ -6,16 +6,16 @@ int totalAssinantes = 0;
 Assinantes regAssinantes[50];
 FILE *bdAssin;
 void limparString(char *str);
+Assinantes buscarAssinantes(Assinantes[],int);
 void SetAssinantes(Assinantes novoAssinante){
-    if (totalAssinantes < 50)
-    {
+    if (totalAssinantes < 50){
         regAssinantes[totalAssinantes]=novoAssinante;
         totalAssinantes++;
     }    
 }
 void salvarAssinantesJSON(Assinantes Assinantes[], int total) {
 
-    FILE *bdAssin = fopen("dados.json", "w");
+    bdAssin = fopen("dados.json", "w");
     fprintf(bdAssin, "{\n");
     fprintf(bdAssin, "  \"Assinantes\": [\n");
 
@@ -87,4 +87,17 @@ int resgatarAssinantesJSON() {
 
 void limparString(char *str){
     str[strcspn(str, "\n")] = '\0';
+}
+
+Assinantes buscarAssinantes(Assinantes assinantes[], int id){
+    for (int i = 0; i < totalAssinantes; i++){
+        if (assinantes[i].id == id){
+            printf("Assinante encotrado com sucesso");
+            return assinantes[i];
+        }
+        
+    }
+    return;
+
+    
 }
