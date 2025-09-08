@@ -1,3 +1,5 @@
+// Código de conecção de banco de dados. EM FASE DE TESTES
+// NÃO ESTÁ INTERFERINDO NO CÓDIGO NO MOMENTO
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,7 +8,7 @@ int totalAssinantes = 0;
 Assinantes regAssinantes[50];
 FILE *bdAssin;
 void limparString(char *str);
-Assinantes buscarAssinantes(Assinantes[],int);
+int buscarAssinantes(Assinantes[],int);
 void SetAssinantes(Assinantes novoAssinante){
     if (totalAssinantes < 50){
         regAssinantes[totalAssinantes]=novoAssinante;
@@ -89,15 +91,14 @@ void limparString(char *str){
     str[strcspn(str, "\n")] = '\0';
 }
 
-Assinantes buscarAssinantes(Assinantes assinantes[], int id){
+int buscarAssinantes(Assinantes assinantes[], int id){
     for (int i = 0; i < totalAssinantes; i++){
         if (assinantes[i].id == id){
-            printf("Assinante encotrado com sucesso");
-            return assinantes[i];
+            return i;
         }
         
     }
-    return;
+    return -1;
 
     
 }

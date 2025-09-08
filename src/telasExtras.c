@@ -1,15 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include "bd.h"
 char telaSair();
 void telaEquipe();
 void telaSobre();
 
 char telaSair(){
     char opcao[10];
-    int ctrlSaida = 0;
-    while (ctrlSaida == 0)
-    {
+    int ctrlSaida = 1;
+    while (ctrlSaida == 1){
         system("clear||cls");
         printf("╔══════════════════════════╗\n");
         printf("║        Tem certeza       ║\n");
@@ -20,19 +18,17 @@ char telaSair(){
         printf("╚══════════════════════════╝\n");
         printf("Digite sua escolha: \n");
         fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
+        switch (opcao[0]){
         case '1':
             return 1;
             break;
         case '2':
-            salvarAssinantesJSON(regAssinantes, totalAssinantes);
             return opcao[0];
             break;
         default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
-            while (getchar() != '\n');
+            getchar();
             break;
         }
     }
@@ -55,7 +51,7 @@ void telaEquipe() {
     printf("╚═══════════════════════════════════╝\n");
     printf("\n");
     printf(">>> Tecle <ENTER> para continuar...\n");
-    while (getchar() != '\n');
+    getchar();
 }
 void telaSobre() {
     system("clear||cls");
@@ -71,7 +67,7 @@ void telaSobre() {
     printf("╚═══════════════════════════════════╝\n");
     printf("\n");
     printf(">>> Tecle <ENTER> para continuar...\n");
-    while (getchar() != '\n');
+    getchar();
 }
 
 void telaInicial(){

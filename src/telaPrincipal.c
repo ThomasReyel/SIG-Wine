@@ -6,8 +6,7 @@
 void telaPrincipal() {
     char opcao[10];
     int ctrlMenuPrincipal = 1;
-    while (ctrlMenuPrincipal == 1)
-    {
+    while (ctrlMenuPrincipal == 1){
     system("clear||cls");
     printf("╔══════════════════════════╗\n");
     printf("║      MENU PRINCIPAL      ║\n");
@@ -22,8 +21,7 @@ void telaPrincipal() {
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
     fgets(opcao,sizeof(opcao),stdin);
-        switch (opcao[0])
-        {
+        switch (opcao[0]){
         case '1':
             menuAssinante();
         break;
@@ -39,12 +37,12 @@ void telaPrincipal() {
         case '5':
             telaRelatorios();
             printf("\nPressione Enter para voltar para tela principal \n");
-            while (getchar() != '\n');
+            getchar();
         break;
         case '6':
             telaFinanceiro();
             printf("\nPressione Enter para voltar para tela principal \n");
-            while (getchar() != '\n'); 
+            getchar(); 
         break; 
         case '7':
             ctrlMenuPrincipal = 0;
@@ -52,7 +50,7 @@ void telaPrincipal() {
        default:
             printf("Você inseriu uma opção inválida\n");
             printf("\nPressione Enter para tentar novamente \n");
-            while (getchar() != '\n')
+            getchar();
         break;
        }
     }
