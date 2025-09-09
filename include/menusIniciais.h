@@ -1,5 +1,5 @@
-#ifndef MENU_PRINCIPAL_H
-#define MENU_PRINCIPAL_H
+#ifndef MENUS_INICIAIS_H
+#define MENUS_INICIAIS_H
 
 //telas iniciais
 void telaPrincipal();

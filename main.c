@@ -9,7 +9,7 @@
 ///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
-#include "menuPrincipal.h"
+#include "menusIniciais.h"
 
 int main(void) {
     char ctrlNavInicial[10];
