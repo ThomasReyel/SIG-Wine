@@ -1,6 +1,6 @@
 // Código de conecção de banco de dados. EM FASE DE TESTES
 // NÃO ESTÁ INTERFERINDO NO CÓDIGO NO MOMENTO
-#include <stdio.h>
+/*#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 #include "bd.h"
@@ -101,4 +101,4 @@ int buscarAssinantes(Assinantes assinantes[], int id){
     return -1;
 
     
-}
+}*/

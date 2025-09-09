@@ -1,6 +1,6 @@
 // Código de conecção de banco de dados. EM FASE DE TESTES
 // NÃO ESTÁ INTERFERINDO NO CÓDIGO NO MOMENTO
-#ifndef BANCO_DE_DADOS_H
+/*#ifndef BANCO_DE_DADOS_H
 #define BANCO_DE_DADOS_H
 
 typedef struct {
@@ -22,3 +22,4 @@ void salvarAssinantesJSON(Assinantes assinantes[], int total);
 int resgatarAssinantesJSON();
 
 #endif
+*/

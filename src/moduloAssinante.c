@@ -1,11 +1,10 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-#include "bd.h"
 void telaAssinante();
 void menuAssinante();
 void cadastroAssinante();
-void checarAssinantes(Assinantes[]);
+void checarAssinantes();
 void alterarAssinante();
 void excluirAssinante();
 char confirmarInfoAss(char[],char[],char[],char[],char[]);
@@ -22,7 +21,7 @@ void menuAssinante(){
             cadastroAssinante();
         break;
         case '2':
-            checarAssinantes(regAssinantes);
+            checarAssinantes();
         break;
         case '3':
             alterarAssinante();
@@ -87,7 +86,7 @@ void cadastroAssinante(){
     
 }
 
-void checarAssinantes(Assinantes assinantes[]){
+void checarAssinantes(){
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
     printf("║                              Assinantes                          ║\n");
     printf("╠══════════════════════════════════════════════════════════════════╝\n");
