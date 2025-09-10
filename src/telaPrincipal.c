@@ -2,7 +2,6 @@
 #include <stdlib.h>
 #include "modulos.h"
 
-
 void telaPrincipal() {
     char opcao[10];
     int ctrlMenuPrincipal = 1;
