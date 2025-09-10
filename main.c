@@ -28,7 +28,7 @@ int main(void) {
         };
        switch (ctrlNavInicial[0]){
         case '1':
-            telaPrincipal();
+            menuPrincipal();
         break;
         case '2':
             telaSobre();

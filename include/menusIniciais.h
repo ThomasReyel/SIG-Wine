@@ -2,7 +2,7 @@
     #define MENUS_INICIAIS_H
 
     //telas iniciais
-    void telaPrincipal();
+    void menuPrincipal();
     void telaInicial();
 
     //telas extras

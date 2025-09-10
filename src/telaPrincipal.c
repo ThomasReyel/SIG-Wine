@@ -2,23 +2,14 @@
 #include <stdlib.h>
 #include "modulos.h"
 
-void telaPrincipal() {
+void telaPrincipal();
+
+void menuPrincipal() {
     char opcao[10];
     int ctrlMenuPrincipal = 1;
     while (ctrlMenuPrincipal == 1){
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║      MENU PRINCIPAL      ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Módulo Assinante      ║\n");
-    printf("║ 2. Módulo Assinaturas    ║\n");
-    printf("║ 3. Módulo Planos         ║\n");
-    printf("║ 4. Módulo Produtos       ║\n");
-    printf("║ 5. Módulo Relatórios     ║\n");
-    printf("║ 6. Módulo Financeiro     ║\n");
-    printf("║ 7. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
+    telaPrincipal();
     fgets(opcao,sizeof(opcao),stdin);
         switch (opcao[0]){
         case '1':
@@ -53,4 +44,19 @@ void telaPrincipal() {
         break;
        }
     }
+}
+
+void telaPrincipal(){
+    printf("╔══════════════════════════╗\n");
+    printf("║      MENU PRINCIPAL      ║\n");
+    printf("╠══════════════════════════╣\n");
+    printf("║ 1. Módulo Assinante      ║\n");
+    printf("║ 2. Módulo Assinaturas    ║\n");
+    printf("║ 3. Módulo Planos         ║\n");
+    printf("║ 4. Módulo Produtos       ║\n");
+    printf("║ 5. Módulo Relatórios     ║\n");
+    printf("║ 6. Módulo Financeiro     ║\n");
+    printf("║ 7. Sair                  ║\n");
+    printf("╚══════════════════════════╝\n");
+    printf("Digite sua escolha: \n");
 }
