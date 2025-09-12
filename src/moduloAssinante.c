@@ -13,9 +13,12 @@ char confirmarInfoAss(char[],char[],char[],char[],char[]);
 void menuAssinante(){
     char opcao[10];
     int crtlAssinante = 1;
-    while (crtlAssinante == 1){
+    do {
         telaAssinante();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[0] != '\n') {
+            opcao[1] = '1';
+        };
         switch (opcao[0]){
         case '1':
             cadastroAssinante();
@@ -39,7 +42,7 @@ void menuAssinante(){
         break;
        }
     }
-    
+    while (crtlAssinante == 1);
 }
 
 void telaAssinante(){
