@@ -9,11 +9,14 @@ void excluirProduto();
 int confirmarInfoProd(char[],char[],char[],char[]);
 
 void menuProdutos(){
-char opcao[10];
+    char opcao[10];
     int crtlProduto = 1;
-    while (crtlProduto == 1){
+    do {
         telaProdutos();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]){
         case '1':
             cadastroProduto();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }   
+    while (crtlProduto == 1);
 }
 
 void telaProdutos(){
@@ -133,7 +137,7 @@ void excluirProduto(){
 int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]){
     char opcao[5];
     int controleCI = 1;
-    while (controleCI == 1){
+    do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -147,6 +151,9 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
         fgets(opcao, sizeof(opcao), stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]) {
             case '1':
                 controleCI = 0;
@@ -162,5 +169,6 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
                 break;        
         }
     }
+    while (controleCI == 1);
     return 1;
 }
