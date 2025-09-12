@@ -136,7 +136,7 @@ void excluirAssinatura(){
 char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
     char opcao[5];
     int controleCI = 1;
-    while (controleCI == 1){
+    do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -150,6 +150,9 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
         fgets(opcao, sizeof(opcao), stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]) {
             case '1':
                 controleCI = 0;
@@ -165,5 +168,6 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
                 break;        
         }
     }
+    while (controleCI == 1);
     return 1;
 }
