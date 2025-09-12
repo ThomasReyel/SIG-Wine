@@ -8,43 +8,43 @@ void menuPrincipal() {
     char opcao[10];
     int ctrlMenuPrincipal = 1;
     do {
-    system("clear||cls");
-    telaPrincipal();
-    fgets(opcao,sizeof(opcao),stdin);
-    if (opcao[1] != '\n'){
-            opcao[0] = 'l';
-        };
-        switch (opcao[0]){
-        case '1':
-            menuAssinante();
-        break;
-        case '2':
-            menuAssinaturas();
-        break;
-        case '3':
-            menuPlanos();
-        break;
-        case '4':
-            menuProdutos();
-        break;
-        case '5':
-            telaRelatorios();
-            printf("\nPressione Enter para voltar para tela principal \n");
-            getchar();
-        break;
-        case '6':
-            telaFinanceiro();
-            printf("\nPressione Enter para voltar para tela principal \n");
-            getchar(); 
-        break; 
-        case '7':
-            ctrlMenuPrincipal = 0;
-        break;          
-       default:
-            printf("Você inseriu uma opção inválida\n");
-            printf("\nPressione Enter para tentar novamente \n");
-            getchar();
-        break;
+        system("clear||cls");
+        telaPrincipal();
+        fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+            case '1':
+                menuAssinante();
+            break;
+            case '2':
+                menuAssinaturas();
+            break;
+            case '3':
+                menuPlanos();
+            break;
+            case '4':
+                menuProdutos();
+            break;
+            case '5':
+                telaRelatorios();
+                printf("\nPressione Enter para voltar para tela principal \n");
+                getchar();
+            break;
+            case '6':
+                telaFinanceiro();
+                printf("\nPressione Enter para voltar para tela principal \n");
+                getchar(); 
+            break; 
+            case '7':
+                ctrlMenuPrincipal = 0;
+            break;          
+        default:
+                printf("Você inseriu uma opção inválida\n");
+                printf("\nPressione Enter para tentar novamente \n");
+                getchar();
+            break;
        }
     }
     while (ctrlMenuPrincipal == 1);

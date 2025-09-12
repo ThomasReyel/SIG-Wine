@@ -9,11 +9,14 @@ void excluirPlano();
 char confirmarInfoPlan(char[],char[],char[],char[]);
 
 void menuPlanos(){
-char opcao[10];
+    char opcao[10];
     int crtlPlano = 1;
-    while (crtlPlano == 1){
+    do {
         telaPlano();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[0] != '\n') {
+            opcao[1] = '1';
+        };
         switch (opcao[0]){
         case '1':
             cadastroPlano();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }   
+    while (crtlPlano == 1);
 }
 
 void telaPlano(){
