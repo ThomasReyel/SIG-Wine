@@ -9,11 +9,14 @@ void excluirProduto();
 int confirmarInfoProd(char[],char[],char[],char[]);
 
 void menuProdutos(){
-char opcao[10];
+    char opcao[10];
     int crtlProduto = 1;
-    while (crtlProduto == 1){
+    do {
         telaProdutos();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[0] != '\n') {
+            opcao[1] = '1';
+        };
         switch (opcao[0]){
         case '1':
             cadastroProduto();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }   
+    while (crtlProduto == 1);
 }
 
 void telaProdutos(){
