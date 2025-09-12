@@ -9,11 +9,14 @@ void excluirAssinatura();
 char confirmarInfoAsstura(char[],char[],char[],char[]);
 
 void menuAssinaturas(){
-char opcao[10];
+    char opcao[10];
     int crtlAssinatura = 1;
-    while (crtlAssinatura == 1){
+    do {
         telaAssinaturas();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[0] != '\n') {
+            opcao[1] = '1';
+        };
         switch (opcao[0]){
         case '1':
             cadastroAssinatura();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }    
+    while (crtlAssinatura == 1);
 }
 
 void telaAssinaturas(){
