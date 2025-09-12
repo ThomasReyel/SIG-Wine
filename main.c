@@ -20,7 +20,7 @@
 int main(void) {
     char ctrlNavInicial[10];
     int ctrlNavGeral = 1;
-    while (ctrlNavGeral == 1){
+    do {
         telaInicial();
         fgets(ctrlNavInicial,sizeof(ctrlNavInicial),stdin);
         if (ctrlNavInicial[1] != '\n'){
@@ -46,5 +46,6 @@ int main(void) {
         break;
        }
     }
+    while (ctrlNavGeral == 1);
     return 0;
 }
