@@ -7,7 +7,7 @@ void telaPrincipal();
 void menuPrincipal() {
     char opcao[10];
     int ctrlMenuPrincipal = 1;
-    while (ctrlMenuPrincipal == 1){
+    do {
     system("clear||cls");
     telaPrincipal();
     fgets(opcao,sizeof(opcao),stdin);
@@ -47,6 +47,7 @@ void menuPrincipal() {
         break;
        }
     }
+    while (ctrlMenuPrincipal == 1);
 }
 
 void telaPrincipal(){
