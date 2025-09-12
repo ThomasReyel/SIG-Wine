@@ -14,8 +14,8 @@ void menuProdutos(){
     do {
         telaProdutos();
         fgets(opcao,sizeof(opcao),stdin);
-        if (opcao[0] != '\n') {
-            opcao[1] = '1';
+        if (opcao[1] != '\n') {
+            opcao[0] = '1';
         };
         switch (opcao[0]){
         case '1':
