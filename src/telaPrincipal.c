@@ -11,6 +11,9 @@ void menuPrincipal() {
     system("clear||cls");
     telaPrincipal();
     fgets(opcao,sizeof(opcao),stdin);
+    if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]){
         case '1':
             menuAssinante();
