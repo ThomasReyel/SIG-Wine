@@ -7,6 +7,6 @@
     void telaFinanceiro();
     void menuPlanos();
     void menuProdutos();
-    void telaRelatorios();
+    void menuRelatorios();
 
 #endif

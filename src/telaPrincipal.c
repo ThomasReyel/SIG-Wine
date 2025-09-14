@@ -28,9 +28,7 @@ void menuPrincipal() {
                 menuProdutos();
             break;
             case '5':
-                telaRelatorios();
-                printf("\nPressione Enter para voltar para tela principal \n");
-                getchar();
+                menuRelatorios();
             break;
             case '6':
                 telaFinanceiro();
