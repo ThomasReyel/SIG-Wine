@@ -7,7 +7,7 @@ void telaSobre();
 char telaSair(){
     char opcao[10];
     int ctrlSaida = 1;
-    while (ctrlSaida == 1){
+    do {
         system("clear||cls");
         printf("╔══════════════════════════╗\n");
         printf("║        Tem certeza       ║\n");
@@ -18,6 +18,9 @@ char telaSair(){
         printf("╚══════════════════════════╝\n");
         printf("Digite sua escolha: \n");
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]){
         case '1':
             return 1;
@@ -32,8 +35,8 @@ char telaSair(){
             break;
         }
     }
+    while (ctrlSaida == 1);
     return 1;
-
 }
 
 void telaEquipe() {

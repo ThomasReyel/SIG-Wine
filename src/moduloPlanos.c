@@ -9,11 +9,14 @@ void excluirPlano();
 char confirmarInfoPlan(char[],char[],char[],char[]);
 
 void menuPlanos(){
-char opcao[10];
+    char opcao[10];
     int crtlPlano = 1;
-    while (crtlPlano == 1){
+    do {
         telaPlano();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]){
         case '1':
             cadastroPlano();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }   
+    while (crtlPlano == 1);
 }
 
 void telaPlano(){
@@ -131,7 +135,7 @@ void excluirPlano(){
 char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[]){
     char opcao[5];
     int controleCI = 1;
-    while (controleCI == 1){
+    do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -145,6 +149,9 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
         fgets(opcao, sizeof(opcao), stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]) {
             case '1':
                 controleCI = 0;
@@ -160,5 +167,6 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
                 break;        
         }
     }
+    while (controleCI == 1);
     return 1;
 }

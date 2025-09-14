@@ -9,11 +9,14 @@ void excluirAssinatura();
 char confirmarInfoAsstura(char[],char[],char[],char[]);
 
 void menuAssinaturas(){
-char opcao[10];
+    char opcao[10];
     int crtlAssinatura = 1;
-    while (crtlAssinatura == 1){
+    do {
         telaAssinaturas();
         fgets(opcao,sizeof(opcao),stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]){
         case '1':
             cadastroAssinatura();
@@ -37,6 +40,7 @@ char opcao[10];
         break;
        }
     }    
+    while (crtlAssinatura == 1);
 }
 
 void telaAssinaturas(){
@@ -132,7 +136,7 @@ void excluirAssinatura(){
 char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
     char opcao[5];
     int controleCI = 1;
-    while (controleCI == 1){
+    do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
@@ -146,6 +150,9 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
         fgets(opcao, sizeof(opcao), stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
         switch (opcao[0]) {
             case '1':
                 controleCI = 0;
@@ -161,5 +168,6 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
                 break;        
         }
     }
+    while (controleCI == 1);
     return 1;
 }
