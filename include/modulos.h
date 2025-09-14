@@ -1,10 +1,9 @@
 #ifndef MODULOS_H
     #define MODULOS_H
 
-    //telas iniciais
     void menuAssinante();
     void menuAssinaturas();
-    void telaFinanceiro();
+    void menuFinanceiro();
     void menuPlanos();
     void menuProdutos();
     void menuRelatorios();
