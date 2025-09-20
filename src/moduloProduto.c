@@ -7,7 +7,7 @@ void menuProdutos(){
     int crtlProduto = 1;
     do {
         telaProdutos();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
@@ -129,7 +129,7 @@ void excluirProduto(){
 }
 
 int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]){
-    char opcao[5];
+    char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
@@ -144,7 +144,7 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
-        fgets(opcao, sizeof(opcao), stdin);
+        fgets(opcao, 10, stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };

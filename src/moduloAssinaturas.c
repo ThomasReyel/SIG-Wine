@@ -7,7 +7,7 @@ void menuAssinaturas(){
     int crtlAssinatura = 1;
     do {
         telaAssinaturas();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
@@ -128,7 +128,7 @@ void excluirAssinatura(){
 }
 
 char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
-    char opcao[5];
+    char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
@@ -143,7 +143,7 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
-        fgets(opcao, sizeof(opcao), stdin);
+        fgets(opcao,10, stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };

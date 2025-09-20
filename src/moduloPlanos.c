@@ -7,7 +7,7 @@ void menuPlanos(){
     int crtlPlano = 1;
     do {
         telaPlano();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
@@ -127,7 +127,7 @@ void excluirPlano(){
 }
 
 char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[]){
-    char opcao[5];
+    char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
@@ -142,7 +142,7 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
-        fgets(opcao, sizeof(opcao), stdin);
+        fgets(opcao,10, stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
