@@ -1,12 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-void telaAssinaturas();
-void menuAssinaturas();
-void cadastroAssinatura();
-void checarAssinaturas();
-void alterarAssinatura();
-void excluirAssinatura();
-char confirmarInfoAsstura(char[],char[],char[],char[]);
+#include "moduloAssinaturas.h"
 
 void menuAssinaturas(){
     char opcao[10];

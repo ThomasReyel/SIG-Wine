@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-void telaFinanceiro();
-void menuFinanceiro();
+#include "moduloFinanceiro.h"
 
 void menuFinanceiro(){
     char opcao[10];

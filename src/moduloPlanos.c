@@ -1,12 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-void telaPlano();
-void menuPlanos();
-void cadastroPlano();
-void checarPlanos();
-void alterarPlano();
-void excluirPlano();
-char confirmarInfoPlan(char[],char[],char[],char[]);
+#include "moduloPlanos.h"
 
 void menuPlanos(){
     char opcao[10];

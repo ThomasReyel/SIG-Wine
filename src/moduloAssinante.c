@@ -1,14 +1,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-void telaAssinante();
-void menuAssinante();
-void cadastroAssinante();
-void checarAssinantes();
-void alterarAssinante();
-void excluirAssinante();
-char confirmarInfoAss(char[],char[],char[],char[],char[]);
-//void tratarStrings(char[],char[],char[],char[],char[]);
+#include "moduloAssinantes.h"
 
 void menuAssinante(){
     char opcao[10];

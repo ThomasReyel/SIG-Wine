@@ -1,12 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
-void telaProdutos();
-void menuProdutos();
-void cadastroProduto();
-void checarProdutos();
-void alterarProduto();
-void excluirProduto();
-int confirmarInfoProd(char[],char[],char[],char[]);
+#include "moduloProdutos.h"
 
 void menuProdutos(){
     char opcao[10];

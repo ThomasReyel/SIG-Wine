@@ -1,7 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
-void telaRelatorios();
-void menuRelatorios();
+#include "moduloRelatorios.h"
 
 void menuRelatorios(){
     char opcao[10];
