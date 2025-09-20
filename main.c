@@ -5,7 +5,7 @@
 ///                  Disciplina DCT1106 -- Programação                      ///
 ///                  Projeto Sistema de Gestão Escolar                      ///
 ///////////////////////////////////////////////////////////////////////////////
-///                                Semana 5                                 ///
+///                                Semana 6                                 ///
 ///////////////////////////////////////////////////////////////////////////////
 #include <stdio.h>
 #include <stdlib.h>
@@ -22,7 +22,7 @@ int main(void) {
     int ctrlNavGeral = 1;
     do {
         telaInicial();
-        fgets(ctrlNavInicial,sizeof(ctrlNavInicial),stdin);
+        fgets(ctrlNavInicial,10,stdin);
         if (ctrlNavInicial[1] != '\n'){
             ctrlNavInicial[0] = 'l';
         };

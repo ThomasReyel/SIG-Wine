@@ -1,21 +1,14 @@
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
-void telaAssinante();
-void menuAssinante();
-void cadastroAssinante();
-void checarAssinantes();
-void alterarAssinante();
-void excluirAssinante();
-char confirmarInfoAss(char[],char[],char[],char[],char[]);
-//void tratarStrings(char[],char[],char[],char[],char[]);
+#include "moduloAssinantes.h"
 
 void menuAssinante(){
     char opcao[10];
     int crtlAssinante = 1;
     do {
         telaAssinante();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
@@ -139,7 +132,7 @@ void excluirAssinante(){
 }
 
 char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
-    char opcao[5];
+    char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
@@ -155,7 +148,7 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
-        fgets(opcao, sizeof(opcao), stdin);
+        fgets(opcao,10, stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };

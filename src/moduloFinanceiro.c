@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-void telaFinanceiro();
-void menuFinanceiro();
+#include "moduloFinanceiro.h"
 
 void menuFinanceiro(){
     char opcao[10];
     int crtlFinanceiro= 1;
     do {
         telaFinanceiro();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };

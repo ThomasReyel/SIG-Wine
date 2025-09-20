@@ -1,14 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-void telaRelatorios();
-void menuRelatorios();
+#include "moduloRelatorios.h"
 
 void menuRelatorios(){
     char opcao[10];
     int crtlRelatorio = 1;
     do {
         telaRelatorios();
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };

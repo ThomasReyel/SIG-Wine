@@ -17,7 +17,7 @@ char telaSair(){
         printf("║ 2. Sim                   ║\n");
         printf("╚══════════════════════════╝\n");
         printf("Digite sua escolha: \n");
-        fgets(opcao,sizeof(opcao),stdin);
+        fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
