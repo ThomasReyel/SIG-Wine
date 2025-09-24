@@ -52,19 +52,19 @@ void telaAssinaturas(){
 }
 
 void cadastroAssinatura(){
-    char idAssinante[50];
-    char idPlano[50];
-    char dataAssinatura[10];
-    char dataVencimento[10];
+    char idAssinante[5];
+    char idPlano[5];
+    char dataAssinatura[20];
+    char dataVencimento[20];
 
     printf("Insira o id do assinante:\n");
-    fgets(idAssinante,sizeof(idAssinante),stdin);
+    fgets(idAssinante,5,stdin);
     printf("Insira o id de Planos:\n");
-    fgets(idPlano,sizeof(idPlano),stdin);
+    fgets(idPlano,5,stdin);
     printf("Insira a data de assinatura (dd/mm/aa):\n");
-    fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
+    fgets(dataAssinatura,20,stdin);
     printf("Insira o tempo limite de pagamento (dias):\n");
-    fgets(dataVencimento,sizeof(dataVencimento),stdin);
+    fgets(dataVencimento,20,stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
@@ -89,22 +89,22 @@ void checarAssinaturas(){
 }
 
 void alterarAssinatura(){
-    char idAssinante[50];
-    char idPlano[50];
-    char dataAssinatura[10];
-    char dataVencimento[10];
+    char idAssinante[5];
+    char idPlano[5];
+    char dataAssinatura[20];
+    char dataVencimento[20];
     char id[5];
 
     printf("Insira o id da assinatura a ser alterada: \n");
     fgets(id,sizeof(id),stdin);
     printf("Insira o novo id do assinante:\n");
-    fgets(idAssinante,sizeof(idAssinante),stdin);
+    fgets(idAssinante,5,stdin);
     printf("Insira o novo id de Planos:\n");
-    fgets(idPlano,sizeof(idPlano),stdin);
+    fgets(idPlano,5,stdin);
     printf("Insira a nova data de assinatura (dd/mm/aa):\n");
-    fgets(dataAssinatura,sizeof(dataAssinatura),stdin);
+    fgets(dataAssinatura,20,stdin);
     printf("Insira o novo tempo limite de pagamento (dias):\n");
-    fgets(dataVencimento,sizeof(dataVencimento),stdin);
+    fgets(dataVencimento,20,stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
