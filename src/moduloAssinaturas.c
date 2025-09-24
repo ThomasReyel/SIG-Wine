@@ -135,10 +135,10 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ ID do Assinante: %s", idAssinante);
-        printf("║ ID do Plano: %s", idPlano);
-        printf("║ Data da Assinatura: %s", dataAssinatura);
-        printf("║ Período de Vencimento: %s", dataVencimento);
+        printf("║ ID do Assinante: %s \n", idAssinante);
+        printf("║ ID do Plano: %s \n", idPlano);
+        printf("║ Data da Assinatura: %s \n", dataAssinatura);
+        printf("║ Período de Vencimento: %s \n", dataVencimento);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");

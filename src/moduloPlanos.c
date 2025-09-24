@@ -134,10 +134,10 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s", nome);
-        printf("║ Preço do Plano: %s", preco);
-        printf("║ Período do plano: %s", periodo);
-        printf("║ Produtos contidos: %s", produtos);
+        printf("║ Nome do Plano: %s \n", nome);
+        printf("║ Preço do Plano: %s \n", preco);
+        printf("║ Período do plano: %s \n", periodo);
+        printf("║ Produtos contidos: %s \n", produtos);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");

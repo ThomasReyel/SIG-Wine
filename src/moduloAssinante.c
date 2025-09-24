@@ -140,11 +140,11 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome: %s", nome);
-        printf("║ Email: %s", email);
-        printf("║ CPF: %s", cpf);
-        printf("║ Data: %s", dataNascimento);
-        printf("║ Endereço: %s", endereco);
+        printf("║ Nome: %s \n", nome);
+        printf("║ Email: %s \n", email);
+        printf("║ CPF: %s \n", cpf);
+        printf("║ Data: %s \n", dataNascimento);
+        printf("║ Endereço: %s \n", endereco);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
