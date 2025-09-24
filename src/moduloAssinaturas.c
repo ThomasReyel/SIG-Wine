@@ -52,6 +52,7 @@ void telaAssinaturas(){
 }
 
 void cadastroAssinatura(){
+    int id;
     char idAssinante[5];
     char idPlano[5];
     char dataAssinatura[20];
