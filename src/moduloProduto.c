@@ -53,19 +53,20 @@ void telaProdutos(){
 
 
 void cadastroProduto(){
-    char nome[50];
-    char tipo[50];
-    char marca[12];
-    char anoProducao[10];
+    int id;
+    char nome[100];
+    char tipo[100];
+    char marca[100];
+    char anoProducao[20];
 
     printf("Insira o nome do vinho:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,100,stdin);
     printf("Insira o tipo:\n");
-    fgets(tipo,sizeof(tipo),stdin);
+    fgets(tipo,100,stdin);
     printf("Insira a marca:\n");
-    fgets(marca,sizeof(marca),stdin);
+    fgets(marca,100,stdin);
     printf("Insira o ano de produção do vinho:\n");
-    fgets(anoProducao,sizeof(anoProducao),stdin);
+    fgets(anoProducao,20,stdin);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
@@ -89,23 +90,23 @@ void checarProdutos(){
 }
 
 void alterarProduto(){
-    char nome[50];
-    char tipo[50];
-    char marca[12];
-    char anoProducao[10];
+    char nome[100];
+    char tipo[100];
+    char marca[100];
+    char anoProducao[20];
     char id[5];
 
     printf("Insira o id do produto a ser alterado: \n");
     fgets(id,sizeof(id),stdin);
 
     printf("Insira o novo nome do vinho:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,100,stdin);
     printf("Insira o novo tipo:\n");
-    fgets(tipo,sizeof(tipo),stdin);
+    fgets(tipo,100,stdin);
     printf("Insira a nova marca:\n");
-    fgets(marca,sizeof(marca),stdin);
+    fgets(marca,100,stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
-    fgets(anoProducao,sizeof(anoProducao),stdin);
+    fgets(anoProducao,20,stdin);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
@@ -135,10 +136,10 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s", nome);
-        printf("║ Preço do Plano: %s", tipo);
-        printf("║ Período do plano: %s", marca);
-        printf("║ Produtos contidos: %s", anoProducao);
+        printf("║ Nome do Plano: %s \n", nome);
+        printf("║ Preço do Plano: %s \n", tipo);
+        printf("║ Período do plano: %s \n", marca);
+        printf("║ Produtos contidos: %s \n", anoProducao);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");

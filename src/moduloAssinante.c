@@ -54,23 +54,25 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    char nome[50];
-    char email[50];
-    char cpf[12];
-    char dataNascimento[10];
-    char endereco[50];
+    int id;
+    char nome[100];
+    char email[100];
+    char cpf[20];
+    char dataNascimento[20];
+    char endereco[100];
     printf("Insira o nome do Assinante:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,50,stdin);
     printf("Insira o email:\n");
-    fgets(email,sizeof(email),stdin);
+    fgets(email,50,stdin);
     printf("Insira o CPF:\n");
-    fgets(cpf,sizeof(cpf),stdin);
+    fgets(cpf,20,stdin);
     printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(dataNascimento,sizeof(dataNascimento),stdin);
+    fgets(dataNascimento,20,stdin);
     printf("Insira o endereço:\n");
-    fgets(endereco,sizeof(endereco),stdin);
+    fgets(endereco,100,stdin);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1){
+ 
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -95,22 +97,22 @@ void checarAssinantes(){
 void alterarAssinante(){
     char nome[50];
     char email[50];
-    char cpf[12];
-    char dataNascimento[10];
-    char endereco[50];
+    char cpf[20];
+    char dataNascimento[20];
+    char endereco[100];
     char id[5];
 
     printf("Insira o id do cliente a ser alterado: \n");
     fgets(id,sizeof(id),stdin);
 
     printf("Insira o novo nome do Assinante:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,50,stdin);
     printf("Insira o novo email:\n");
-    fgets(email,sizeof(email),stdin);
+    fgets(email,50,stdin);
     printf("Insira o novo CPF:\n");
-    fgets(cpf,sizeof(cpf),stdin);
+    fgets(cpf,20,stdin);
     printf("Insira a novo data de nascimento (dd/mm/aa):\n");
-    fgets(dataNascimento,sizeof(dataNascimento),stdin);
+    fgets(dataNascimento,20,stdin);
     printf("Insira o novo endereço:\n");
     fgets(endereco,sizeof(endereco),stdin);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
@@ -138,11 +140,11 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome: %s", nome);
-        printf("║ Email: %s", email);
-        printf("║ CPF: %s", cpf);
-        printf("║ Data: %s", dataNascimento);
-        printf("║ Endereço: %s", endereco);
+        printf("║ Nome: %s \n", nome);
+        printf("║ Email: %s \n", email);
+        printf("║ CPF: %s \n", cpf);
+        printf("║ Data: %s \n", dataNascimento);
+        printf("║ Endereço: %s \n", endereco);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -170,14 +172,3 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
     while (controleCI == 1);
     return 1;
 }
-
-/*void tratarStrings(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
-        Assinantes reg;
-        reg.id = totalAssinantes;
-        strcpy(reg.nome, nome);
-        strcpy(reg.email, email);
-        strcpy(reg.cpf, cpf);
-        strcpy(reg.dataNascimento, dataNascimento);
-        strcpy(reg.endereco, endereco);
-        SetAssinantes(reg);
-}*/

@@ -52,19 +52,20 @@ void telaPlano(){
 }
 
 void cadastroPlano(){
-    char nome[50];
+    int id;
+    char nome[100];
     char preco[50];
-    char periodo[12];
+    char periodo[20];
     char produtos[10];
 
     printf("Insira o nome do plano:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,100,stdin);
     printf("Insira o preço:\n");
-    fgets(preco,sizeof(preco),stdin);
+    fgets(preco,50,stdin);
     printf("Insira a período:\n");
-    fgets(periodo,sizeof(periodo),stdin);
+    fgets(periodo,20,stdin);
     printf("Insira a lista de produtos:\n");
-    fgets(produtos,sizeof(produtos),stdin);
+    fgets(produtos,10,stdin);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
         printf("Cadastro realizado com sucesso!\n");
@@ -88,22 +89,22 @@ void checarPlanos(){
 }
 
 void alterarPlano(){    
-    char nome[50];
+    char nome[100];
     char preco[50];
-    char periodo[12];
+    char periodo[20];
     char produtos[10];
     char id[5];
 
     printf("Insira o id do plano a ser alterado: \n");
-    fgets(id,sizeof(id),stdin);
+    fgets(id,5,stdin);
     printf("Insira o novo nome do plano:\n");
-    fgets(nome,sizeof(nome),stdin);
+    fgets(nome,100,stdin);
     printf("Insira o novo preço:\n");
-    fgets(preco,sizeof(preco),stdin);
+    fgets(preco,50,stdin);
     printf("Insira o novo período:\n");
-    fgets(periodo,sizeof(periodo),stdin);
+    fgets(periodo,20,stdin);
     printf("Insira a nova lista de produtos:\n");
-    fgets(produtos,sizeof(produtos),stdin);
+    fgets(produtos,10,stdin);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
         printf("Atualização realizada com sucesso!\n");
@@ -133,10 +134,10 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s", nome);
-        printf("║ Preço do Plano: %s", preco);
-        printf("║ Período do plano: %s", periodo);
-        printf("║ Produtos contidos: %s", produtos);
+        printf("║ Nome do Plano: %s \n", nome);
+        printf("║ Preço do Plano: %s \n", preco);
+        printf("║ Período do plano: %s \n", periodo);
+        printf("║ Produtos contidos: %s \n", produtos);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
