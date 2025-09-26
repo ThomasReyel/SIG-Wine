@@ -2,6 +2,7 @@
 #include <string.h>
 #include <stdio.h>
 #include "moduloAssinantes.h"
+#include "util.h"
 
 void menuAssinante(){
     char opcao[10];
@@ -70,9 +71,14 @@ void cadastroAssinante(){
     fgets(dataNascimento,20,stdin);
     printf("Insira o endereço:\n");
     fgets(endereco,100,stdin);
+    tratarString(nome);
+    tratarString(email);
+    tratarString(cpf);
+    tratarString(dataNascimento);
+    tratarString(endereco);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1){
- 
+        salvarAssinantes(nome,email,cpf,dataNascimento,endereco);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -171,4 +177,23 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
     }
     while (controleCI == 1);
     return 1;
+}
+
+void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+    FILE *arqAssinantes;
+
+    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
+    if (arqAssinantes == NULL){
+        printf("Falha em abrir o arquivo");
+        printf("Pressione Enter para voltar para o menu");
+        getchar();
+        return;
+    }
+    fprintf(arqAssinantes,"%s;", nome);
+    fprintf(arqAssinantes,"%s;", email);
+    fprintf(arqAssinantes,"%s;", cpf);
+    fprintf(arqAssinantes,"%s;", dataNascimento);
+    fprintf(arqAssinantes,"%s\n", endereco);
+    fclose(arqAssinantes);
+
 }

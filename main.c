@@ -16,10 +16,15 @@
 #include "moduloProdutos.h"
 #include "moduloRelatorios.h"
 #include "moduloFinanceiro.h"
+#include "util.h"
 
 int main(void) {
     char ctrlNavInicial[10];
     int ctrlNavGeral = 1;
+    inicializarAssinantes();
+    inicializarAssinaturas();
+    inicializarPlanos();
+    inicializarProdutos();
     do {
         telaInicial();
         fgets(ctrlNavInicial,10,stdin);

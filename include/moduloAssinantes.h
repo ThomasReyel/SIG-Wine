@@ -7,5 +7,6 @@
     void alterarAssinante();
     void excluirAssinante();
     char confirmarInfoAss(char[],char[],char[],char[],char[]);
+    void salvarAssinantes(char[],char[],char[],char[],char[]);
 
 #endif
