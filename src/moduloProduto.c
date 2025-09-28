@@ -67,8 +67,14 @@ void cadastroProduto(){
     fgets(marca,100,stdin);
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,20,stdin);
+    tratarString(nome);
+    tratarString(id);
+    tratarString(tipo);
+    tratarString(marca);
+    tratarString(anoProducao);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
+        salvarProdutos(nome,tipo,marca,anoProducao);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -107,8 +113,14 @@ void alterarProduto(){
     fgets(marca,100,stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,20,stdin);
+    tratarString(nome);
+    tratarString(id);
+    tratarString(tipo);
+    tratarString(marca);
+    tratarString(anoProducao);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
+        salvarProdutos(nome,tipo,marca,anoProducao);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -166,4 +178,24 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
     }
     while (controleCI == 1);
     return 1;
+}
+
+
+void salvarProdutos(char id[], char nome[], char tipo[], char marca[], char anoProducao[]){
+    FILE *arqProdutos;
+
+    arqProdutos = fopen("./dados/dadosProdutos.csv", "at");
+    if (arqProdutos == NULL){
+        printf("Falha em abrir o arquivo");
+        printf("Pressione Enter para voltar para o menu");
+        getchar();
+        return;
+    }
+    fprintf(arqProdutos,"%s;", id);
+    fprintf(arqProdutos,"%s;", nome);
+    fprintf(arqProdutos,"%s;", tipo);
+    fprintf(arqProdutos,"%s;", marca);
+    fprintf(arqProdutos,"%s\n", anoProducao);
+    fclose(arqProdutos);
+
 }
