@@ -68,6 +68,7 @@ void cadastroAssinatura(){
     fgets(dataVencimento,20,stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
+        salvarAssinaturas(id,idAssinante,idPlano,dataAssinatura,dataVencimento);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -121,6 +122,7 @@ void alterarAssinatura(){
 
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
+        salvarAssinaturas(id,idAssinante,idPlano,dataAssinatura,dataVencimento);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  

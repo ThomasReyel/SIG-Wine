@@ -68,6 +68,7 @@ void cadastroPlano(){
     fgets(produtos,10,stdin);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
+        salvarPlanos(id,nome,preco,periodo,produtos);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -112,6 +113,7 @@ void alterarPlano(){
     tratarString(nome);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
+        salvarPlanos(id,nome,preco,periodo,produtos);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  

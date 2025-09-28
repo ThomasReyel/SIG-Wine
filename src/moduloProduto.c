@@ -74,7 +74,7 @@ void cadastroProduto(){
     tratarString(anoProducao);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
-        salvarProdutos(nome,tipo,marca,anoProducao);
+        salvarProdutos(id,nome,tipo,marca,anoProducao);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -120,7 +120,7 @@ void alterarProduto(){
     tratarString(anoProducao);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
-        salvarProdutos(nome,tipo,marca,anoProducao);
+        salvarProdutos(id,nome,tipo,marca,anoProducao);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
