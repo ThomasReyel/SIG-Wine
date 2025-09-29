@@ -8,5 +8,6 @@
     void excluirAssinatura(void);
     char confirmarInfoAsstura(char[],char[],char[],char[]);
     void salvarAssinaturas(int,char[],char[],char[],char[]);
+    void recuperarAssinatura(char[]);
 
 #endif

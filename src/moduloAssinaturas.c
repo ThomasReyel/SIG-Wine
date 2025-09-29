@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <string.h>
 #include "moduloAssinaturas.h"
 #include "util.h"
 
@@ -85,13 +86,10 @@ void cadastroAssinatura(){
 }
 
 void checarAssinaturas(){
-    printf("╔══════════════════════════════════════════════════════════════════════════════════════╗\n");
-    printf("║                                       Assinaturas                                    ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════════════════════════╣\n");
-    printf("║ ID: 1 | nome do assinante: |nome do plano: |data de assinatura: |data pagamento:     ║\n");
-    printf("╚══════════════════════════════════════════════════════════════════════════════════════╝\n");
-    printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
-    getchar();   
+    char id[20];
+    printf("Insira o id do assinatura: \n");
+    fgets(id,20,stdin);
+    recuperarAssinatura(id);
 }
 
 void alterarAssinatura(){
@@ -128,18 +126,6 @@ void alterarAssinatura(){
         getchar();
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
 
 void excluirAssinatura(){
     char id[5];
@@ -210,7 +196,7 @@ void salvarAssinaturas(int id, char idAssinante[], char idPlano[], char dataAssi
 
 }
 
-void recuperarAssinante(char idCom[]){
+void recuperarAssinatura(char idCom[]){
     FILE *arq;
     char id[20];
     char idAssinante[20];
@@ -227,16 +213,17 @@ void recuperarAssinante(char idCom[]){
         return;
     }
     while (!feof(arq)){
+        fscanf(arq,"%[^;]", id);
+        fgetc(arq);
         fscanf(arq,"%[^;]", idAssinante);
         fgetc(arq);
         fscanf(arq,"%[^;]", idPlano);
         fgetc(arq);
         fscanf(arq,"%[^;]", dataAssinatura);
         fgetc(arq);
-        fscanf(arq,"%[^;]", dataVencimento);
+        fscanf(arq,"%[^\n]", dataVencimento);
         fgetc(arq);
         if(strcmp(id, idCom) == 0){
-            printf("Pessoa encontrado\n");
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinatura                          ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
@@ -246,7 +233,7 @@ void recuperarAssinante(char idCom[]){
             printf("║ CPF: %s \n", dataAssinatura);
             printf("║ Data: %s \n", dataVencimento);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+            printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
             getchar();
             fclose(arq);
             return;
@@ -254,6 +241,6 @@ void recuperarAssinante(char idCom[]){
     }
     fclose(arq);
     printf("Assinatura não encontrado!");
-    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
     getchar();
 }

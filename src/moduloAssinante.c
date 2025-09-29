@@ -226,7 +226,6 @@ void recuperarAssinante(char idCom[]){
         fscanf(arq,"%[^\n]", endereco);
         fgetc(arq);
         if(strcmp(idAssinante, idCom) == 0){
-            printf("Pessoa encontrado\n");
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinantes                          ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
