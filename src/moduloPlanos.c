@@ -2,6 +2,7 @@
 #include <stdio.h>
 #include "moduloPlanos.h"
 #include "util.h"
+#include <string.h>
 
 void menuPlanos(){
     char opcao[10];
@@ -84,15 +85,11 @@ void cadastroPlano(){
 }
 
 void checarPlanos(){
-    printf("╔════════════════════════════════════════════════════════╗\n");
-    printf("║                          Planos                        ║\n");
-    printf("╠════════════════════════════════════════════════════════╣\n");
-    printf("║ ID: 1 | Nome: |Período: |Preço: |IDs dos produtos:     ║\n");
-    printf("╚════════════════════════════════════════════════════════╝\n");
-    printf("\nPressione Enter para voltar ao módulo de planos \n");
-    getchar();   
+    char id[20];
+    printf("Insira o id do plano: \n");
+    fgets(id,20,stdin);
+    recuperarPlano(id);
 }
-
 void alterarPlano(){    
     char nome[100];
     char preco[50];
@@ -123,12 +120,8 @@ void alterarPlano(){
 }
 
 void excluirPlano(){
-    char id[5];
-
-    printf("║ Insira o id do plano a ser excluído: \n");
-    fgets(id,sizeof(id),stdin);
-    printf("║ plano excluído com sucesso!\n");
-    printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
+    printf("Plano excluído com sucesso!\n");
+    printf("\n> Pressione Enter para voltar ao módulo de assinantes <\n");
     getchar();
 }
 
@@ -192,3 +185,57 @@ void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produ
     fclose(arqPlanos);
 
 }
+
+
+
+
+void recuperarPlano(char idCom[]){
+    FILE *arq;
+    char id[20];
+    char nome[50];
+    char preco[50];
+    char periodo[20];
+    char produtos[20];
+    //Essa linha de baixo foi retirara do chatgpt
+    idCom[strcspn(idCom, "\n")] = 0;
+
+    arq = fopen("./dados/dadosPlanos.csv", "rt");
+    if (arq == NULL){
+        printf("não deu certo");
+        getchar();
+        return;
+    }
+    while (!feof(arq)){
+        fscanf(arq,"%[^;]", id);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", nome);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", preco);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", periodo);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", produtos);
+        fgetc(arq);
+       
+        if(strcmp(id, idCom) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                                Planos                            ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %s \n", id);
+            printf("║ Nome: %s \n", nome);
+            printf("║ Preço: %s \n", preco);
+            printf("║ Período: %s \n", periodo);
+            printf("║ Produtos: %s \n", produtos);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+            getchar();
+            fclose(arq);
+            return;
+        }
+    }
+    fclose(arq);
+    printf("Plano não encontrado!");
+    printf("\nPressione Enter para voltar ao módulo de planos \n");
+    getchar();
+}
+    
