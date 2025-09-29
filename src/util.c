@@ -73,3 +73,32 @@ void inicializarPlanos(){
         fclose(arqPlanos);
     }
 }
+
+int recuperarId(void) {
+    FILE *arq = fopen("./dados/dadosAssinantes.csv", "rt");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        getchar();
+        return -1; // erro
+    }
+
+    int ultimoId = -1;
+    char linha[256];
+
+    while (fgets(linha, sizeof(linha), arq)) {
+        int id;
+        // lê o primeiro campo (antes do ;)
+        if (sscanf(linha, "%d;", &id) == 1) {
+            ultimoId = id;
+        }
+    }
+
+    fclose(arq);
+
+    // Se não encontrou nada, retorna 0 como primeiro id
+    if (ultimoId == -1) {
+        return 0;
+    }
+
+    return ultimoId + 1; // retorna o próximo id disponível
+}

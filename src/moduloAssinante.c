@@ -55,7 +55,8 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    int id;
+    FILE *arqAssinantes;
+    int id = recuperarId();
     char nome[100];
     char email[100];
     char cpf[20];
@@ -78,7 +79,7 @@ void cadastroAssinante(){
     tratarString(endereco);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1){
-        salvarAssinantes(nome,email,cpf,dataNascimento,endereco);
+        salvarAssinantes(id,nome,email,cpf,dataNascimento,endereco);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -176,9 +177,8 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
     return 1;
 }
 
-void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+void salvarAssinantes(int id,char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
     FILE *arqAssinantes;
-
     arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
     if (arqAssinantes == NULL){
         printf("Falha em abrir o arquivo");
@@ -186,6 +186,7 @@ void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento
         getchar();
         return;
     }
+    fprintf(arqAssinantes,"%d;", id);
     fprintf(arqAssinantes,"%s;", nome);
     fprintf(arqAssinantes,"%s;", email);
     fprintf(arqAssinantes,"%s;", cpf);

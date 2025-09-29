@@ -5,4 +5,5 @@
     void inicializarAssinaturas(void);
     void inicializarPlanos(void);
     void inicializarProdutos(void);
+    int recuperarId(void);
 #endif
