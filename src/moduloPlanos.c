@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloPlanos.h"
+#include "util.h"
 
 void menuPlanos(){
     char opcao[10];
@@ -52,12 +53,11 @@ void telaPlano(){
 }
 
 void cadastroPlano(){
-    int id;
+    int id = recuperarIdPlanos();
     char nome[100];
     char preco[50];
     char periodo[20];
     char produtos[10];
-
     printf("Insira o nome do plano:\n");
     fgets(nome,100,stdin);
     printf("Insira o preço:\n");
@@ -66,6 +66,10 @@ void cadastroPlano(){
     fgets(periodo,20,stdin);
     printf("Insira a lista de produtos:\n");
     fgets(produtos,10,stdin);
+    tratarString(preco);
+    tratarString(periodo);
+    tratarString(produtos);
+    tratarString(nome);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
         salvarPlanos(id,nome,preco,periodo,produtos);
@@ -106,14 +110,8 @@ void alterarPlano(){
     fgets(periodo,20,stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,10,stdin);
-    tratarString(id);
-    tratarString(preco);
-    tratarString(periodo);
-    tratarString(produtos);
-    tratarString(nome);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
-        salvarPlanos(id,nome,preco,periodo,produtos);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -176,7 +174,7 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
 
 
 
-void salvarPlanos(char id[], char nome[], char preco[], char periodos[], char produtos[]){
+void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produtos[]){
     FILE *arqPlanos;
 
     arqPlanos = fopen("./dados/dadosPlano.csv", "at");
@@ -186,7 +184,7 @@ void salvarPlanos(char id[], char nome[], char preco[], char periodos[], char pr
         getchar();
         return;
     }
-    fprintf(arqPlanos,"%s;", id);
+    fprintf(arqPlanos,"%d;", id);
     fprintf(arqPlanos,"%s;", nome);
     fprintf(arqPlanos,"%s;", preco);
     fprintf(arqPlanos,"%s;", periodos);

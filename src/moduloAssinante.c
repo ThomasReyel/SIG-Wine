@@ -55,7 +55,7 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    int id;
+    int id = recuperarIdAssinantes();
     char nome[100];
     char email[100];
     char cpf[20];
@@ -78,7 +78,7 @@ void cadastroAssinante(){
     tratarString(endereco);
     int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
     if ( confirmador == 1){
-        salvarAssinantes(nome,email,cpf,dataNascimento,endereco);
+        salvarAssinantes(id,nome,email,cpf,dataNascimento,endereco);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -91,13 +91,10 @@ void cadastroAssinante(){
 }
 
 void checarAssinantes(){
-    printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                              Assinantes                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╝\n");
-    printf("║ .Nome: |Email: |CPF: |Endereço: | Data de Nascimento:  \n");
-    printf("╚═══════════════════════════════════════════════════════════════════\n");
-    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-    getchar();
+    char id[20];
+    printf("Insira o id do assinante: \n");
+    fgets(id,20,stdin);
+    recuperarAssinante(id);
 }
 
 void alterarAssinante(){
@@ -106,10 +103,10 @@ void alterarAssinante(){
     char cpf[20];
     char dataNascimento[20];
     char endereco[100];
-    char id[5];
+    char id[20];
 
     printf("Insira o id do cliente a ser alterado: \n");
-    fgets(id,sizeof(id),stdin);
+    fgets(id,20,stdin);
 
     printf("Insira o novo nome do Assinante:\n");
     fgets(nome,50,stdin);
@@ -179,9 +176,8 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
     return 1;
 }
 
-void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+void salvarAssinantes(int id,char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
     FILE *arqAssinantes;
-
     arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
     if (arqAssinantes == NULL){
         printf("Falha em abrir o arquivo");
@@ -189,6 +185,7 @@ void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento
         getchar();
         return;
     }
+    fprintf(arqAssinantes,"%d;", id);
     fprintf(arqAssinantes,"%s;", nome);
     fprintf(arqAssinantes,"%s;", email);
     fprintf(arqAssinantes,"%s;", cpf);
@@ -197,3 +194,57 @@ void salvarAssinantes(char nome[], char email[], char cpf[], char dataNascimento
     fclose(arqAssinantes);
 
 }
+
+void recuperarAssinante(char idCom[]){
+    FILE *arq;
+    char idAssinante[20];
+    char nome[50];
+    char email[50];
+    char cpf[20];
+    char dataNascimento[20];
+    char endereco[50];
+    //Essa linha de baixo foi retirara do chatgpt
+    idCom[strcspn(idCom, "\n")] = 0;
+
+    arq = fopen("./dados/dadosAssinantes.csv", "rt");
+    if (arq == NULL){
+        printf("não deu certo");
+        getchar();
+        return;
+    }
+    while (!feof(arq)){
+        fscanf(arq,"%[^;]", idAssinante);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", nome);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", email);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", cpf);
+        fgetc(arq);
+        fscanf(arq,"%[^;]", dataNascimento);
+        fgetc(arq);
+        fscanf(arq,"%[^\n]", endereco);
+        fgetc(arq);
+        if(strcmp(idAssinante, idCom) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Assinantes                          ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %s \n", idAssinante);
+            printf("║ Nome: %s \n", nome);
+            printf("║ Email: %s \n", email);
+            printf("║ CPF: %s \n", cpf);
+            printf("║ Data: %s \n", dataNascimento);
+            printf("║ Endereço: %s \n", endereco);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+            getchar();
+            fclose(arq);
+            return;
+        }
+    }
+    fclose(arq);
+    printf("Assianante não encontrado!");
+    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    getchar();
+}
+    
