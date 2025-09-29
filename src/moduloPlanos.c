@@ -68,6 +68,7 @@ void cadastroPlano(){
     fgets(produtos,10,stdin);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
+        salvarPlanos(id,nome,preco,periodo,produtos);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -105,8 +106,14 @@ void alterarPlano(){
     fgets(periodo,20,stdin);
     printf("Insira a nova lista de produtos:\n");
     fgets(produtos,10,stdin);
+    tratarString(id);
+    tratarString(preco);
+    tratarString(periodo);
+    tratarString(produtos);
+    tratarString(nome);
     int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
     if ( confirmador == 1){
+        salvarPlanos(id,nome,preco,periodo,produtos);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -164,4 +171,26 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
     }
     while (controleCI == 1);
     return 1;
+}
+
+
+
+
+void salvarPlanos(char id[], char nome[], char preco[], char periodos[], char produtos[]){
+    FILE *arqPlanos;
+
+    arqPlanos = fopen("./dados/dadosPlano.csv", "at");
+    if (arqPlanos == NULL){
+        printf("Falha em abrir o arquivo");
+        printf("Pressione Enter para voltar para o menu");
+        getchar();
+        return;
+    }
+    fprintf(arqPlanos,"%s;", id);
+    fprintf(arqPlanos,"%s;", nome);
+    fprintf(arqPlanos,"%s;", preco);
+    fprintf(arqPlanos,"%s;", periodos);
+    fprintf(arqPlanos,"%s\n", produtos);
+    fclose(arqPlanos);
+
 }

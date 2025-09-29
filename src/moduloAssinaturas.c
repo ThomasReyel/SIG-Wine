@@ -68,6 +68,7 @@ void cadastroAssinatura(){
     fgets(dataVencimento,20,stdin);
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
+        salvarAssinaturas(id,idAssinante,idPlano,dataAssinatura,dataVencimento);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -97,17 +98,31 @@ void alterarAssinatura(){
     char id[5];
 
     printf("Insira o id da assinatura a ser alterada: \n");
-    fgets(id,sizeof(id),stdin);
+    fgets(id,5,stdin);
     printf("Insira o novo id do assinante:\n");
-    fgets(idAssinante,5,stdin);
+    fgets(idAssinante,20,stdin);
     printf("Insira o novo id de Planos:\n");
     fgets(idPlano,5,stdin);
     printf("Insira a nova data de assinatura (dd/mm/aa):\n");
     fgets(dataAssinatura,20,stdin);
     printf("Insira o novo tempo limite de pagamento (dias):\n");
     fgets(dataVencimento,20,stdin);
+    tratarString(id);
+    tratarString(idAssinante);
+    tratarString(dataAssinatura);
+    tratarString(dataVencimento);
+    tratarString(idPlano);
+
+    
+
+
+
+
+
+
     int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
     if ( confirmador == 1){
+        salvarAssinaturas(id,idAssinante,idPlano,dataAssinatura,dataVencimento);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -117,6 +132,18 @@ void alterarAssinatura(){
         getchar();
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
 
 void excluirAssinatura(){
     char id[5];
@@ -166,3 +193,25 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
     while (controleCI == 1);
     return 1;
 }
+
+
+void salvarAssinaturas(char id[], char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
+    FILE *arqAssinaturas;
+
+    arqAssinaturas = fopen("./dados/dadosAssinaturas.csv", "at");
+    if (arqAssinaturas == NULL){
+        printf("Falha em abrir o arquivo");
+        printf("Pressione Enter para voltar para o menu");
+        getchar();
+        return;
+    }
+    fprintf(arqAssinaturas,"%s;", id);
+    fprintf(arqAssinaturas,"%s;", idAssinante);
+    fprintf(arqAssinaturas,"%s;", idPlano);
+    fprintf(arqAssinaturas,"%s;", dataAssinatura);
+    fprintf(arqAssinaturas,"%s\n", dataVencimento);
+    fclose(arqAssinaturas);
+
+}
+
+
