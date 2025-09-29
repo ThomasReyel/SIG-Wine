@@ -74,31 +74,91 @@ void inicializarPlanos(){
     }
 }
 
-int recuperarId(void) {
+// função originalmente vinda do chatgpt, mas alterada para se encaixar melhor ao projeto
+int recuperarIdAssinantes(void) {
     FILE *arq = fopen("./dados/dadosAssinantes.csv", "rt");
     if (arq == NULL) {
         printf("Erro ao abrir arquivo!\n");
         getchar();
-        return -1; // erro
+        return -1; 
     }
-
     int ultimoId = -1;
     char linha[256];
-
     while (fgets(linha, sizeof(linha), arq)) {
         int id;
-        // lê o primeiro campo (antes do ;)
         if (sscanf(linha, "%d;", &id) == 1) {
             ultimoId = id;
         }
     }
-
     fclose(arq);
-
-    // Se não encontrou nada, retorna 0 como primeiro id
     if (ultimoId == -1) {
         return 0;
     }
+    return ultimoId + 1; // retorna o próximo id disponível
+}
 
+int recuperarIdAssinaturas(void) {
+    FILE *arq = fopen("./dados/dadosAssinaturas.csv", "rt");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        getchar();
+        return -1; 
+    }
+    int ultimoId = -1;
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arq)) {
+        int id;
+        if (sscanf(linha, "%d;", &id) == 1) {
+            ultimoId = id;
+        }
+    }
+    fclose(arq);
+    if (ultimoId == -1) {
+        return 0;
+    }
+    return ultimoId + 1; // retorna o próximo id disponível
+}
+
+int recuperarIdPlanos(void) {
+    FILE *arq = fopen("./dados/dadosPlanos.csv", "rt");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        getchar();
+        return -1; 
+    }
+    int ultimoId = -1;
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arq)) {
+        int id;
+        if (sscanf(linha, "%d;", &id) == 1) {
+            ultimoId = id;
+        }
+    }
+    fclose(arq);
+    if (ultimoId == -1) {
+        return 0;
+    }
+    return ultimoId + 1; // retorna o próximo id disponível
+}
+
+int recuperarIdProdutos(void) {
+    FILE *arq = fopen("./dados/dadosProdutos.csv", "rt");
+    if (arq == NULL) {
+        printf("Erro ao abrir arquivo!\n");
+        getchar();
+        return -1; 
+    }
+    int ultimoId = -1;
+    char linha[256];
+    while (fgets(linha, sizeof(linha), arq)) {
+        int id;
+        if (sscanf(linha, "%d;", &id) == 1) {
+            ultimoId = id;
+        }
+    }
+    fclose(arq);
+    if (ultimoId == -1) {
+        return 0;
+    }
     return ultimoId + 1; // retorna o próximo id disponível
 }

@@ -7,5 +7,6 @@
     void alterarPlano();
     void excluirPlano();
     char confirmarInfoPlan(char[],char[],char[],char[]);
+    void salvarPlanos(int,char[],char[],char[],char[]);
 
 #endif

@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloProdutos.h"
+#include "util.h"
 
 void menuProdutos(){
     char opcao[10];
@@ -53,7 +54,7 @@ void telaProdutos(){
 
 
 void cadastroProduto(){
-    int id;
+    int id = recuperarIdProdutos();
     char nome[100];
     char tipo[100];
     char marca[100];
@@ -68,7 +69,6 @@ void cadastroProduto(){
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,20,stdin);
     tratarString(nome);
-    tratarString(id);
     tratarString(tipo);
     tratarString(marca);
     tratarString(anoProducao);
@@ -104,7 +104,6 @@ void alterarProduto(){
 
     printf("Insira o id do produto a ser alterado: \n");
     fgets(id,sizeof(id),stdin);
-
     printf("Insira o novo nome do vinho:\n");
     fgets(nome,100,stdin);
     printf("Insira o novo tipo:\n");
@@ -113,14 +112,8 @@ void alterarProduto(){
     fgets(marca,100,stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,20,stdin);
-    tratarString(nome);
-    tratarString(id);
-    tratarString(tipo);
-    tratarString(marca);
-    tratarString(anoProducao);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
     if ( confirmador == 1){
-        salvarProdutos(id,nome,tipo,marca,anoProducao);
         printf("Atualização realizada com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -181,7 +174,7 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
 }
 
 
-void salvarProdutos(char id[], char nome[], char tipo[], char marca[], char anoProducao[]){
+void salvarProdutos(int id, char nome[], char tipo[], char marca[], char anoProducao[]){
     FILE *arqProdutos;
 
     arqProdutos = fopen("./dados/dadosProdutos.csv", "at");
@@ -191,7 +184,7 @@ void salvarProdutos(char id[], char nome[], char tipo[], char marca[], char anoP
         getchar();
         return;
     }
-    fprintf(arqProdutos,"%s;", id);
+    fprintf(arqProdutos,"%d;", id);
     fprintf(arqProdutos,"%s;", nome);
     fprintf(arqProdutos,"%s;", tipo);
     fprintf(arqProdutos,"%s;", marca);

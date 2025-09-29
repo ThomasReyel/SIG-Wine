@@ -7,5 +7,6 @@
     void alterarProduto();
     void excluirProduto();
     int confirmarInfoProd(char[],char[],char[],char[]);
+    void salvarProdutos(int,char[],char[],char[],char[]);
 
 #endif

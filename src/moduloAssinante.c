@@ -55,8 +55,7 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    FILE *arqAssinantes;
-    int id = recuperarId();
+    int id = recuperarIdAssinantes();
     char nome[100];
     char email[100];
     char cpf[20];
