@@ -62,9 +62,9 @@ void cadastroAssinante(){
     char dataNascimento[20];
     char endereco[100];
     printf("Insira o nome do Assinante:\n");
-    fgets(nome,50,stdin);
+    fgets(nome,100,stdin);
     printf("Insira o email:\n");
-    fgets(email,50,stdin);
+    fgets(email,100,stdin);
     printf("Insira o CPF:\n");
     fgets(cpf,20,stdin);
     printf("Insira a data de nascimento (dd/mm/aa):\n");
@@ -102,11 +102,11 @@ void alterarAssinante(){
     fgets(idCom, 20, stdin);
     FILE *arq, *temp;
     char idAssinante[20];
-    char nome[50];
-    char email[50];
+    char nome[100];
+    char email[100];
     char cpf[20];
     char dataNascimento[20];
-    char endereco[50];
+    char endereco[100];
     int encontrado = 0;
 
 
@@ -128,11 +128,11 @@ void alterarAssinante(){
     if(strcmp(idAssinante, idCom) == 0){
         encontrado = 1;
         printf("Insira o novo nome:\n");
-        fgets(nome, 50, stdin);
+        fgets(nome, 100, stdin);
         nome[strcspn(nome, "\n")] = 0;
 
         printf("Insira o novo email:\n");
-        fgets(email, 50, stdin);
+        fgets(email, 100, stdin);
         email[strcspn(email, "\n")] = 0;
 
         printf("Insira o novo CPF:\n");
@@ -144,7 +144,7 @@ void alterarAssinante(){
         dataNascimento[strcspn(dataNascimento, "\n")] = 0;
 
         printf("Insira o novo endereço:\n");
-        fgets(endereco, 50, stdin);
+        fgets(endereco, 100, stdin);
         endereco[strcspn(endereco, "\n")] = 0;
     }
 
@@ -239,11 +239,11 @@ void salvarAssinantes(int id,char nome[], char email[], char cpf[], char dataNas
 void recuperarAssinante(char idCom[]){
     FILE *arq;
     char idAssinante[20];
-    char nome[50];
-    char email[50];
+    char nome[100];
+    char email[100];
     char cpf[20];
     char dataNascimento[20];
-    char endereco[50];
+    char endereco[100];
     //Essa linha de baixo foi retirara do chatgpt
     idCom[strcspn(idCom, "\n")] = 0;
 
