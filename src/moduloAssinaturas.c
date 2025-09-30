@@ -198,7 +198,7 @@ void salvarAssinaturas(int id, char idAssinante[], char idPlano[], char dataAssi
 
 void recuperarAssinatura(char idCom[]){
     FILE *arq;
-    char id[20];
+    char id[5];
     char idAssinante[20];
     char idPlano[20];
     char dataAssinatura[20];
