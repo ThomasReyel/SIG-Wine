@@ -212,8 +212,7 @@ void recuperarAssinatura(char idCom[]){
         getchar();
         return;
     }
-    while (!feof(arq)){
-        fscanf(arq,"%[^;]", id);
+    while (fscanf(arq,"%[^;]", id) != EOF){
         fgetc(arq);
         fscanf(arq,"%[^;]", idAssinante);
         fgetc(arq);

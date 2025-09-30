@@ -56,8 +56,8 @@ void telaAssinante(){
 
 void cadastroAssinante(){
     int id = recuperarIdAssinantes();
-    char nome[100];
-    char email[100];
+    char nome[50];
+    char email[50];
     char cpf[20];
     char dataNascimento[20];
     char endereco[100];
@@ -212,8 +212,7 @@ void recuperarAssinante(char idCom[]){
         getchar();
         return;
     }
-    while (!feof(arq)){
-        fscanf(arq,"%[^;]", idAssinante);
+    while (fscanf(arq,"%[^;]", idAssinante) != EOF){
         fgetc(arq);
         fscanf(arq,"%[^;]", nome);
         fgetc(arq);
