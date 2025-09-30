@@ -55,12 +55,12 @@ void telaPlano(){
 
 void cadastroPlano(){
     int id = recuperarIdPlanos();
-    char nome[100];
+    char nome[50];
     char preco[50];
     char periodo[20];
     char produtos[10];
     printf("Insira o nome do plano:\n");
-    fgets(nome,100,stdin);
+    fgets(nome,50,stdin);
     printf("Insira o preço:\n");
     fgets(preco,50,stdin);
     printf("Insira a período:\n");
@@ -91,7 +91,7 @@ void checarPlanos(){
     recuperarPlano(id);
 }
 void alterarPlano(){    
-    char nome[100];
+    char nome[50];
     char preco[50];
     char periodo[20];
     char produtos[10];
@@ -100,7 +100,7 @@ void alterarPlano(){
     printf("Insira o id do plano a ser alterado: \n");
     fgets(id,5,stdin);
     printf("Insira o novo nome do plano:\n");
-    fgets(nome,100,stdin);
+    fgets(nome,50,stdin);
     printf("Insira o novo preço:\n");
     fgets(preco,50,stdin);
     printf("Insira o novo período:\n");
@@ -170,7 +170,7 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
 void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produtos[]){
     FILE *arqPlanos;
 
-    arqPlanos = fopen("./dados/dadosPlano.csv", "at");
+    arqPlanos = fopen("./dados/dadosPlanos.csv", "at");
     if (arqPlanos == NULL){
         printf("Falha em abrir o arquivo");
         printf("Pressione Enter para voltar para o menu");
@@ -205,8 +205,7 @@ void recuperarPlano(char idCom[]){
         getchar();
         return;
     }
-    while (!feof(arq)){
-        fscanf(arq,"%[^;]", id);
+    while (fscanf(arq,"%[^;]", id) != EOF){
         fgetc(arq);
         fscanf(arq,"%[^;]", nome);
         fgetc(arq);
@@ -214,7 +213,7 @@ void recuperarPlano(char idCom[]){
         fgetc(arq);
         fscanf(arq,"%[^;]", periodo);
         fgetc(arq);
-        fscanf(arq,"%[^;]", produtos);
+        fscanf(arq,"%[^\n]", produtos);
         fgetc(arq);
        
         if(strcmp(id, idCom) == 0){

@@ -57,17 +57,17 @@ void telaProdutos(){
 
 void cadastroProduto(){
     int id = recuperarIdProdutos();
-    char nome[100];
-    char tipo[100];
-    char marca[100];
+    char nome[50];
+    char tipo[50];
+    char marca[50];
     char anoProducao[20];
 
     printf("Insira o nome do vinho:\n");
-    fgets(nome,100,stdin);
+    fgets(nome,50,stdin);
     printf("Insira o tipo:\n");
-    fgets(tipo,100,stdin);
+    fgets(tipo,50,stdin);
     printf("Insira a marca:\n");
-    fgets(marca,100,stdin);
+    fgets(marca,50,stdin);
     printf("Insira o ano de produção do vinho:\n");
     fgets(anoProducao,20,stdin);
     tratarString(nome);
@@ -96,20 +96,20 @@ void checarProdutos(){
 }
 
 void alterarProduto(){
-    char nome[100];
-    char tipo[100];
-    char marca[100];
+    char nome[50];
+    char tipo[50];
+    char marca[50];
     char anoProducao[20];
     char id[5];
 
     printf("Insira o id do produto a ser alterado: \n");
     fgets(id,sizeof(id),stdin);
     printf("Insira o novo nome do vinho:\n");
-    fgets(nome,100,stdin);
+    fgets(nome,50,stdin);
     printf("Insira o novo tipo:\n");
-    fgets(tipo,100,stdin);
+    fgets(tipo,50,stdin);
     printf("Insira a nova marca:\n");
-    fgets(marca,100,stdin);
+    fgets(marca,50,stdin);
     printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
     fgets(anoProducao,20,stdin);
     int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
@@ -201,14 +201,13 @@ void recuperarProduto(char idCom[]){
     //Essa linha de baixo foi retirara do chatgpt
     idCom[strcspn(idCom, "\n")] = 0;
 
-    arq = fopen("./dados/dadosAssinantes.csv", "rt");
+    arq = fopen("./dados/dadosProdutos.csv", "rt");
     if (arq == NULL){
         printf("não deu certo");
         getchar();
         return;
     }
-    while (!feof(arq)){
-        fscanf(arq,"%[^;]", id);
+    while (fscanf(arq,"%[^;]", id) != EOF){
         fgetc(arq);
         fscanf(arq,"%[^;]", nome);
         fgetc(arq);
@@ -216,7 +215,7 @@ void recuperarProduto(char idCom[]){
         fgetc(arq);
         fscanf(arq,"%[^;]", marca);
         fgetc(arq);
-        fscanf(arq,"%[^;]", anoproducao);
+        fscanf(arq,"%[^\n]", anoproducao);
         fgetc(arq);
         if(strcmp(id, idCom) == 0){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
