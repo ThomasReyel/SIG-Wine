@@ -192,10 +192,10 @@ void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produ
 void recuperarPlano(char idCom[]){
     FILE *arq;
     char id[20];
-    char nome[50];
+    char nome[100];
     char preco[50];
     char periodo[20];
-    char produtos[20];
+    char produtos[10];
     //Essa linha de baixo foi retirara do chatgpt
     idCom[strcspn(idCom, "\n")] = 0;
 
