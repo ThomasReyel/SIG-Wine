@@ -96,39 +96,80 @@ void checarAssinantes(){
     fgets(id,20,stdin);
     recuperarAssinante(id);
 }
-
 void alterarAssinante(){
+    char idCom[20];
+    printf("Insira o ID do assinante que deseja alterar:\n");
+    fgets(idCom, 20, stdin);
+    FILE *arq, *temp;
+    char idAssinante[20];
     char nome[50];
     char email[50];
     char cpf[20];
     char dataNascimento[20];
-    char endereco[100];
-    char id[20];
+    char endereco[50];
+    int encontrado = 0;
 
-    printf("Insira o id do cliente a ser alterado: \n");
-    fgets(id,20,stdin);
 
-    printf("Insira o novo nome do Assinante:\n");
-    fgets(nome,50,stdin);
-    printf("Insira o novo email:\n");
-    fgets(email,50,stdin);
-    printf("Insira o novo CPF:\n");
-    fgets(cpf,20,stdin);
-    printf("Insira a novo data de nascimento (dd/mm/aa):\n");
-    fgets(dataNascimento,20,stdin);
-    printf("Insira o novo endereço:\n");
-    fgets(endereco,sizeof(endereco),stdin);
-    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
-    if ( confirmador == 1){
-        printf("Atualização realizada com sucesso!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();  
-    } else if (confirmador == 2){
-        printf("Atualização cancelada!\n"); 
-        printf("\nPressione Enter para voltar \n");
+    // linha debaixo peguei do chat gpt
+    idCom[strcspn(idCom, "\n")] = 0; 
+
+    arq = fopen("./dados/dadosAssinantes.csv", "rt");
+    temp = fopen("./dados/temp.csv", "wt");
+
+    if (arq == NULL || temp == NULL){
+        printf("Erro ao abrir arquivos!\n");
         getchar();
+        return;
     }
+    // tirei a função feof do curso em C do departamento de matemática da UFSC
+    while (fscanf(arq,"%[^;];%[^;];%[^;];%[^;];%[^;];%[^\n]\n",
+              idAssinante, nome, email, cpf, dataNascimento, endereco) == 6) {
+
+    if(strcmp(idAssinante, idCom) == 0){
+        encontrado = 1;
+        printf("Insira o novo nome:\n");
+        fgets(nome, 50, stdin);
+        nome[strcspn(nome, "\n")] = 0;
+
+        printf("Insira o novo email:\n");
+        fgets(email, 50, stdin);
+        email[strcspn(email, "\n")] = 0;
+
+        printf("Insira o novo CPF:\n");
+        fgets(cpf, 20, stdin);
+        cpf[strcspn(cpf, "\n")] = 0;
+
+        printf("Insira a nova data de nascimento (dd/mm/aa):\n");
+        fgets(dataNascimento, 20, stdin);
+        dataNascimento[strcspn(dataNascimento, "\n")] = 0;
+
+        printf("Insira o novo endereço:\n");
+        fgets(endereco, 50, stdin);
+        endereco[strcspn(endereco, "\n")] = 0;
+    }
+
+    fprintf(temp,"%s;%s;%s;%s;%s;%s\n",idAssinante,nome,email,cpf,dataNascimento,endereco);
 }
+
+    fclose(arq);
+    fclose(temp);
+
+    remove("./dados/dadosAssinantes.csv");
+    rename("./dados/temp.csv", "./dados/dadosAssinantes.csv");
+
+    if (encontrado){
+        printf("Assinante alterado com sucesso!\n");
+    } else {
+        printf("Assinante com ID %s não encontrado!\n", idCom);
+    }
+
+    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    getchar();
+}
+
+
+
+
 
 void excluirAssinante(){
     printf("Assinante excluído com sucesso!\n");
@@ -248,3 +289,5 @@ void recuperarAssinante(char idCom[]){
     getchar();
 }
     
+
+
