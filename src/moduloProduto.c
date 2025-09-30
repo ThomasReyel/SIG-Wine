@@ -192,10 +192,10 @@ void salvarProdutos(int id, char nome[], char tipo[], char marca[], char anoProd
 
 void recuperarProduto(char idCom[]){
     FILE *arq;
-    char id[20];
-    char nome[50];
-    char tipo[50];
-    char marca[20];
+    char id[5];
+    char nome[100];
+    char tipo[100];
+    char marca[100];
     char anoproducao[20];
     
     //Essa linha de baixo foi retirara do chatgpt
