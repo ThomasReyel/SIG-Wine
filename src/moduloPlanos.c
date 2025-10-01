@@ -54,26 +54,23 @@ void telaPlano(){
 }
 
 void cadastroPlano(){
-    int id = recuperarIdPlanos();
-    char nome[50];
-    char preco[50];
-    char periodo[20];
-    char produtos[10];
+    Plano plano;
+    plano.id = recuperarIdPlanos();
     printf("Insira o nome do plano:\n");
-    fgets(nome,50,stdin);
+    fgets(plano.nome,100,stdin);
     printf("Insira o preço:\n");
-    fgets(preco,50,stdin);
+    fgets(plano.preco,100,stdin);
     printf("Insira a período:\n");
-    fgets(periodo,20,stdin);
+    fgets(plano.periodo,20,stdin);
     printf("Insira a lista de produtos:\n");
-    fgets(produtos,10,stdin);
-    tratarString(preco);
-    tratarString(periodo);
-    tratarString(produtos);
-    tratarString(nome);
-    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
+    fgets(plano.idProduto,20,stdin);
+    tratarString(plano.preco);
+    tratarString(plano.periodo);
+    tratarString(plano.idProduto);
+    tratarString(plano.nome);
+    int confirmador = confirmarInfoPlan(&plano);
     if ( confirmador == 1){
-        salvarPlanos(id,nome,preco,periodo,produtos);
+        salvarPlanos(&plano);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -85,38 +82,38 @@ void cadastroPlano(){
 }
 
 void checarPlanos(){
-    char id[20];
+    int id;
     printf("Insira o id do plano: \n");
-    fgets(id,20,stdin);
+    scanf("%d", &id);
     recuperarPlano(id);
 }
 void alterarPlano(){    
-    char nome[50];
-    char preco[50];
-    char periodo[20];
-    char produtos[10];
-    char id[5];
+    // char nome[50];
+    // char preco[50];
+    // char periodo[20];
+    // char produtos[10];
+    // char id[5];
 
-    printf("Insira o id do plano a ser alterado: \n");
-    fgets(id,5,stdin);
-    printf("Insira o novo nome do plano:\n");
-    fgets(nome,50,stdin);
-    printf("Insira o novo preço:\n");
-    fgets(preco,50,stdin);
-    printf("Insira o novo período:\n");
-    fgets(periodo,20,stdin);
-    printf("Insira a nova lista de produtos:\n");
-    fgets(produtos,10,stdin);
-    int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
-    if ( confirmador == 1){
-        printf("Atualização realizada com sucesso!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();  
-    } else if (confirmador == 2){
-        printf("Atualização cancelada!\n"); 
-        printf("\nPressione Enter para voltar \n");
-        getchar();
-    }
+    // printf("Insira o id do plano a ser alterado: \n");
+    // fgets(id,5,stdin);
+    // printf("Insira o novo nome do plano:\n");
+    // fgets(nome,50,stdin);
+    // printf("Insira o novo preço:\n");
+    // fgets(preco,50,stdin);
+    // printf("Insira o novo período:\n");
+    // fgets(periodo,20,stdin);
+    // printf("Insira a nova lista de produtos:\n");
+    // fgets(produtos,10,stdin);
+    // int confirmador = confirmarInfoPlan(nome,preco,periodo,produtos);
+    // if ( confirmador == 1){
+    //     printf("Atualização realizada com sucesso!\n");
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();  
+    // } else if (confirmador == 2){
+    //     printf("Atualização cancelada!\n"); 
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();
+    // }
 }
 
 void excluirPlano(){
@@ -125,17 +122,17 @@ void excluirPlano(){
     getchar();
 }
 
-char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[]){
+char confirmarInfoPlan(Plano* plano){
     char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s \n", nome);
-        printf("║ Preço do Plano: %s \n", preco);
-        printf("║ Período do plano: %s \n", periodo);
-        printf("║ Produtos contidos: %s \n", produtos);
+        printf("║ Nome do Plano: %s \n", plano->nome);
+        printf("║ Preço do Plano: %s \n", plano->preco);
+        printf("║ Período do plano: %s \n", plano->periodo);
+        printf("║ Produtos contidos: %s \n", plano->idProduto);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -167,7 +164,7 @@ char confirmarInfoPlan(char nome[], char preco[], char periodo[], char produtos[
 
 
 
-void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produtos[]){
+void salvarPlanos(Plano* plano){
     FILE *arqPlanos;
 
     arqPlanos = fopen("./dados/dadosPlanos.csv", "at");
@@ -177,11 +174,11 @@ void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produ
         getchar();
         return;
     }
-    fprintf(arqPlanos,"%d;", id);
-    fprintf(arqPlanos,"%s;", nome);
-    fprintf(arqPlanos,"%s;", preco);
-    fprintf(arqPlanos,"%s;", periodos);
-    fprintf(arqPlanos,"%s\n", produtos);
+    fprintf(arqPlanos,"%d;", plano->id);
+    fprintf(arqPlanos,"%s;", plano->nome);
+    fprintf(arqPlanos,"%s;", plano->preco);
+    fprintf(arqPlanos,"%s;", plano->periodo);
+    fprintf(arqPlanos,"%s\n", plano->idProduto);
     fclose(arqPlanos);
 
 }
@@ -189,50 +186,43 @@ void salvarPlanos(int id, char nome[], char preco[], char periodos[], char produ
 
 
 
-void recuperarPlano(char idCom[]){
-    FILE *arq;
-    char id[20];
-    char nome[50];
-    char preco[50];
-    char periodo[20];
-    char produtos[20];
-    //Essa linha de baixo foi retirara do chatgpt
-    idCom[strcspn(idCom, "\n")] = 0;
-
-    arq = fopen("./dados/dadosPlanos.csv", "rt");
-    if (arq == NULL){
+void recuperarPlano(int idCom){
+    FILE *arqPlano;
+    Plano plano;
+    arqPlano = fopen("./dados/dadosPlanos.csv", "rt");
+    if (arqPlano == NULL){
         printf("não deu certo");
         getchar();
         return;
     }
-    while (fscanf(arq,"%[^;]", id) != EOF){
-        fgetc(arq);
-        fscanf(arq,"%[^;]", nome);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", preco);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", periodo);
-        fgetc(arq);
-        fscanf(arq,"%[^\n]", produtos);
-        fgetc(arq);
+    while (fscanf(arqPlano,"%d[^;]", &plano.id) != EOF){
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano.nome);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano.preco);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano.periodo);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^\n]", plano.idProduto);
+        fgetc(arqPlano);
        
-        if(strcmp(id, idCom) == 0){
+        if(plano.id == idCom){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                                Planos                            ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %s \n", id);
-            printf("║ Nome: %s \n", nome);
-            printf("║ Preço: %s \n", preco);
-            printf("║ Período: %s \n", periodo);
-            printf("║ Produtos: %s \n", produtos);
+            printf("║ Id: %d \n", plano.id);
+            printf("║ Nome: %s \n", plano.nome);
+            printf("║ Preço: %s \n", plano.preco);
+            printf("║ Período: %s \n", plano.periodo);
+            printf("║ Produtos: %s \n", plano.idProduto);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de assinantes \n");
             getchar();
-            fclose(arq);
+            fclose(arqPlano);
             return;
         }
     }
-    fclose(arq);
+    fclose(arqPlano);
     printf("Plano não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de planos \n");
     getchar();
