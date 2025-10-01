@@ -55,30 +55,26 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    int id = recuperarIdAssinantes();
-    char nome[50];
-    char email[50];
-    char cpf[20];
-    char dataNascimento[20];
-    char endereco[100];
+    Assinante assinante;
+    assinante.id = recuperarIdAssinantes();
     printf("Insira o nome do Assinante:\n");
-    fgets(nome,50,stdin);
+    fgets(assinante.nome,100,stdin);
     printf("Insira o email:\n");
-    fgets(email,50,stdin);
+    fgets(assinante.email,100,stdin);
     printf("Insira o CPF:\n");
-    fgets(cpf,20,stdin);
+    fgets(assinante.cpf,20,stdin);
     printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(dataNascimento,20,stdin);
+    fgets(assinante.dataNascimento,20,stdin);
     printf("Insira o endereço:\n");
-    fgets(endereco,100,stdin);
-    tratarString(nome);
-    tratarString(email);
-    tratarString(cpf);
-    tratarString(dataNascimento);
-    tratarString(endereco);
-    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
+    fgets(assinante.endereco,100,stdin);
+    tratarString(assinante.nome);
+    tratarString(assinante.email);
+    tratarString(assinante.cpf);
+    tratarString(assinante.dataNascimento);
+    tratarString(assinante.endereco);
+    int confirmador = confirmarInfoAss(&assinante);
     if ( confirmador == 1){
-        salvarAssinantes(id,nome,email,cpf,dataNascimento,endereco);
+        salvarAssinantes(&assinante);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -91,43 +87,38 @@ void cadastroAssinante(){
 }
 
 void checarAssinantes(){
-    char id[20];
+    int id;
     printf("Insira o id do assinante: \n");
-    fgets(id,20,stdin);
+    scanf("%d", &id);
+    getchar();
     recuperarAssinante(id);
 }
 
 void alterarAssinante(){
-    char nome[50];
-    char email[50];
-    char cpf[20];
-    char dataNascimento[20];
-    char endereco[100];
-    char id[20];
-
-    printf("Insira o id do cliente a ser alterado: \n");
-    fgets(id,20,stdin);
-
-    printf("Insira o novo nome do Assinante:\n");
-    fgets(nome,50,stdin);
-    printf("Insira o novo email:\n");
-    fgets(email,50,stdin);
-    printf("Insira o novo CPF:\n");
-    fgets(cpf,20,stdin);
-    printf("Insira a novo data de nascimento (dd/mm/aa):\n");
-    fgets(dataNascimento,20,stdin);
-    printf("Insira o novo endereço:\n");
-    fgets(endereco,sizeof(endereco),stdin);
-    int confirmador = confirmarInfoAss(nome,email,cpf,dataNascimento,endereco);
-    if ( confirmador == 1){
-        printf("Atualização realizada com sucesso!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();  
-    } else if (confirmador == 2){
-        printf("Atualização cancelada!\n"); 
-        printf("\nPressione Enter para voltar \n");
-        getchar();
-    }
+    // Assinante assinante;
+    // char id[20];
+    // printf("Insira o id do cliente a ser alterado: \n");
+    // fgets(id,20,stdin);
+    // printf("Insira o novo nome do Assinante:\n");
+    // fgets(assinante.nome,100,stdin);
+    // printf("Insira o novo email:\n");
+    // fgets(assinante.email,100,stdin);
+    // printf("Insira o novo CPF:\n");
+    // fgets(assinante.cpf,20,stdin);
+    // printf("Insira a novo data de nascimento (dd/mm/aa):\n");
+    // fgets(assinante.dataNascimento,20,stdin);
+    // printf("Insira o novo endereço:\n");
+    // fgets(assinante.endereco,100,stdin);
+    // int confirmador = confirmarInfoAss(&assinante);
+    // if ( confirmador == 1){
+    //     printf("Atualização realizada com sucesso!\n");
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();  
+    // } else if (confirmador == 2){
+    //     printf("Atualização cancelada!\n"); 
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();
+    // }
 }
 
 void excluirAssinante(){
@@ -136,18 +127,18 @@ void excluirAssinante(){
     getchar();
 }
 
-char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+int confirmarInfoAss(Assinante* assinante){
     char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome: %s \n", nome);
-        printf("║ Email: %s \n", email);
-        printf("║ CPF: %s \n", cpf);
-        printf("║ Data: %s \n", dataNascimento);
-        printf("║ Endereço: %s \n", endereco);
+        printf("║ Nome: %s \n", assinante->nome);
+        printf("║ Email: %s \n", assinante->email);
+        printf("║ CPF: %s \n", assinante->cpf);
+        printf("║ Data: %s \n", assinante->dataNascimento);
+        printf("║ Endereço: %s \n", assinante->endereco);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -176,7 +167,7 @@ char confirmarInfoAss(char nome[], char email[], char cpf[], char dataNascimento
     return 1;
 }
 
-void salvarAssinantes(int id,char nome[], char email[], char cpf[], char dataNascimento[], char endereco[]){
+void salvarAssinantes(Assinante* assinante){
     FILE *arqAssinantes;
     arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
     if (arqAssinantes == NULL){
@@ -185,63 +176,57 @@ void salvarAssinantes(int id,char nome[], char email[], char cpf[], char dataNas
         getchar();
         return;
     }
-    fprintf(arqAssinantes,"%d;", id);
-    fprintf(arqAssinantes,"%s;", nome);
-    fprintf(arqAssinantes,"%s;", email);
-    fprintf(arqAssinantes,"%s;", cpf);
-    fprintf(arqAssinantes,"%s;", dataNascimento);
-    fprintf(arqAssinantes,"%s\n", endereco);
+    fprintf(arqAssinantes,"%d;", assinante->id);
+    fprintf(arqAssinantes,"%s;", assinante->nome);
+    fprintf(arqAssinantes,"%s;", assinante->email);
+    fprintf(arqAssinantes,"%s;", assinante->cpf);
+    fprintf(arqAssinantes,"%s;", assinante->dataNascimento);
+    fprintf(arqAssinantes,"%s\n", assinante->endereco);
     fclose(arqAssinantes);
 
 }
 
-void recuperarAssinante(char idCom[]){
-    FILE *arq;
-    char idAssinante[20];
-    char nome[50];
-    char email[50];
-    char cpf[20];
-    char dataNascimento[20];
-    char endereco[50];
+void recuperarAssinante(int idCom){
+    FILE *arqAssinantes;
+    Assinante assinante;
     //Essa linha de baixo foi retirara do chatgpt
-    idCom[strcspn(idCom, "\n")] = 0;
 
-    arq = fopen("./dados/dadosAssinantes.csv", "rt");
-    if (arq == NULL){
+    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
+    if (arqAssinantes == NULL){
         printf("não deu certo");
         getchar();
         return;
     }
-    while (fscanf(arq,"%[^;]", idAssinante) != EOF){
-        fgetc(arq);
-        fscanf(arq,"%[^;]", nome);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", email);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", cpf);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", dataNascimento);
-        fgetc(arq);
-        fscanf(arq,"%[^\n]", endereco);
-        fgetc(arq);
-        if(strcmp(idAssinante, idCom) == 0){
+    while (fscanf(arqAssinantes,"%d[^;]", &assinante.id) != EOF){
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante.nome);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante.email);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante.cpf);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante.dataNascimento);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^\n]", assinante.endereco);
+        fgetc(arqAssinantes);
+        if(assinante.id == idCom){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinantes                          ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %s \n", idAssinante);
-            printf("║ Nome: %s \n", nome);
-            printf("║ Email: %s \n", email);
-            printf("║ CPF: %s \n", cpf);
-            printf("║ Data: %s \n", dataNascimento);
-            printf("║ Endereço: %s \n", endereco);
+            printf("║ Id: %d \n", assinante.id);
+            printf("║ Nome: %s \n", assinante.nome);
+            printf("║ Email: %s \n", assinante.email);
+            printf("║ CPF: %s \n", assinante.cpf);
+            printf("║ Data: %s \n", assinante.dataNascimento);
+            printf("║ Endereço: %s \n", assinante.endereco);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de assinantes \n");
             getchar();
-            fclose(arq);
+            fclose(arqAssinantes);
             return;
         }
     }
-    fclose(arq);
+    fclose(arqAssinantes);
     printf("Assianante não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
     getchar();
