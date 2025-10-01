@@ -54,26 +54,23 @@ void telaAssinaturas(){
 }
 
 void cadastroAssinatura(){
-    int id = recuperarIdAssinaturas();
-    char idAssinante[20];
-    char idPlano[20];
-    char dataAssinatura[20];
-    char dataVencimento[20];
+    Assinatura assinatura;
+    assinatura.id = recuperarIdAssinaturas();
     printf("Insira o id do assinante:\n");
-    fgets(idAssinante,20,stdin);
+    fgets(assinatura.idAssinante,20,stdin);
     printf("Insira o id de Planos:\n");
-    fgets(idPlano,20,stdin);
+    fgets(assinatura.idPlano,20,stdin);
     printf("Insira a data de assinatura (dd/mm/aa):\n");
-    fgets(dataAssinatura,20,stdin);
+    fgets(assinatura.dataAssinatura,20,stdin);
     printf("Insira o tempo limite de pagamento (dias):\n");
-    fgets(dataVencimento,20,stdin);
-    tratarString(idAssinante);
-    tratarString(idPlano);
-    tratarString(dataAssinatura);
-    tratarString(dataVencimento);
-    int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
+    fgets(assinatura.periodoVencimento,20,stdin);
+    tratarString(assinatura.idAssinante);
+    tratarString(assinatura.idPlano);
+    tratarString(assinatura.dataAssinatura);
+    tratarString(assinatura.periodoVencimento);
+    int confirmador = confirmarInfoAsstura(&assinatura);
     if ( confirmador == 1){
-        salvarAssinaturas(id,idAssinante,idPlano,dataAssinatura,dataVencimento);
+        salvarAssinaturas(&assinatura);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -86,68 +83,65 @@ void cadastroAssinatura(){
 }
 
 void checarAssinaturas(){
-    char id[20];
+    int id;
     printf("Insira o id do assinatura: \n");
-    fgets(id,20,stdin);
+    scanf("%d", &id);
+    getchar();
     recuperarAssinatura(id);
 }
 
 void alterarAssinatura(){
-    char idAssinante[20];
-    char idPlano[20];
-    char dataAssinatura[20];
-    char dataVencimento[20];
-    char id[5];
+    // char idAssinante[20];
+    // char idPlano[20];
+    // char dataAssinatura[20];
+    // char dataVencimento[20];
+    // char id[5];
 
-    printf("Insira o id da assinatura a ser alterada: \n");
-    fgets(id,5,stdin);
-    printf("Insira o novo id do assinante:\n");
-    fgets(idAssinante,20,stdin);
-    printf("Insira o novo id de Planos:\n");
-    fgets(idPlano,5,stdin);
-    printf("Insira a nova data de assinatura (dd/mm/aa):\n");
-    fgets(dataAssinatura,20,stdin);
-    printf("Insira o novo tempo limite de pagamento (dias):\n");
-    fgets(dataVencimento,20,stdin);
-    tratarString(id);
-    tratarString(idAssinante);
-    tratarString(dataAssinatura);
-    tratarString(dataVencimento);
-    tratarString(idPlano);
+    // printf("Insira o id da assinatura a ser alterada: \n");
+    // fgets(id,5,stdin);
+    // printf("Insira o novo id do assinante:\n");
+    // fgets(idAssinante,20,stdin);
+    // printf("Insira o novo id de Planos:\n");
+    // fgets(idPlano,5,stdin);
+    // printf("Insira a nova data de assinatura (dd/mm/aa):\n");
+    // fgets(dataAssinatura,20,stdin);
+    // printf("Insira o novo tempo limite de pagamento (dias):\n");
+    // fgets(dataVencimento,20,stdin);
+    // tratarString(id);
+    // tratarString(idAssinante);
+    // tratarString(dataAssinatura);
+    // tratarString(dataVencimento);
+    // tratarString(idPlano);
 
-    int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
-    if ( confirmador == 1){
-        printf("Atualização realizada com sucesso!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();  
-    } else if (confirmador == 2){
-        printf("Atualização cancelada!\n"); 
-        printf("\nPressione Enter para voltar \n");
-        getchar();
-    }
+    // int confirmador = confirmarInfoAsstura(idAssinante,idPlano,dataAssinatura,dataVencimento);
+    // if ( confirmador == 1){
+    //     printf("Atualização realizada com sucesso!\n");
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();  
+    // } else if (confirmador == 2){
+    //     printf("Atualização cancelada!\n"); 
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();
+    // }
 }
 
 void excluirAssinatura(){
-    char id[5];
-
-    printf("║ Insira o id da assinatura a ser excluído: \n");
-    fgets(id,sizeof(id),stdin);
-    printf("║ plano excluído com sucesso\n");
+    printf("plano excluído com sucesso\n");
     printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
     getchar();
 }
 
-char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
+char confirmarInfoAsstura(Assinatura* assinatura){
     char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ ID do Assinante: %s \n", idAssinante);
-        printf("║ ID do Plano: %s \n", idPlano);
-        printf("║ Data da Assinatura: %s \n", dataAssinatura);
-        printf("║ Período de Vencimento: %s \n", dataVencimento);
+        printf("║ ID do Assinante: %s \n", assinatura->idAssinante);
+        printf("║ ID do Plano: %s \n", assinatura->idPlano);
+        printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
+        printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -177,7 +171,7 @@ char confirmarInfoAsstura(char idAssinante[], char idPlano[], char dataAssinatur
 }
 
 
-void salvarAssinaturas(int id, char idAssinante[], char idPlano[], char dataAssinatura[], char dataVencimento[]){
+void salvarAssinaturas(Assinatura* assinatura){
     FILE *arqAssinaturas;
 
     arqAssinaturas = fopen("./dados/dadosAssinaturas.csv", "at");
@@ -187,58 +181,52 @@ void salvarAssinaturas(int id, char idAssinante[], char idPlano[], char dataAssi
         getchar();
         return;
     }
-    fprintf(arqAssinaturas,"%d;", id);
-    fprintf(arqAssinaturas,"%s;", idAssinante);
-    fprintf(arqAssinaturas,"%s;", idPlano);
-    fprintf(arqAssinaturas,"%s;", dataAssinatura);
-    fprintf(arqAssinaturas,"%s\n", dataVencimento);
+    fprintf(arqAssinaturas,"%d;", assinatura->id);
+    fprintf(arqAssinaturas,"%s;", assinatura->idAssinante);
+    fprintf(arqAssinaturas,"%s;", assinatura->idPlano);
+    fprintf(arqAssinaturas,"%s;", assinatura->dataAssinatura);
+    fprintf(arqAssinaturas,"%s\n", assinatura->periodoVencimento);
     fclose(arqAssinaturas);
 
 }
 
-void recuperarAssinatura(char idCom[]){
-    FILE *arq;
-    char id[20];
-    char idAssinante[20];
-    char idPlano[20];
-    char dataAssinatura[20];
-    char dataVencimento[20];
-    //Essa linha de baixo foi retirara do chatgpt
-    idCom[strcspn(idCom, "\n")] = 0;
+void recuperarAssinatura(int idCom){
+    FILE *arqAssinatura;
+    Assinatura assinatura;
 
-    arq = fopen("./dados/dadosAssinaturas.csv", "rt");
-    if (arq == NULL){
+    arqAssinatura = fopen("./dados/dadosAssinaturas.csv", "rt");
+    if (arqAssinatura == NULL){
         printf("não deu certo");
         getchar();
         return;
     }
-    while (fscanf(arq,"%[^;]", id) != EOF){
-        fgetc(arq);
-        fscanf(arq,"%[^;]", idAssinante);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", idPlano);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", dataAssinatura);
-        fgetc(arq);
-        fscanf(arq,"%[^\n]", dataVencimento);
-        fgetc(arq);
-        if(strcmp(id, idCom) == 0){
+    while (fscanf(arqAssinatura,"%d[^;]", &assinatura.id) != EOF){
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura.idAssinante);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura.idPlano);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura.dataAssinatura);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^\n]", assinatura.periodoVencimento);
+        fgetc(arqAssinatura);
+        if(assinatura.id == idCom){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinatura                          ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %s \n", id);
-            printf("║ Nome: %s \n", idAssinante);
-            printf("║ Email: %s \n", idPlano);
-            printf("║ CPF: %s \n", dataAssinatura);
-            printf("║ Data: %s \n", dataVencimento);
+            printf("║ Id: %d \n", assinatura.id);
+            printf("║ ID do Assinante: %s \n", assinatura.idAssinante);
+            printf("║ ID do Plano: %s \n", assinatura.idPlano);
+            printf("║ Data da Assinatura: %s \n", assinatura.dataAssinatura);
+            printf("║ Período de Vencimento: %s \n", assinatura.periodoVencimento);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
             getchar();
-            fclose(arq);
+            fclose(arqAssinatura);
             return;
         }
     }
-    fclose(arq);
+    fclose(arqAssinatura);
     printf("Assinatura não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
     getchar();
