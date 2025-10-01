@@ -56,27 +56,24 @@ void telaProdutos(){
 
 
 void cadastroProduto(){
-    int id = recuperarIdProdutos();
-    char nome[50];
-    char tipo[50];
-    char marca[50];
-    char anoProducao[20];
+    Produto produto;
+    produto.id = recuperarIdProdutos();
 
     printf("Insira o nome do vinho:\n");
-    fgets(nome,50,stdin);
+    fgets(produto.nome,100,stdin);
     printf("Insira o tipo:\n");
-    fgets(tipo,50,stdin);
+    fgets(produto.tipo,100,stdin);
     printf("Insira a marca:\n");
-    fgets(marca,50,stdin);
+    fgets(produto.marca,100,stdin);
     printf("Insira o ano de produção do vinho:\n");
-    fgets(anoProducao,20,stdin);
-    tratarString(nome);
-    tratarString(tipo);
-    tratarString(marca);
-    tratarString(anoProducao);
-    int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
+    fgets(produto.anoProducao,20,stdin);
+    tratarString(produto.nome);
+    tratarString(produto.tipo);
+    tratarString(produto.marca);
+    tratarString(produto.anoProducao);
+    int confirmador = confirmarInfoProd(&produto);
     if ( confirmador == 1){
-        salvarProdutos(id,nome,tipo,marca,anoProducao);
+        salvarProdutos(&produto);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -89,56 +86,57 @@ void cadastroProduto(){
 
 
 void checarProdutos(){
-    char id[20];
+    int id;
     printf("Insira o id do produto: \n");
-    fgets(id,20,stdin);
+    scanf("%d", &id);
+    getchar();
     recuperarProduto(id);
 }
 
 void alterarProduto(){
-    char nome[50];
-    char tipo[50];
-    char marca[50];
-    char anoProducao[20];
-    char id[5];
+    // char nome[50];
+    // char tipo[50];
+    // char marca[50];
+    // char anoProducao[20];
+    // char id[5];
 
-    printf("Insira o id do produto a ser alterado: \n");
-    fgets(id,sizeof(id),stdin);
-    printf("Insira o novo nome do vinho:\n");
-    fgets(nome,50,stdin);
-    printf("Insira o novo tipo:\n");
-    fgets(tipo,50,stdin);
-    printf("Insira a nova marca:\n");
-    fgets(marca,50,stdin);
-    printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
-    fgets(anoProducao,20,stdin);
-    int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
-    if ( confirmador == 1){
-        printf("Atualização realizada com sucesso!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();  
-    } else if (confirmador == 2){
-        printf("Atualização cancelada!\n"); 
-        printf("\nPressione Enter para voltar \n");
-        getchar();
-    }
+    // printf("Insira o id do produto a ser alterado: \n");
+    // fgets(id,sizeof(id),stdin);
+    // printf("Insira o novo nome do vinho:\n");
+    // fgets(nome,50,stdin);
+    // printf("Insira o novo tipo:\n");
+    // fgets(tipo,50,stdin);
+    // printf("Insira a nova marca:\n");
+    // fgets(marca,50,stdin);
+    // printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
+    // fgets(anoProducao,20,stdin);
+    // int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
+    // if ( confirmador == 1){
+    //     printf("Atualização realizada com sucesso!\n");
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();  
+    // } else if (confirmador == 2){
+    //     printf("Atualização cancelada!\n"); 
+    //     printf("\nPressione Enter para voltar \n");
+    //     getchar();
+    // }
 }
 void excluirProduto(){
     printf("Produto excluído com sucesso!\n");
     printf("\n> Pressione Enter para voltar ao módulo de produtos <\n");
     getchar();
 }
-int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]){
+int confirmarInfoProd(Produto* produto){
     char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s \n", nome);
-        printf("║ Preço do Plano: %s \n", tipo);
-        printf("║ Período do plano: %s \n", marca);
-        printf("║ Produtos contidos: %s \n", anoProducao);
+        printf("║ Nome do Plano: %s \n", produto->nome);
+        printf("║ Preço do Plano: %s \n", produto->tipo);
+        printf("║ Período do plano: %s \n", produto->marca);
+        printf("║ Produtos contidos: %s \n", produto->anoProducao);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -168,7 +166,7 @@ int confirmarInfoProd(char nome[], char tipo[], char marca[], char anoProducao[]
 }
 
 
-void salvarProdutos(int id, char nome[], char tipo[], char marca[], char anoProducao[]){
+void salvarProdutos(Produto* produto){
     FILE *arqProdutos;
 
     arqProdutos = fopen("./dados/dadosProdutos.csv", "at");
@@ -178,11 +176,11 @@ void salvarProdutos(int id, char nome[], char tipo[], char marca[], char anoProd
         getchar();
         return;
     }
-    fprintf(arqProdutos,"%d;", id);
-    fprintf(arqProdutos,"%s;", nome);
-    fprintf(arqProdutos,"%s;", tipo);
-    fprintf(arqProdutos,"%s;", marca);
-    fprintf(arqProdutos,"%s\n", anoProducao);
+    fprintf(arqProdutos,"%d;", produto->id);
+    fprintf(arqProdutos,"%s;", produto->nome);
+    fprintf(arqProdutos,"%s;", produto->tipo);
+    fprintf(arqProdutos,"%s;", produto->marca);
+    fprintf(arqProdutos,"%s\n", produto->anoProducao);
     fclose(arqProdutos);
 
 }
@@ -190,50 +188,43 @@ void salvarProdutos(int id, char nome[], char tipo[], char marca[], char anoProd
 
 
 
-void recuperarProduto(char idCom[]){
-    FILE *arq;
-    char id[20];
-    char nome[50];
-    char tipo[50];
-    char marca[20];
-    char anoproducao[20];
-    
-    //Essa linha de baixo foi retirara do chatgpt
-    idCom[strcspn(idCom, "\n")] = 0;
+void recuperarProduto(int idCom){
+    FILE *arqProduto;
+    Produto produto;
 
-    arq = fopen("./dados/dadosProdutos.csv", "rt");
-    if (arq == NULL){
+    arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
+    if (arqProduto == NULL){
         printf("não deu certo");
         getchar();
         return;
     }
-    while (fscanf(arq,"%[^;]", id) != EOF){
-        fgetc(arq);
-        fscanf(arq,"%[^;]", nome);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", tipo);
-        fgetc(arq);
-        fscanf(arq,"%[^;]", marca);
-        fgetc(arq);
-        fscanf(arq,"%[^\n]", anoproducao);
-        fgetc(arq);
-        if(strcmp(id, idCom) == 0){
+    while (fscanf(arqProduto,"%d[^;]", &produto.id) != EOF){
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto.nome);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto.tipo);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto.marca);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^\n]", produto.anoProducao);
+        fgetc(arqProduto);
+        if(produto.id == idCom){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Produtos                             ║\n");
+            printf("║                             Produto                              ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %s \n", id);
-            printf("║ Nome: %s \n", nome);
-            printf("║ Tipo: %s \n", tipo);
-            printf("║ Marca: %s \n", marca);
-            printf("║ Ano Produção: %s \n", anoproducao);
+            printf("║ Id: %d \n", produto.id);
+            printf("║ Nome: %s \n", produto.nome);
+            printf("║ Tipo: %s \n", produto.tipo);
+            printf("║ Marca: %s \n", produto.marca);
+            printf("║ Ano Produção: %s \n", produto.anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de produtos \n");
             getchar();
-            fclose(arq);
+            fclose(arqProduto);
             return;
         }
     }
-    fclose(arq);
+    fclose(arqProduto);
     printf("Produto não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     getchar();

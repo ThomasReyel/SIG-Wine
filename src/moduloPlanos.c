@@ -85,6 +85,7 @@ void checarPlanos(){
     int id;
     printf("Insira o id do plano: \n");
     scanf("%d", &id);
+    getchar();
     recuperarPlano(id);
 }
 void alterarPlano(){    
@@ -216,7 +217,7 @@ void recuperarPlano(int idCom){
             printf("║ Período: %s \n", plano.periodo);
             printf("║ Produtos: %s \n", plano.idProduto);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+            printf("\nPressione Enter para voltar ao módulo de planos \n");
             getchar();
             fclose(arqPlano);
             return;
