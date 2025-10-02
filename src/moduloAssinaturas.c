@@ -209,7 +209,7 @@ int recuperarAssinatura(int idCom, Assinatura* assinatura){
 
     arqAssinatura = fopen("./dados/dadosAssinaturas.csv", "rt");
     if (arqAssinatura == NULL){
-        printf("não deu certo");
+        printf("Falha em abrir o arquivo");
         getchar();
         return -1;
     }

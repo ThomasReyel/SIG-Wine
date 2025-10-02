@@ -82,11 +82,25 @@ void cadastroPlano(){
 }
 
 void checarPlanos(){
-    int id;
+    Plano plano;
+    int idCom;
     printf("Insira o id do plano: \n");
-    scanf("%d", &id);
+    scanf("%d", &idCom);
     getchar();
-    recuperarPlano(id);
+    if (recuperarPlano(idCom, &plano) == 0){
+        printf("╔══════════════════════════════════════════════════════════════════╗\n");
+        printf("║                                Plano                             ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════╝\n");
+        printf("║ Id: %d \n", plano.id);
+        printf("║ Nome: %s \n", plano.nome);
+        printf("║ Preço: %s \n", plano.preco);
+        printf("║ Período: %s \n", plano.periodo);
+        printf("║ Produtos: %s \n", plano.idProduto);
+        printf("╚═══════════════════════════════════════════════════════════════════\n");
+        printf("\nPressione Enter para voltar ao módulo de planos \n");
+        getchar();
+    }
+    
 }
 void alterarPlano(){    
     // char nome[50];
@@ -187,45 +201,34 @@ void salvarPlanos(Plano* plano){
 
 
 
-void recuperarPlano(int idCom){
+int recuperarPlano(int idCom, Plano* plano){
     FILE *arqPlano;
-    Plano plano;
     arqPlano = fopen("./dados/dadosPlanos.csv", "rt");
     if (arqPlano == NULL){
-        printf("não deu certo");
+        printf("Falha em abrir o arquivo");
         getchar();
-        return;
+        return -1;
     }
-    while (fscanf(arqPlano,"%d[^;]", &plano.id) != EOF){
+    while (fscanf(arqPlano,"%d[^;]", &plano->id) != EOF){
         fgetc(arqPlano);
-        fscanf(arqPlano,"%[^;]", plano.nome);
+        fscanf(arqPlano,"%[^;]", plano->nome);
         fgetc(arqPlano);
-        fscanf(arqPlano,"%[^;]", plano.preco);
+        fscanf(arqPlano,"%[^;]", plano->preco);
         fgetc(arqPlano);
-        fscanf(arqPlano,"%[^;]", plano.periodo);
+        fscanf(arqPlano,"%[^;]", plano->periodo);
         fgetc(arqPlano);
-        fscanf(arqPlano,"%[^\n]", plano.idProduto);
+        fscanf(arqPlano,"%[^\n]", plano->idProduto);
         fgetc(arqPlano);
        
-        if(plano.id == idCom){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                                Planos                            ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", plano.id);
-            printf("║ Nome: %s \n", plano.nome);
-            printf("║ Preço: %s \n", plano.preco);
-            printf("║ Período: %s \n", plano.periodo);
-            printf("║ Produtos: %s \n", plano.idProduto);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de planos \n");
-            getchar();
+        if(plano->id == idCom){
             fclose(arqPlano);
-            return;
+            return 0;
         }
     }
     fclose(arqPlano);
     printf("Plano não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de planos \n");
     getchar();
+    return -1;
 }
     
