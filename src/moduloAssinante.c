@@ -176,6 +176,8 @@ void excluirAssinante(){
                     getchar();
                 break;
             }
+        }else{
+            controle = 0;
         }
     }
     while (controle == 1);
