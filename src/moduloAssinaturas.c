@@ -83,11 +83,25 @@ void cadastroAssinatura(){
 }
 
 void checarAssinaturas(){
+    Assinatura assinatura;
     int id;
     printf("Insira o id do assinatura: \n");
     scanf("%d", &id);
     getchar();
-    recuperarAssinatura(id);
+    if (recuperarAssinatura(id, &assinatura) == 0){
+        printf("╔══════════════════════════════════════════════════════════════════╗\n");
+        printf("║                              Assinatura                          ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════╝\n");
+        printf("║ Id: %d \n", assinatura.id);
+        printf("║ ID do Assinante: %s \n", assinatura.idAssinante);
+        printf("║ ID do Plano: %s \n", assinatura.idPlano);
+        printf("║ Data da Assinatura: %s \n", assinatura.dataAssinatura);
+        printf("║ Período de Vencimento: %s \n", assinatura.periodoVencimento);
+        printf("╚═══════════════════════════════════════════════════════════════════\n");
+        printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
+        getchar();
+    }
+    
 }
 
 void alterarAssinatura(){
@@ -190,44 +204,33 @@ void salvarAssinaturas(Assinatura* assinatura){
 
 }
 
-void recuperarAssinatura(int idCom){
+int recuperarAssinatura(int idCom, Assinatura* assinatura){
     FILE *arqAssinatura;
-    Assinatura assinatura;
 
     arqAssinatura = fopen("./dados/dadosAssinaturas.csv", "rt");
     if (arqAssinatura == NULL){
         printf("não deu certo");
         getchar();
-        return;
+        return -1;
     }
-    while (fscanf(arqAssinatura,"%d[^;]", &assinatura.id) != EOF){
+    while (fscanf(arqAssinatura,"%d[^;]", &assinatura->id) != EOF){
         fgetc(arqAssinatura);
-        fscanf(arqAssinatura,"%[^;]", assinatura.idAssinante);
+        fscanf(arqAssinatura,"%[^;]", assinatura->idAssinante);
         fgetc(arqAssinatura);
-        fscanf(arqAssinatura,"%[^;]", assinatura.idPlano);
+        fscanf(arqAssinatura,"%[^;]", assinatura->idPlano);
         fgetc(arqAssinatura);
-        fscanf(arqAssinatura,"%[^;]", assinatura.dataAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura->dataAssinatura);
         fgetc(arqAssinatura);
-        fscanf(arqAssinatura,"%[^\n]", assinatura.periodoVencimento);
+        fscanf(arqAssinatura,"%[^\n]", assinatura->periodoVencimento);
         fgetc(arqAssinatura);
-        if(assinatura.id == idCom){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinatura                          ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinatura.id);
-            printf("║ ID do Assinante: %s \n", assinatura.idAssinante);
-            printf("║ ID do Plano: %s \n", assinatura.idPlano);
-            printf("║ Data da Assinatura: %s \n", assinatura.dataAssinatura);
-            printf("║ Período de Vencimento: %s \n", assinatura.periodoVencimento);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
-            getchar();
+        if(assinatura->id == idCom){
             fclose(arqAssinatura);
-            return;
+            return 0;
         }
     }
     fclose(arqAssinatura);
     printf("Assinatura não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de assinaturas \n");
     getchar();
+    return -1;
 }
