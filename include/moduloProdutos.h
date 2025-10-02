@@ -16,5 +16,5 @@
     void excluirProduto();
     int confirmarInfoProd(Produto*);
     void salvarProdutos(Produto*);
-    void recuperarProduto(int);
+    int recuperarProduto(int, Produto*);
 #endif

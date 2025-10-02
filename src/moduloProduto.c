@@ -87,10 +87,23 @@ void cadastroProduto(){
 
 void checarProdutos(){
     int id;
+    Produto produto;
     printf("Insira o id do produto: \n");
     scanf("%d", &id);
-    getchar();
-    recuperarProduto(id);
+    getchar();  
+    if (recuperarProduto(id, &produto) == 0){
+        printf("╔══════════════════════════════════════════════════════════════════╗\n");
+        printf("║                             Produto                              ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════╝\n");
+        printf("║ Id: %d \n", produto.id);
+        printf("║ Nome: %s \n", produto.nome);
+        printf("║ Tipo: %s \n", produto.tipo);
+        printf("║ Marca: %s \n", produto.marca);
+        printf("║ Ano Produção: %s \n", produto.anoProducao);
+        printf("╚═══════════════════════════════════════════════════════════════════\n");
+        printf("\nPressione Enter para voltar ao módulo de produtos \n");
+        getchar();
+    }
 }
 
 void alterarProduto(){
@@ -188,45 +201,33 @@ void salvarProdutos(Produto* produto){
 
 
 
-void recuperarProduto(int idCom){
+int recuperarProduto(int idCom, Produto* produto){
     FILE *arqProduto;
-    Produto produto;
-
     arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
     if (arqProduto == NULL){
-        printf("não deu certo");
+        printf("Falha em abrir o arquivo");
         getchar();
-        return;
+        return -1;
     }
-    while (fscanf(arqProduto,"%d[^;]", &produto.id) != EOF){
+    while (fscanf(arqProduto,"%d[^;]", &produto->id) != EOF){
         fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto.nome);
+        fscanf(arqProduto,"%[^;]", produto->nome);
         fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto.tipo);
+        fscanf(arqProduto,"%[^;]", produto->tipo);
         fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto.marca);
+        fscanf(arqProduto,"%[^;]", produto->marca);
         fgetc(arqProduto);
-        fscanf(arqProduto,"%[^\n]", produto.anoProducao);
+        fscanf(arqProduto,"%[^\n]", produto->anoProducao);
         fgetc(arqProduto);
-        if(produto.id == idCom){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Produto                              ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto.id);
-            printf("║ Nome: %s \n", produto.nome);
-            printf("║ Tipo: %s \n", produto.tipo);
-            printf("║ Marca: %s \n", produto.marca);
-            printf("║ Ano Produção: %s \n", produto.anoProducao);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de produtos \n");
-            getchar();
+        if(produto->id == idCom){
             fclose(arqProduto);
-            return;
+            return 0;
         }
     }
     fclose(arqProduto);
     printf("Produto não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de produtos \n");
     getchar();
+    return -1;
 }
     
