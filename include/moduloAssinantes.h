@@ -18,6 +18,7 @@
     int confirmarInfoAss(Assinante*);
     void salvarAssinantes(Assinante*);
     int recuperarAssinante(int, Assinante*);
+    void apagarAssinante(int, Assinante*);
     
 
 #endif

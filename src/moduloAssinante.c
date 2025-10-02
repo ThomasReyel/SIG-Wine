@@ -107,6 +107,7 @@ void checarAssinantes(){
         printf("\nPressione Enter para voltar ao módulo de assinantes \n");
         getchar();
     }
+
 }
 
 void alterarAssinante(){
@@ -137,9 +138,48 @@ void alterarAssinante(){
 }
 
 void excluirAssinante(){
-    printf("Assinante excluído com sucesso!\n");
-    printf("\n> Pressione Enter para voltar ao módulo de assinantes <\n");
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Assinante assinante;
+    printf("Insira o id do assinante que você excluir: \n");
+    scanf("%d", &idCom);
     getchar();
+    do {
+        if (recuperarAssinante(idCom, &assinante) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Assinante                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", assinante.id);
+            printf("║ Nome: %s \n", assinante.nome);
+            printf("║ Email: %s \n", assinante.email);
+            printf("║ CPF: %s \n", assinante.cpf);
+            printf("║ Data: %s \n", assinante.dataNascimento);
+            printf("║ Endereço: %s \n", assinante.endereco);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    apagarAssinante(idCom,&assinante);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }
+    }
+    while (controle == 1);
+
 }
 
 int confirmarInfoAss(Assinante* assinante){
@@ -231,5 +271,53 @@ int recuperarAssinante(int idCom, Assinante* assinante){
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
     getchar();
     return -1;
+}
+
+void apagarAssinante(int idCom, Assinante* assinante ){
+    FILE *arqAssinantes;
+    FILE *arqTemp;
+    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
+    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
+    if (arqAssinantes == NULL || arqTemp == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    while (fscanf(arqAssinantes,"%d[^;]", &assinante->id) != EOF){
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante->nome);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante->email);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante->cpf);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^;]", assinante->dataNascimento);
+        fgetc(arqAssinantes);
+        fscanf(arqAssinantes,"%[^\n]", assinante->endereco);
+        fgetc(arqAssinantes);
+        if(assinante->id != idCom){
+            fprintf(arqTemp,"%d;", assinante->id);
+            fprintf(arqTemp,"%s;", assinante->nome);
+            fprintf(arqTemp,"%s;", assinante->email);
+            fprintf(arqTemp,"%s;", assinante->cpf);
+            fprintf(arqTemp,"%s;", assinante->dataNascimento);
+            fprintf(arqTemp,"%s\n", assinante->endereco);
+        }
+    }
+
+    fclose(arqTemp);
+    fclose(arqAssinantes);
+
+    if (remove("./dados/dadosAssinantes.csv") != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
+    
+    // Renomeia o arquivo temporário (usando o caminho completo)
+    if (rename("./dados/arquivoTem.csv", "./dados/dadosAssinantes.csv") == 0) {
+        printf("Assinante excluído com sucesso \n");
+    } else {
+        printf("Erro ao renomear o arquivo.\n");
+    }
 }
     

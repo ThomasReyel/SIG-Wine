@@ -234,3 +234,48 @@ int recuperarAssinatura(int idCom, Assinatura* assinatura){
     getchar();
     return -1;
 }
+
+void apagarAssinante(int idCom, Assinatura* assinatura ){
+    FILE *arqAssinatura;
+    FILE *arqTemp;
+    arqAssinatura = fopen("./dados/dadosAssinaturas.csv", "rt");
+    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
+    if (arqAssinatura == NULL || arqTemp == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    while (fscanf(arqAssinatura,"%d[^;]", &assinatura->id) != EOF){
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura->idAssinante);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura->idPlano);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^;]", assinatura->dataAssinatura);
+        fgetc(arqAssinatura);
+        fscanf(arqAssinatura,"%[^\n]", assinatura->periodoVencimento);
+        fgetc(arqAssinatura);
+        if(assinatura->id != idCom){
+            fprintf(arqTemp,"%d;", assinatura->id);
+            fprintf(arqTemp,"%s;", assinatura->idAssinante);
+            fprintf(arqTemp,"%s;", assinatura->idPlano);
+            fprintf(arqTemp,"%s;", assinatura->dataAssinatura);
+            fprintf(arqTemp,"%s;", assinatura->periodoVencimento);
+        }
+    }
+
+    fclose(arqTemp);
+    fclose(arqAssinatura);
+
+    if (remove("./dados/dadosAssinaturas.csv") != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
+    
+    // Renomeia o arquivo temporário (usando o caminho completo)
+    if (rename("./dados/arquivoTem.csv", "./dados/dadosAssinaturas.csv") == 0) {
+        printf("assinatura excluído com sucesso \n");
+    } else {
+        printf("Erro ao renomear o arquivo.\n");
+    }
+}
