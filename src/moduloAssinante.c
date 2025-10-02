@@ -87,11 +87,26 @@ void cadastroAssinante(){
 }
 
 void checarAssinantes(){
-    int id;
+    int idCom;
+    Assinante assinante;
     printf("Insira o id do assinante: \n");
-    scanf("%d", &id);
+    scanf("%d", &idCom);
     getchar();
-    recuperarAssinante(id);
+    
+    if (recuperarAssinante(idCom, &assinante) == 0){
+        printf("╔══════════════════════════════════════════════════════════════════╗\n");
+        printf("║                              Assinantes                          ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════╝\n");
+        printf("║ Id: %d \n", assinante.id);
+        printf("║ Nome: %s \n", assinante.nome);
+        printf("║ Email: %s \n", assinante.email);
+        printf("║ CPF: %s \n", assinante.cpf);
+        printf("║ Data: %s \n", assinante.dataNascimento);
+        printf("║ Endereço: %s \n", assinante.endereco);
+        printf("╚═══════════════════════════════════════════════════════════════════\n");
+        printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+        getchar();
+    }
 }
 
 void alterarAssinante(){
@@ -186,49 +201,35 @@ void salvarAssinantes(Assinante* assinante){
 
 }
 
-void recuperarAssinante(int idCom){
+int recuperarAssinante(int idCom, Assinante* assinante){
     FILE *arqAssinantes;
-    Assinante assinante;
-    //Essa linha de baixo foi retirara do chatgpt
-
     arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
     if (arqAssinantes == NULL){
-        printf("não deu certo");
+        printf("Erro em Abrir o arquivo");
         getchar();
-        return;
+        return -1;
     }
-    while (fscanf(arqAssinantes,"%d[^;]", &assinante.id) != EOF){
+    while (fscanf(arqAssinantes,"%d[^;]", &assinante->id) != EOF){
         fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante.nome);
+        fscanf(arqAssinantes,"%[^;]", assinante->nome);
         fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante.email);
+        fscanf(arqAssinantes,"%[^;]", assinante->email);
         fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante.cpf);
+        fscanf(arqAssinantes,"%[^;]", assinante->cpf);
         fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante.dataNascimento);
+        fscanf(arqAssinantes,"%[^;]", assinante->dataNascimento);
         fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^\n]", assinante.endereco);
+        fscanf(arqAssinantes,"%[^\n]", assinante->endereco);
         fgetc(arqAssinantes);
-        if(assinante.id == idCom){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinantes                          ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante.id);
-            printf("║ Nome: %s \n", assinante.nome);
-            printf("║ Email: %s \n", assinante.email);
-            printf("║ CPF: %s \n", assinante.cpf);
-            printf("║ Data: %s \n", assinante.dataNascimento);
-            printf("║ Endereço: %s \n", assinante.endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-            getchar();
+        if(assinante->id == idCom){
             fclose(arqAssinantes);
-            return;
+            return 0;
         }
     }
     fclose(arqAssinantes);
     printf("Assianante não encontrado!");
     printf("\nPressione Enter para voltar ao módulo de assinantes \n");
     getchar();
+    return -1;
 }
     

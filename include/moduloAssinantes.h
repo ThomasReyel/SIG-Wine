@@ -17,7 +17,7 @@
     void excluirAssinante();
     int confirmarInfoAss(Assinante*);
     void salvarAssinantes(Assinante*);
-    void recuperarAssinante(int);
+    int recuperarAssinante(int, Assinante*);
     
 
 #endif
