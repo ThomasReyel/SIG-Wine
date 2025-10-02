@@ -140,9 +140,48 @@ void alterarAssinatura(){
 }
 
 void excluirAssinatura(){
-    printf("plano excluído com sucesso\n");
-    printf("\n> Pressione Enter para voltar ao módulo de planos <\n");
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Assinatura assinatura;
+    printf("Insira o id do assinatura que você excluir: \n");
+    scanf("%d", &idCom);
     getchar();
+    do {
+        if (recuperarAssinatura(idCom, &assinatura) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Assinatura                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", assinatura.id);
+            printf("║ Id Assinante: %s \n", assinatura.idAssinante);
+            printf("║ Id Plano: %s \n", assinatura.idPlano);
+            printf("║ Data da Assinatura: %s \n", assinatura.dataAssinatura);
+            printf("║ Período de Vencimento: %s \n", assinatura.periodoVencimento);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse assinatura?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    apagarAssinatura(idCom,&assinatura);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
 }
 
 char confirmarInfoAsstura(Assinatura* assinatura){
@@ -235,7 +274,7 @@ int recuperarAssinatura(int idCom, Assinatura* assinatura){
     return -1;
 }
 
-void apagarAssinante(int idCom, Assinatura* assinatura ){
+void apagarAssinatura(int idCom, Assinatura* assinatura ){
     FILE *arqAssinatura;
     FILE *arqTemp;
     arqAssinatura = fopen("./dados/dadosAssinaturas.csv", "rt");
