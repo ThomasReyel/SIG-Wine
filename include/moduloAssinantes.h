@@ -1,13 +1,24 @@
 #ifndef MODULO_ASSINANTES_H
     #define MODULO_ASSINANTES_H
+    typedef struct assinante Assinante;
+    struct assinante{
+        int id;
+        char nome[100];
+        char email[100];
+        char cpf[20];
+        char dataNascimento[20];
+        char endereco[100];
+    };
     void telaAssinante();
     void menuAssinante();
     void cadastroAssinante();
     void checarAssinantes();
     void alterarAssinante();
     void excluirAssinante();
-    char confirmarInfoAss(char[],char[],char[],char[],char[]);
-    void salvarAssinantes(int,char[],char[],char[],char[],char[]);
-    void recuperarAssinante(char[]);
+    int confirmarInfoAss(Assinante*);
+    void salvarAssinantes(Assinante*);
+    int recuperarAssinante(int, Assinante*);
+    void apagarAssinante(int, Assinante*);
+    
 
 #endif
