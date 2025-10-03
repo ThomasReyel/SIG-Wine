@@ -132,9 +132,48 @@ void alterarPlano(){
 }
 
 void excluirPlano(){
-    printf("Plano excluído com sucesso!\n");
-    printf("\n> Pressione Enter para voltar ao módulo de assinantes <\n");
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Plano plano;
+    printf("Insira o id do plano que você excluir: \n");
+    scanf("%d", &idCom);
     getchar();
+    do {
+        if (recuperarPlano(idCom, &plano) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Plano                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", plano.id);
+            printf("║ Nome: %s \n", plano.nome);
+            printf("║ Preço: %s \n", plano.preco);
+            printf("║ Período do Plano: %s \n", plano.periodo);
+            printf("║ Id do Produto: %s \n", plano.idProduto);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse plano?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    apagarPlano(idCom,&plano);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
 }
 
 char confirmarInfoPlan(Plano* plano){
@@ -231,4 +270,48 @@ int recuperarPlano(int idCom, Plano* plano){
     getchar();
     return -1;
 }
+
+void apagarPlano(int idCom, Plano* plano ){
+    FILE *arqPlano;
+    FILE *arqTemp;
+    arqPlano = fopen("./dados/dadosPlanos.csv", "rt");
+    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
+    if (arqPlano == NULL || arqTemp == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    while (fscanf(arqPlano,"%d[^;]", &plano->id) != EOF){
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano->nome);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano->preco);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^;]", plano->periodo);
+        fgetc(arqPlano);
+        fscanf(arqPlano,"%[^\n]", plano->idProduto);
+        fgetc(arqPlano);
+        if(plano->id != idCom){
+            fprintf(arqTemp,"%d;", plano->id);
+            fprintf(arqTemp,"%s;", plano->nome);
+            fprintf(arqTemp,"%s;", plano->preco);
+            fprintf(arqTemp,"%s;", plano->periodo);
+            fprintf(arqTemp,"%s;", plano->idProduto);
+        }
+    }
+
+    fclose(arqTemp);
+    fclose(arqPlano);
+
+    if (remove("./dados/dadosPlanos.csv") != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
     
+    // Renomeia o arquivo temporário (usando o caminho completo)
+    if (rename("./dados/arquivoTem.csv", "./dados/dadosPlanos.csv") == 0) {
+        printf("Plano excluído com sucesso \n");
+    } else {
+        printf("Erro ao renomear o arquivo.\n");
+    }
+}

@@ -17,6 +17,7 @@
     char confirmarInfoPlan(Plano*);
     void salvarPlanos(Plano*);
     int recuperarPlano(int, Plano*);
+    void apagarPlano(int, Plano*);
 
 
 #endif

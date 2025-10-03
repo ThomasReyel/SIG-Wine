@@ -230,4 +230,48 @@ int recuperarProduto(int idCom, Produto* produto){
     getchar();
     return -1;
 }
+
+void apagarPlano(int idCom, Produto* produto){
+    FILE *arqProduto;
+    FILE *arqTemp;
+    arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
+    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
+    if (arqProduto == NULL || arqTemp == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    while (fscanf(arqProduto,"%d[^;]", &produto->id) != EOF){
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto->nome);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto->tipo);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^;]", produto->marca);
+        fgetc(arqProduto);
+        fscanf(arqProduto,"%[^\n]", produto->anoProducao);
+        fgetc(arqProduto);
+        if(produto->id != idCom){
+            fprintf(arqTemp,"%d;", produto->id);
+            fprintf(arqTemp,"%s;", produto->nome);
+            fprintf(arqTemp,"%s;", produto->tipo);
+            fprintf(arqTemp,"%s;", produto->marca);
+            fprintf(arqTemp,"%s;", produto->anoProducao);
+        }
+    }
+
+    fclose(arqTemp);
+    fclose(arqProduto);
+
+    if (remove("./dados/dadosProdutos.csv") != 0) {
+        printf("Erro ao remover o arquivo original.\n");
+        return;
+    }
     
+    if (rename("./dados/arquivoTem.csv", "./dados/dadosProdutos.csv") == 0) {
+        printf("Produto excluído com sucesso \n");
+    } else {
+        printf("Erro ao renomear o arquivo.\n");
+    }
+}
+
