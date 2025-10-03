@@ -135,9 +135,48 @@ void alterarProduto(){
     // }
 }
 void excluirProduto(){
-    printf("Produto excluído com sucesso!\n");
-    printf("\n> Pressione Enter para voltar ao módulo de produtos <\n");
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Produto produto;
+    printf("Insira o id do Produto que você excluir: \n");
+    scanf("%d", &idCom);
     getchar();
+    do {
+        if (recuperarProduto(idCom, &produto) == 0){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Produto                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", produto.id);
+            printf("║ Nome: %s \n", produto.nome);
+            printf("║ Preço: %s \n", produto.tipo);
+            printf("║ Período do Produto: %s \n", produto.marca);
+            printf("║ Id do Produto: %s \n", produto.anoProducao);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse Produto?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    apagarProduto(idCom,&produto);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
 }
 int confirmarInfoProd(Produto* produto){
     char opcao[10];
@@ -231,7 +270,7 @@ int recuperarProduto(int idCom, Produto* produto){
     return -1;
 }
 
-void apagarPlano(int idCom, Produto* produto){
+void apagarProduto(int idCom, Produto* produto){
     FILE *arqProduto;
     FILE *arqTemp;
     arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
