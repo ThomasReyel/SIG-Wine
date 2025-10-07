@@ -82,21 +82,30 @@ void cadastroAssinante(){
 
 void checarAssinantes(){
     int idCom;
-    Assinante assinante;
+    Assinante* assinante;
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
     getchar();
-    
-    if (recuperarAssinante(idCom, &assinante) == 0){
+    assinante = recuperarAssinante(idCom);
+    if (assinante != -1){
         printf("╔══════════════════════════════════════════════════════════════════╗\n");
         printf("║                              Assinantes                          ║\n");
         printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinante.id);
-        printf("║ Nome: %s \n", assinante.nome);
-        printf("║ Email: %s \n", assinante.email);
-        printf("║ CPF: %s \n", assinante.cpf);
-        printf("║ Data: %s \n", assinante.dataNascimento);
-        printf("║ Endereço: %s \n", assinante.endereco);
+        printf("║ Id: %d \n", assinante->id);
+        printf("║ Nome: %s \n", assinante->nome);
+        printf("║ Email: %s \n", assinante->email);
+        printf("║ CPF: %s \n", assinante->cpf);
+        printf("║ Data: %s \n", assinante->dataNascimento);
+        printf("║ Endereço: %s \n", assinante->endereco);
+        printf("╚═══════════════════════════════════════════════════════════════════\n");
+        printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+        getchar();
+    } else{
+        printf("╔══════════════════════════════════════════════════════════════════╗\n");
+        printf("║                         ASSINANTE NÃO ENCONTRADO                 ║\n");
+        printf("╠══════════════════════════════════════════════════════════════════╝\n");
+        printf("║ Nenhum assinante encontrado com o ID: %d\n", idCom);
+        printf("║ Verifique se o ID está correto e tente novamente.\n");
         printf("╚═══════════════════════════════════════════════════════════════════\n");
         printf("\nPressione Enter para voltar ao módulo de assinantes \n");
         getchar();
@@ -229,49 +238,49 @@ void alterarAssinante() {
 
 
 void excluirAssinante(){
-    char opcao[10];
-    int controle = 1;
-    int idCom;
-    Assinante assinante;
-    printf("Insira o id do assinante que você excluir: \n");
-    scanf("%d", &idCom);
-    getchar();
-    do {
-        if (recuperarAssinante(idCom, &assinante) == 0){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinante                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante.id);
-            printf("║ Nome: %s \n", assinante.nome);
-            printf("║ Email: %s \n", assinante.email);
-            printf("║ CPF: %s \n", assinante.cpf);
-            printf("║ Data: %s \n", assinante.dataNascimento);
-            printf("║ Endereço: %s \n", assinante.endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
-                opcao[0] = 'l';
-            };
-            switch (opcao[0]){
-                case '1':
-                    apagarAssinante(idCom,&assinante);
-                    controle = 0;
-                break;
-                case '2':
-                    controle = 0;
-                break;
-                default:
-                    printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
-                    getchar();
-                break;
-            }
-        }else{
-            controle = 0;
-        }
-    }
-    while (controle == 1);
+    // char opcao[10];
+    // int controle = 1;
+    // int idCom;
+    // Assinante assinante;
+    // printf("Insira o id do assinante que você excluir: \n");
+    // scanf("%d", &idCom);
+    // getchar();
+    // do {
+    //     if (recuperarAssinante(idCom, &assinante) == 0){
+    //         printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    //         printf("║                              Assinante                           ║\n");
+    //         printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    //         printf("║ Id: %d \n", assinante.id);
+    //         printf("║ Nome: %s \n", assinante.nome);
+    //         printf("║ Email: %s \n", assinante.email);
+    //         printf("║ CPF: %s \n", assinante.cpf);
+    //         printf("║ Data: %s \n", assinante.dataNascimento);
+    //         printf("║ Endereço: %s \n", assinante.endereco);
+    //         printf("╚═══════════════════════════════════════════════════════════════════\n");
+    //         printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+    //         fgets(opcao,10,stdin);
+    //         if (opcao[1] != '\n'){
+    //             opcao[0] = 'l';
+    //         };
+    //         switch (opcao[0]){
+    //             case '1':
+    //                 apagarAssinante(idCom,&assinante);
+    //                 controle = 0;
+    //             break;
+    //             case '2':
+    //                 controle = 0;
+    //             break;
+    //             default:
+    //                 printf("Você inseriu uma opção inválida\n");
+    //                 printf("\nPressione Enter para tentar novamente \n");
+    //                 getchar();
+    //             break;
+    //         }
+    //     }else{
+    //         controle = 0;
+    //     }
+    // }
+    // while (controle == 1);
 
 }
 
@@ -334,38 +343,27 @@ Assinante* salvarAssinantes(){
     tratarString(assinante->cpf);
     tratarString(assinante->dataNascimento);
     tratarString(assinante->endereco);
+    assinante->status = True;
     return assinante;
 }
 
-int recuperarAssinante(int idCom, Assinante* assinante){
+Assinante* recuperarAssinante(int idCom){
     FILE *arqAssinantes;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
+    Assinante* assinante;
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rt");
     if (arqAssinantes == NULL){
         printf("Erro em Abrir o arquivo");
         getchar();
         return -1;
     }
-    while (fscanf(arqAssinantes,"%d[^;]", &assinante->id) != EOF){
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->nome);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->email);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->cpf);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->dataNascimento);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^\n]", assinante->endereco);
-        fgetc(arqAssinantes);
-        if(assinante->id == idCom){
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+        if((idCom == assinante->id) && (assinante->status == True)){
             fclose(arqAssinantes);
-            return 0;
+            return assinante;
         }
     }
     fclose(arqAssinantes);
-    printf("Assianante não encontrado!");
-    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-    getchar();
     return -1;
 }
 
