@@ -55,26 +55,20 @@ void telaAssinante(){
 }
 
 void cadastroAssinante(){
-    Assinante assinante;
-    assinante.id = recuperarIdAssinantes();
-    printf("Insira o nome do Assinante:\n");
-    fgets(assinante.nome,100,stdin);
-    printf("Insira o email:\n");
-    fgets(assinante.email,100,stdin);
-    printf("Insira o CPF:\n");
-    fgets(assinante.cpf,20,stdin);
-    printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(assinante.dataNascimento,20,stdin);
-    printf("Insira o endereço:\n");
-    fgets(assinante.endereco,100,stdin);
-    tratarString(assinante.nome);
-    tratarString(assinante.email);
-    tratarString(assinante.cpf);
-    tratarString(assinante.dataNascimento);
-    tratarString(assinante.endereco);
-    int confirmador = confirmarInfoAss(&assinante);
+    Assinante* assinante;
+    FILE* arqAssinante;
+    assinante = salvarAssinantes();
+    int confirmador = confirmarInfoAss(assinante);
     if ( confirmador == 1){
-        salvarAssinantes(&assinante);
+        arqAssinante = fopen("./dados/dadosAssinantes.dat", "ab");
+        if (arqAssinante == NULL){
+            printf("Erro em abrir o arquivo");
+            getchar();
+            return;
+        }
+        fwrite(assinante,sizeof(Assinante), 1,arqAssinante);
+        fclose(arqAssinante);
+        free(assinante);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -321,23 +315,26 @@ int confirmarInfoAss(const Assinante* assinante){
     return 1;
 }
 
-void salvarAssinantes(Assinante* assinante){
-    FILE *arqAssinantes;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
-    if (arqAssinantes == NULL){
-        printf("Falha em abrir o arquivo");
-        printf("Pressione Enter para voltar para o menu");
-        getchar();
-        return;
-    }
-    fprintf(arqAssinantes,"%d;", assinante->id);
-    fprintf(arqAssinantes,"%s;", assinante->nome);
-    fprintf(arqAssinantes,"%s;", assinante->email);
-    fprintf(arqAssinantes,"%s;", assinante->cpf);
-    fprintf(arqAssinantes,"%s;", assinante->dataNascimento);
-    fprintf(arqAssinantes,"%s\n", assinante->endereco);
-    fclose(arqAssinantes);
-
+Assinante* salvarAssinantes(){
+    Assinante* assinante;
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    assinante->id = recuperarIdAssinantes();
+    printf("Insira o nome do Assinante:\n");
+    fgets(assinante->nome,100,stdin);
+    printf("Insira o email:\n");
+    fgets(assinante->email,100,stdin);
+    printf("Insira o CPF:\n");
+    fgets(assinante->cpf,20,stdin);
+    printf("Insira a data de nascimento (dd/mm/aa):\n");
+    fgets(assinante->dataNascimento,20,stdin);
+    printf("Insira o endereço:\n");
+    fgets(assinante->endereco,100,stdin);
+    tratarString(assinante->nome);
+    tratarString(assinante->email);
+    tratarString(assinante->cpf);
+    tratarString(assinante->dataNascimento);
+    tratarString(assinante->endereco);
+    return assinante;
 }
 
 int recuperarAssinante(int idCom, Assinante* assinante){

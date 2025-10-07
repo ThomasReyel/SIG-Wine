@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "moduloAssinantes.h"
 void tratarString(char string[]){
     int tam = strlen(string);
     string[tam - 1] = '\0';
@@ -8,9 +9,9 @@ void tratarString(char string[]){
 
 void inicializarAssinantes(){
     FILE *arqAssinantes;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rb");
     if (arqAssinantes == NULL){
-        arqAssinantes = fopen("./dados/dadosAssinantes.csv", "wt");
+        arqAssinantes = fopen("./dados/dadosAssinantes.dat", "wb");
 
         if (arqAssinantes == NULL){
             printf("Erro: Não foi possível criar o arquivo na pasta dados.\n");
@@ -74,27 +75,25 @@ void inicializarPlanos(){
     }
 }
 
-// função originalmente vinda do chatgpt, mas alterada para se encaixar melhor ao projeto
+// função originalmente vinda do deepseek, mas alterada para se encaixar melhor ao projeto
 int recuperarIdAssinantes(void) {
-    FILE *arq = fopen("./dados/dadosAssinantes.csv", "rt");
-    if (arq == NULL) {
-        printf("Erro ao abrir arquivo!\n");
+   FILE *arqAssinante = fopen("./dados/dadosAssinantes.dat", "rb");
+    if (arqAssinante == NULL) {
+        printf("Erro ao abrir arqAssinanteuivo!\n");
         getchar();
-        return -1; 
+        return 0; 
     }
+    
     int ultimoId = -1;
-    char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
-        int id;
-        if (sscanf(linha, "%d;", &id) == 1) {
-            ultimoId = id;
+    Assinante assinante;
+    while (fread(&assinante, sizeof(Assinante), 1, arqAssinante) == 1) {
+        if (assinante.id > ultimoId) {
+            ultimoId = assinante.id;
         }
     }
-    fclose(arq);
-    if (ultimoId == -1) {
-        return 0;
-    }
-    return ultimoId + 1; // retorna o próximo id disponível
+    
+    fclose(arqAssinante);
+    return ultimoId + 1; 
 }
 
 int recuperarIdAssinaturas(void) {
