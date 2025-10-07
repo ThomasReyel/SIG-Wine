@@ -15,7 +15,7 @@
     void checarAssinantes();
     void alterarAssinante();
     void excluirAssinante();
-    int confirmarInfoAss(Assinante*);
+    int confirmarInfoAss(const Assinante*);
     void salvarAssinantes(Assinante*);
     int recuperarAssinante(int, Assinante*);
     void apagarAssinante(int, Assinante*);

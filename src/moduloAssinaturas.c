@@ -184,7 +184,7 @@ void excluirAssinatura(){
     while (controle == 1);
 }
 
-char confirmarInfoAsstura(Assinatura* assinatura){
+char confirmarInfoAsstura(const Assinatura* assinatura){
     char opcao[10];
     int controleCI = 1;
     do {

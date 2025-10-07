@@ -14,7 +14,7 @@
     void checarAssinaturas(void);
     void alterarAssinatura(void);
     void excluirAssinatura(void);
-    char confirmarInfoAsstura(Assinatura*);
+    char confirmarInfoAsstura(const Assinatura*);
     void salvarAssinaturas(Assinatura*);
     int recuperarAssinatura(int, Assinatura*);
     void apagarAssinatura(int, Assinatura*);

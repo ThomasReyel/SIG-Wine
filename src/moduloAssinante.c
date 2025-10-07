@@ -109,10 +109,8 @@ void checarAssinantes(){
     }
 
 }
-
-
-
 void alterarAssinante() {
+/*
     int idCom;
     Assinante assinante;
     FILE *arqAssinantes, *arqTemp;
@@ -232,6 +230,7 @@ void alterarAssinante() {
     printf("Atualização realizada com sucesso!\n");
     printf("\nPressione Enter para voltar \n");
     getchar();
+*/
 }
 
 
@@ -282,7 +281,7 @@ void excluirAssinante(){
 
 }
 
-int confirmarInfoAss(Assinante* assinante){
+int confirmarInfoAss(const Assinante* assinante){
     char opcao[10];
     int controleCI = 1;
     do {

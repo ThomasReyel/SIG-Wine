@@ -14,7 +14,7 @@
     void checarProdutos();
     void alterarProduto();
     void excluirProduto();
-    int confirmarInfoProd(Produto*);
+    int confirmarInfoProd(const Produto*);
     void salvarProdutos(Produto*);
     int recuperarProduto(int, Produto*);
     void apagarProduto(int, Produto*);

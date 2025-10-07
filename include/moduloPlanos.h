@@ -14,7 +14,7 @@
     void checarPlanos();
     void alterarPlano();
     void excluirPlano();
-    char confirmarInfoPlan(Plano*);
+    char confirmarInfoPlan(const Plano*);
     void salvarPlanos(Plano*);
     int recuperarPlano(int, Plano*);
     void apagarPlano(int, Plano*);
