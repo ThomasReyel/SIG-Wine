@@ -21,7 +21,7 @@
     int confirmarInfoAss(const Assinante*);
     Assinante* salvarAssinantes();
     Assinante* recuperarAssinante(int);
-    void apagarAssinante(int, Assinante*);
+    void apagarAssinante(int);
     
 
 #endif
