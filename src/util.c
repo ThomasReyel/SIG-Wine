@@ -83,7 +83,6 @@ int recuperarIdAssinantes(void) {
         getchar();
         return 0; 
     }
-    
     int ultimoId = -1;
     Assinante assinante;
     while (fread(&assinante, sizeof(Assinante), 1, arqAssinante) == 1) {

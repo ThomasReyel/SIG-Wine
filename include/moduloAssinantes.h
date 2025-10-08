@@ -14,15 +14,15 @@
     };
     void telaAssinante();
     void menuAssinante();
-    void cadastroAssinante();
+    void cadastrarAssinante();
     void checarAssinantes();
     void alterarAssinante();
     void excluirAssinante();
     int confirmarInfoAss(const Assinante*);
     Assinante* salvarAssinantes();
     Assinante* recuperarAssinante(int);
-    void apagarAssinante(int);
-    void modificarAssinante(int);
+    void excluirAssinanteArquivo(int);
+    void alterarAssinanteArquivo(int);
     
 
 #endif

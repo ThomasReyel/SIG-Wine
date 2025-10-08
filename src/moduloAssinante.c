@@ -15,7 +15,7 @@ void menuAssinante(){
         };
        switch (opcao[0]){
         case '1':
-            cadastroAssinante();
+            cadastrarAssinante();
         break;
         case '2':
             checarAssinantes();
@@ -54,7 +54,7 @@ void telaAssinante(){
 
 }
 
-void cadastroAssinante(){
+void cadastrarAssinante(){
     Assinante* assinante;
     FILE* arqAssinante;
     assinante = salvarAssinantes();
@@ -87,7 +87,7 @@ void checarAssinantes(){
     scanf("%d", &idCom);
     getchar();
     assinante = recuperarAssinante(idCom);
-    if (assinante != -1){
+    if (assinante != NULL){
         printf("╔══════════════════════════════════════════════════════════════════╗\n");
         printf("║                              Assinantes                          ║\n");
         printf("╠══════════════════════════════════════════════════════════════════╝\n");
@@ -100,17 +100,7 @@ void checarAssinantes(){
         printf("╚═══════════════════════════════════════════════════════════════════\n");
         printf("\nPressione Enter para voltar ao módulo de assinantes \n");
         getchar();
-    } else{
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                         ASSINANTE NÃO ENCONTRADO                 ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Nenhum assinante encontrado com o ID: %d\n", idCom);
-        printf("║ Verifique se o ID está correto e tente novamente.\n");
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de assinantes \n");
-        getchar();
-    }
-
+    } 
 }
 void alterarAssinante() {
     char opcao[10];
@@ -122,7 +112,7 @@ void alterarAssinante() {
     getchar();
     assinante = recuperarAssinante(idCom);
     do {
-        if (assinante != -1){
+        if (assinante != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinante                           ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
@@ -140,8 +130,7 @@ void alterarAssinante() {
             };
             switch (opcao[0]){
                 case '1':
-                    modificarAssinante(idCom);
-                    free(assinante);
+                    alterarAssinanteArquivo(idCom);
                     controle = 0;
                 break;
                 case '2':
@@ -172,7 +161,7 @@ void excluirAssinante(){
     getchar();
     assinante = recuperarAssinante(idCom);
     do {
-        if (assinante != -1){
+        if (assinante != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinante                           ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
@@ -190,8 +179,7 @@ void excluirAssinante(){
             };
             switch (opcao[0]){
                 case '1':
-                    apagarAssinante(idCom);
-                    free(assinante);
+                    excluirAssinanteArquivo(idCom);
                     controle = 0;
                 break;
                 case '2':
@@ -281,7 +269,7 @@ Assinante* recuperarAssinante(int idCom){
     if (arqAssinantes == NULL){
         printf("Erro em Abrir o arquivo");
         getchar();
-        return -1;
+        return NULL;
     }
     assinante = (Assinante*) malloc(sizeof(Assinante));
     while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
@@ -291,10 +279,12 @@ Assinante* recuperarAssinante(int idCom){
         }
     }
     fclose(arqAssinantes);
-    return -1;
+    printf("O assinante com o ID %d não foi encontrado\n", idCom);
+    getchar();
+    return NULL;
 }
 
-void apagarAssinante(int idCom){
+void excluirAssinanteArquivo(int idCom){
     FILE *arqAssinantes;
     Assinante* assinante;
     arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
@@ -312,11 +302,14 @@ void apagarAssinante(int idCom){
             printf("Assinante Excluído com sucesso\n");
             printf("Aperte enter para voltar ao menu\n");
             getchar();
+            fclose(arqAssinantes);
+            free(assinante);
+            return;  
         }
     }
-    fclose(arqAssinantes);
 }
-void modificarAssinante(int idCom){
+
+void alterarAssinanteArquivo(int idCom){
     char opcao[10];
     int controle = 1;
     FILE *arqAssinantes;
@@ -350,10 +343,11 @@ void modificarAssinante(int idCom){
                     printf("Assinante alterado com sucesso\n");
                     printf("Aperte enter para voltar ao menu\n");
                     getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
                 }
             }
-            fclose(arqAssinantes);
-            return;
         break;
         case '2':
             char emailNovo[100];
@@ -369,10 +363,11 @@ void modificarAssinante(int idCom){
                     printf("Assinante alterado com sucesso\n");
                     printf("Aperte enter para voltar ao menu\n");
                     getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
                 }
             }
-            fclose(arqAssinantes);
-            return;
         break;
         case '3':
             char cpfNovo[20];
@@ -388,10 +383,11 @@ void modificarAssinante(int idCom){
                     printf("Assinante alterado com sucesso\n");
                     printf("Aperte enter para voltar ao menu\n");
                     getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
                 }
             }
-            fclose(arqAssinantes);
-            return;
         break;
         case '4':
             char dataNascimentoNovo[20];
@@ -407,10 +403,11 @@ void modificarAssinante(int idCom){
                     printf("Assinante alterado com sucesso\n");
                     printf("Aperte enter para voltar ao menu\n");
                     getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
                 }
             }
-            fclose(arqAssinantes);
-            return;
         break;
         case '5':
             char enderecoNovo[100];
@@ -426,10 +423,11 @@ void modificarAssinante(int idCom){
                     printf("Assinante alterado com sucesso\n");
                     printf("Aperte enter para voltar ao menu\n");
                     getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
                 }
             }
-            fclose(arqAssinantes);
-            return;
         break; 
         case '6':
             controle = 0;
