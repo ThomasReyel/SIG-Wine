@@ -76,8 +76,7 @@ void cadastrarAssinante(){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         getchar();
-    }
-    
+    }  
 }
 
 void checarAssinantes(){
