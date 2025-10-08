@@ -2,6 +2,11 @@
 #include <stdlib.h>
 #include <string.h>
 #include "moduloAssinantes.h"
+#include "moduloAssinaturas.h"
+#include "moduloPlanos.h"
+#include "moduloProdutos.h"
+#include "moduloRelatorios.h"
+#include "moduloFinanceiro.h"
 void tratarString(char string[]){
     int tam = strlen(string);
     string[tam - 1] = '\0';
@@ -26,9 +31,9 @@ void inicializarAssinantes(){
 
 void inicializarAssinaturas(){
     FILE *arqAssinaturas;
-    arqAssinaturas = fopen("./dados/dadosAssinaturas.csv", "rt");
+    arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "rb");
     if (arqAssinaturas == NULL){
-        arqAssinaturas = fopen("./dados/dadosAssinaturas.csv", "wt");
+        arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "wb");
 
         if (arqAssinaturas == NULL){
             printf("Erro: Não foi possível criar o arquivo na pasta dados.\n");
@@ -43,9 +48,9 @@ void inicializarAssinaturas(){
 
 void inicializarProdutos(){
     FILE *arqProdutos;
-    arqProdutos = fopen("./dados/dadosProdutos.csv", "rt");
+    arqProdutos = fopen("./dados/dadosProdutos.dat", "rb");
     if (arqProdutos == NULL){
-        arqProdutos = fopen("./dados/dadosProdutos.csv", "wt");
+        arqProdutos = fopen("./dados/dadosProdutos.dat", "wb");
 
         if (arqProdutos == NULL){
             printf("Erro: Não foi possível criar o arquivo na pasta dados.\n");
@@ -60,9 +65,9 @@ void inicializarProdutos(){
 
 void inicializarPlanos(){
     FILE *arqPlanos;
-    arqPlanos = fopen("./dados/dadosPlanos.csv", "rt");
+    arqPlanos = fopen("./dados/dadosPlanos.dat", "rb");
     if (arqPlanos == NULL){
-        arqPlanos = fopen("./dados/dadosPlanos.csv", "wt");
+        arqPlanos = fopen("./dados/dadosPlanos.dat", "wb");
 
         if (arqPlanos == NULL){
             printf("Erro: Não foi possível criar o arquivo na pasta dados.\n");
@@ -96,67 +101,58 @@ int recuperarIdAssinantes(void) {
 }
 
 int recuperarIdAssinaturas(void) {
-    FILE *arq = fopen("./dados/dadosAssinaturas.csv", "rt");
-    if (arq == NULL) {
-        printf("Erro ao abrir arquivo!\n");
+    FILE *arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "rb");
+    if (arqAssinaturas == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
         getchar();
-        return -1; 
+        return 0; 
     }
     int ultimoId = -1;
-    char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
-        int id;
-        if (sscanf(linha, "%d;", &id) == 1) {
-            ultimoId = id;
+    Assinatura assinatura;
+    while (fread(&assinatura, sizeof(Assinatura), 1, arqAssinaturas) == 1) {
+        if (assinatura.id > ultimoId) {
+            ultimoId = assinatura.id;
         }
     }
-    fclose(arq);
-    if (ultimoId == -1) {
-        return 0;
-    }
-    return ultimoId + 1; // retorna o próximo id disponível
+    
+    fclose(arqAssinaturas);
+    return ultimoId + 1; 
 }
 
 int recuperarIdPlanos(void) {
-    FILE *arq = fopen("./dados/dadosPlanos.csv", "rt");
-    if (arq == NULL) {
-        printf("Erro ao abrir arquivo!\n");
+    FILE *arqPlanos = fopen("./dados/dadosPlanos.dat", "rb");
+    if (arqPlanos == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
         getchar();
-        return -1; 
+        return 0; 
     }
     int ultimoId = -1;
-    char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
-        int id;
-        if (sscanf(linha, "%d;", &id) == 1) {
-            ultimoId = id;
+    Plano plano;
+    while (fread(&plano, sizeof(Plano), 1, arqPlanos) == 1) {
+        if (plano.id > ultimoId) {
+            ultimoId = plano.id;
         }
     }
-    fclose(arq);
-    if (ultimoId == -1) {
-        return 0;
-    }
-    return ultimoId + 1; // retorna o próximo id disponível
+    
+    fclose(arqPlanos);
+    return ultimoId + 1; 
 }
 
 int recuperarIdProdutos(void) {
-    FILE *arq = fopen("./dados/dadosProdutos.csv", "rt");
-    if (arq == NULL) {
-        printf("Erro ao abrir arquivo!\n");
+    FILE *arqProdutos = fopen("./dados/dadosProdutos.dat", "rb");
+    if (arqProdutos == NULL) {
+        printf("Erro ao abrir o arquivo!\n");
         getchar();
-        return -1; 
+        return 0; 
     }
     int ultimoId = -1;
-    char linha[256];
-    while (fgets(linha, sizeof(linha), arq)) {
-        int id;
-        if (sscanf(linha, "%d;", &id) == 1) {
-            ultimoId = id;
+    Produto produto;
+    while (fread(&produto, sizeof(Produto), 1, arqProdutos) == 1) {
+        if (produto.id > ultimoId) {
+            ultimoId = produto.id;
         }
     }
-    fclose(arq);
-    if (ultimoId == -1) {
-        return 0;
-    }
-    return ultimoId + 1; // retorna o próximo id disponível
+    
+    fclose(arqProdutos);
+    return ultimoId + 1; 
 }
