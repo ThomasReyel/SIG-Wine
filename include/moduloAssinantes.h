@@ -22,6 +22,7 @@
     Assinante* salvarAssinantes();
     Assinante* recuperarAssinante(int);
     void apagarAssinante(int);
+    void modificarAssinante(int);
     
 
 #endif

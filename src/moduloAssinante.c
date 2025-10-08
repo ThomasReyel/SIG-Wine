@@ -113,7 +113,52 @@ void checarAssinantes(){
 
 }
 void alterarAssinante() {
-
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Assinante* assinante;
+    printf("Insira o id do assinante que você excluir: \n");
+    scanf("%d", &idCom);
+    getchar();
+    assinante = recuperarAssinante(idCom);
+    do {
+        if (assinante != -1){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Assinante                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", assinante->id);
+            printf("║ Nome: %s \n", assinante->nome);
+            printf("║ Email: %s \n", assinante->email);
+            printf("║ CPF: %s \n", assinante->cpf);
+            printf("║ Data: %s \n", assinante->dataNascimento);
+            printf("║ Endereço: %s \n", assinante->endereco);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    modificarAssinante(idCom);
+                    free(assinante);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
+   
 }
 
 
@@ -146,6 +191,7 @@ void excluirAssinante(){
             switch (opcao[0]){
                 case '1':
                     apagarAssinante(idCom);
+                    free(assinante);
                     controle = 0;
                 break;
                 case '2':
@@ -269,5 +315,132 @@ void apagarAssinante(int idCom){
         }
     }
     fclose(arqAssinantes);
+}
+void modificarAssinante(int idCom){
+    char opcao[10];
+    int controle = 1;
+    FILE *arqAssinantes;
+    Assinante* assinante;
+    system("clear||cls");
+    do {
+        printf("║Qual campo você quer alterar?\n");
+        printf("║1. Nome\n║2. Email\n║3. CPF\n║4. Data de nascimento\n║5. Endereço\n");
+        fgets(opcao,10,stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
+        arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
+        if (arqAssinantes == NULL){
+            printf("Falha na manipulação dos arquivos");
+            getchar();
+            return;
+        }
+       switch (opcao[0]){
+        case '1':
+            char nomeNovo[100];
+            printf("Insira o novo nome:\n");
+            fgets(nomeNovo,100,stdin);
+            tratarString(nomeNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->nome, nomeNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                }
+            }
+            fclose(arqAssinantes);
+            return;
+        break;
+        case '2':
+            char emailNovo[100];
+            printf("Insira o novo email:\n");
+            fgets(emailNovo,100,stdin);
+            tratarString(emailNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->email, emailNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                }
+            }
+            fclose(arqAssinantes);
+            return;
+        break;
+        case '3':
+            char cpfNovo[20];
+            printf("Insira o novo cpf:\n");
+            fgets(cpfNovo,20,stdin);
+            tratarString(cpfNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->cpf, cpfNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                }
+            }
+            fclose(arqAssinantes);
+            return;
+        break;
+        case '4':
+            char dataNascimentoNovo[20];
+            printf("Insira a nova data de Nascimento:\n");
+            fgets(dataNascimentoNovo,20,stdin);
+            tratarString(dataNascimentoNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->dataNascimento, dataNascimentoNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                }
+            }
+            fclose(arqAssinantes);
+            return;
+        break;
+        case '5':
+            char enderecoNovo[100];
+            printf("Insira o novo endereço:\n");
+            fgets(enderecoNovo,100,stdin);
+            tratarString(enderecoNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->endereco, enderecoNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                }
+            }
+            fclose(arqAssinantes);
+            return;
+        break; 
+        case '6':
+            controle = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            getchar();
+        break;
+       }
+    }
+    while (controle == 1);
 }
     
