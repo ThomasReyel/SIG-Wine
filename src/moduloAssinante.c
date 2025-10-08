@@ -146,9 +146,7 @@ void alterarAssinante() {
         }
     }
     while (controle == 1);
-   
 }
-
 
 void excluirAssinante(){
     char opcao[10];

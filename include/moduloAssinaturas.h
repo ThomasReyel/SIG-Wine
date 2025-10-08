@@ -19,7 +19,7 @@
     void excluirAssinatura(void);
     char confirmarInfoAssinatura(const Assinatura*);
     Assinatura* salvarAssinaturas();
-    int recuperarAssinatura(int, Assinatura*);
+    Assinatura* recuperarAssinatura(int);
     void apagarAssinatura(int, Assinatura*);
 
 #endif
