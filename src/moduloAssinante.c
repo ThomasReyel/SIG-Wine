@@ -106,7 +106,7 @@ void alterarAssinante() {
     int controle = 1;
     int idCom;
     Assinante* assinante;
-    printf("Insira o id do assinante que você excluir: \n");
+    printf("Insira o id do assinante que você deseja alterar: \n");
     scanf("%d", &idCom);
     getchar();
     assinante = recuperarAssinante(idCom);
@@ -122,7 +122,7 @@ void alterarAssinante() {
             printf("║ Data: %s \n", assinante->dataNascimento);
             printf("║ Endereço: %s \n", assinante->endereco);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente alterar esse assinante?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
@@ -193,7 +193,6 @@ void excluirAssinante(){
         }
     }
     while (controle == 1);
-
 }
 
 int confirmarInfoAss(const Assinante* assinante){
