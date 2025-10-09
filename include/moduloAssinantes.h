@@ -1,5 +1,7 @@
 #ifndef MODULO_ASSINANTES_H
     #define MODULO_ASSINANTES_H
+    #define True 1
+    #define False 0
     typedef struct assinante Assinante;
     struct assinante{
         int id;
@@ -8,17 +10,19 @@
         char cpf[20];
         char dataNascimento[20];
         char endereco[100];
+        int status;
     };
     void telaAssinante();
     void menuAssinante();
-    void cadastroAssinante();
+    void cadastrarAssinante();
     void checarAssinantes();
     void alterarAssinante();
     void excluirAssinante();
-    int confirmarInfoAss(Assinante*);
-    void salvarAssinantes(Assinante*);
-    int recuperarAssinante(int, Assinante*);
-    void apagarAssinante(int, Assinante*);
+    int confirmarInfoAss(const Assinante*);
+    Assinante* salvarAssinantes();
+    Assinante* recuperarAssinante(int);
+    void excluirAssinanteArquivo(int);
+    void alterarAssinanteArquivo(int);
     
 
 #endif

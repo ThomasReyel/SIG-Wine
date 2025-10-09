@@ -15,7 +15,7 @@ void menuAssinante(){
         };
        switch (opcao[0]){
         case '1':
-            cadastroAssinante();
+            cadastrarAssinante();
         break;
         case '2':
             checarAssinantes();
@@ -54,27 +54,21 @@ void telaAssinante(){
 
 }
 
-void cadastroAssinante(){
-    Assinante assinante;
-    assinante.id = recuperarIdAssinantes();
-    printf("Insira o nome do Assinante:\n");
-    fgets(assinante.nome,100,stdin);
-    printf("Insira o email:\n");
-    fgets(assinante.email,100,stdin);
-    printf("Insira o CPF:\n");
-    fgets(assinante.cpf,20,stdin);
-    printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(assinante.dataNascimento,20,stdin);
-    printf("Insira o endereço:\n");
-    fgets(assinante.endereco,100,stdin);
-    tratarString(assinante.nome);
-    tratarString(assinante.email);
-    tratarString(assinante.cpf);
-    tratarString(assinante.dataNascimento);
-    tratarString(assinante.endereco);
-    int confirmador = confirmarInfoAss(&assinante);
+void cadastrarAssinante(){
+    Assinante* assinante;
+    FILE* arqAssinante;
+    assinante = salvarAssinantes();
+    int confirmador = confirmarInfoAss(assinante);
     if ( confirmador == 1){
-        salvarAssinantes(&assinante);
+        arqAssinante = fopen("./dados/dadosAssinantes.dat", "ab");
+        if (arqAssinante == NULL){
+            printf("Erro em abrir o arquivo");
+            getchar();
+            return;
+        }
+        fwrite(assinante,sizeof(Assinante), 1,arqAssinante);
+        fclose(arqAssinante);
+        free(assinante);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -82,187 +76,60 @@ void cadastroAssinante(){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         getchar();
-    }
-    
+    }  
 }
 
 void checarAssinantes(){
     int idCom;
-    Assinante assinante;
+    Assinante* assinante;
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
     getchar();
-    
-    if (recuperarAssinante(idCom, &assinante) == 0){
+    assinante = recuperarAssinante(idCom);
+    if (assinante != NULL){
         printf("╔══════════════════════════════════════════════════════════════════╗\n");
         printf("║                              Assinantes                          ║\n");
         printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinante.id);
-        printf("║ Nome: %s \n", assinante.nome);
-        printf("║ Email: %s \n", assinante.email);
-        printf("║ CPF: %s \n", assinante.cpf);
-        printf("║ Data: %s \n", assinante.dataNascimento);
-        printf("║ Endereço: %s \n", assinante.endereco);
+        printf("║ Id: %d \n", assinante->id);
+        printf("║ Nome: %s \n", assinante->nome);
+        printf("║ Email: %s \n", assinante->email);
+        printf("║ CPF: %s \n", assinante->cpf);
+        printf("║ Data: %s \n", assinante->dataNascimento);
+        printf("║ Endereço: %s \n", assinante->endereco);
         printf("╚═══════════════════════════════════════════════════════════════════\n");
         printf("\nPressione Enter para voltar ao módulo de assinantes \n");
         getchar();
-    }
-
+    } 
 }
-
-
-
 void alterarAssinante() {
-    int idCom;
-    Assinante assinante;
-    FILE *arqAssinantes, *arqTemp;
-
-    printf("Insira o id do cliente a ser alterado: ");
-    scanf("%d", &idCom);
-    getchar();
-
-    if (recuperarAssinante(idCom, &assinante) != 0) {
-        return; // não encontrado
-    }
-
-    int opcao = 0;
-    char buffer[200];
-
-    do {
-        system("clear||cls");
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                    Dados atuais do assinante                     ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d\n", assinante.id);
-        printf("║ 1 - Nome: %s\n", assinante.nome);
-        printf("║ 2 - Email: %s\n", assinante.email);
-        printf("║ 3 - CPF: %s\n", assinante.cpf);
-        printf("║ 4 - Data de nascimento: %s\n", assinante.dataNascimento);
-        printf("║ 5 - Endereço: %s\n", assinante.endereco);
-        printf("║ 6 - Concluir alterações\n");
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("Escolha o campo que deseja alterar: ");
-        scanf("%d", &opcao);
-        getchar();
-
-        switch (opcao) {
-            case 1:
-                printf("Novo nome: ");
-                fgets(buffer, sizeof(buffer), stdin);
-                tratarString(buffer);
-                if (strlen(buffer) > 0) strcpy(assinante.nome, buffer);
-                break;
-            case 2:
-                printf("Novo email: ");
-                fgets(buffer, sizeof(buffer), stdin);
-                tratarString(buffer);
-                if (strlen(buffer) > 0) strcpy(assinante.email, buffer);
-                break;
-            case 3:
-                printf("Novo CPF: ");
-                fgets(buffer, sizeof(buffer), stdin);
-                tratarString(buffer);
-                if (strlen(buffer) > 0) strcpy(assinante.cpf, buffer);
-                break;
-            case 4:
-                printf("Nova data de nascimento: ");
-                fgets(buffer, sizeof(buffer), stdin);
-                tratarString(buffer);
-                if (strlen(buffer) > 0) strcpy(assinante.dataNascimento, buffer);
-                break;
-            case 5:
-                printf("Novo endereço: ");
-                fgets(buffer, sizeof(buffer), stdin);
-                tratarString(buffer);
-                if (strlen(buffer) > 0) strcpy(assinante.endereco, buffer);
-                break;
-            case 6:
-                break;
-            default:
-                printf("Opção inválida!\n");
-                break;
-        }
-
-        if (opcao != 6) {
-            printf("Campo atualizado! Pressione Enter para continuar...\n");
-            getchar();
-        }
-
-    } while (opcao != 6);
-
-    int confirmador = confirmarInfoAss(&assinante);
-    if (confirmador != 1) {
-        printf("Atualização cancelada!\n");
-        printf("\nPressione Enter para voltar \n");
-        getchar();
-        return;
-    }
-
-    // regravar arquivo
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
-    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
-    if (arqAssinantes == NULL || arqTemp == NULL) {
-        printf("Erro ao abrir arquivos.\n");
-        getchar();
-        return;
-    }
-
-    Assinante temp;
-    while (fscanf(arqAssinantes, "%d;%99[^;];%99[^;];%19[^;];%19[^;];%99[^\n]\n",
-                  &temp.id, temp.nome, temp.email, temp.cpf,
-                  temp.dataNascimento, temp.endereco) == 6) {
-        if (temp.id == idCom) {
-            fprintf(arqTemp, "%d;%s;%s;%s;%s;%s\n",
-                    assinante.id, assinante.nome, assinante.email,
-                    assinante.cpf, assinante.dataNascimento,
-                    assinante.endereco);
-        } else {
-            fprintf(arqTemp, "%d;%s;%s;%s;%s;%s\n",
-                    temp.id, temp.nome, temp.email, temp.cpf,
-                    temp.dataNascimento, temp.endereco);
-        }
-    }
-
-    fclose(arqAssinantes);
-    fclose(arqTemp);
-
-    remove("./dados/dadosAssinantes.csv");
-    rename("./dados/arquivoTem.csv", "./dados/dadosAssinantes.csv");
-
-    printf("Atualização realizada com sucesso!\n");
-    printf("\nPressione Enter para voltar \n");
-    getchar();
-}
-
-
-void excluirAssinante(){
     char opcao[10];
     int controle = 1;
     int idCom;
-    Assinante assinante;
-    printf("Insira o id do assinante que você excluir: \n");
+    Assinante* assinante;
+    printf("Insira o id do assinante que você deseja alterar: \n");
     scanf("%d", &idCom);
     getchar();
+    assinante = recuperarAssinante(idCom);
     do {
-        if (recuperarAssinante(idCom, &assinante) == 0){
+        if (assinante != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
             printf("║                              Assinante                           ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante.id);
-            printf("║ Nome: %s \n", assinante.nome);
-            printf("║ Email: %s \n", assinante.email);
-            printf("║ CPF: %s \n", assinante.cpf);
-            printf("║ Data: %s \n", assinante.dataNascimento);
-            printf("║ Endereço: %s \n", assinante.endereco);
+            printf("║ Id: %d \n", assinante->id);
+            printf("║ Nome: %s \n", assinante->nome);
+            printf("║ Email: %s \n", assinante->email);
+            printf("║ CPF: %s \n", assinante->cpf);
+            printf("║ Data: %s \n", assinante->dataNascimento);
+            printf("║ Endereço: %s \n", assinante->endereco);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente alterar esse assinante?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
             };
             switch (opcao[0]){
                 case '1':
-                    apagarAssinante(idCom,&assinante);
+                    alterarAssinanteArquivo(idCom);
                     controle = 0;
                 break;
                 case '2':
@@ -279,10 +146,56 @@ void excluirAssinante(){
         }
     }
     while (controle == 1);
-
 }
 
-int confirmarInfoAss(Assinante* assinante){
+void excluirAssinante(){
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Assinante* assinante;
+    printf("Insira o id do assinante que você excluir: \n");
+    scanf("%d", &idCom);
+    getchar();
+    assinante = recuperarAssinante(idCom);
+    do {
+        if (assinante != NULL){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                              Assinante                           ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", assinante->id);
+            printf("║ Nome: %s \n", assinante->nome);
+            printf("║ Email: %s \n", assinante->email);
+            printf("║ CPF: %s \n", assinante->cpf);
+            printf("║ Data: %s \n", assinante->dataNascimento);
+            printf("║ Endereço: %s \n", assinante->endereco);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    excluirAssinanteArquivo(idCom);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
+}
+
+int confirmarInfoAss(const Assinante* assinante){
     char opcao[10];
     int controleCI = 1;
     do {
@@ -322,102 +235,206 @@ int confirmarInfoAss(Assinante* assinante){
     return 1;
 }
 
-void salvarAssinantes(Assinante* assinante){
-    FILE *arqAssinantes;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "at");
-    if (arqAssinantes == NULL){
-        printf("Falha em abrir o arquivo");
-        printf("Pressione Enter para voltar para o menu");
-        getchar();
-        return;
-    }
-    fprintf(arqAssinantes,"%d;", assinante->id);
-    fprintf(arqAssinantes,"%s;", assinante->nome);
-    fprintf(arqAssinantes,"%s;", assinante->email);
-    fprintf(arqAssinantes,"%s;", assinante->cpf);
-    fprintf(arqAssinantes,"%s;", assinante->dataNascimento);
-    fprintf(arqAssinantes,"%s\n", assinante->endereco);
-    fclose(arqAssinantes);
-
+Assinante* salvarAssinantes(){
+    Assinante* assinante;
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    assinante->id = recuperarIdAssinantes();
+    printf("Insira o nome do Assinante:\n");
+    fgets(assinante->nome,100,stdin);
+    printf("Insira o email:\n");
+    fgets(assinante->email,100,stdin);
+    printf("Insira o CPF:\n");
+    fgets(assinante->cpf,20,stdin);
+    printf("Insira a data de nascimento (dd/mm/aa):\n");
+    fgets(assinante->dataNascimento,20,stdin);
+    printf("Insira o endereço:\n");
+    fgets(assinante->endereco,100,stdin);
+    tratarString(assinante->nome);
+    tratarString(assinante->email);
+    tratarString(assinante->cpf);
+    tratarString(assinante->dataNascimento);
+    tratarString(assinante->endereco);
+    assinante->status = True;
+    return assinante;
 }
 
-int recuperarAssinante(int idCom, Assinante* assinante){
+Assinante* recuperarAssinante(int idCom){
     FILE *arqAssinantes;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
+    Assinante* assinante;
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rt");
     if (arqAssinantes == NULL){
         printf("Erro em Abrir o arquivo");
         getchar();
-        return -1;
+        return NULL;
     }
-    while (fscanf(arqAssinantes,"%d[^;]", &assinante->id) != EOF){
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->nome);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->email);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->cpf);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->dataNascimento);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^\n]", assinante->endereco);
-        fgetc(arqAssinantes);
-        if(assinante->id == idCom){
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+        if((idCom == assinante->id) && (assinante->status == True)){
             fclose(arqAssinantes);
-            return 0;
+            return assinante;
         }
     }
     fclose(arqAssinantes);
-    printf("Assianante não encontrado!");
-    printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+    printf("O assinante com o ID %d não foi encontrado\n", idCom);
     getchar();
-    return -1;
+    return NULL;
 }
 
-void apagarAssinante(int idCom, Assinante* assinante ){
+void excluirAssinanteArquivo(int idCom){
     FILE *arqAssinantes;
-    FILE *arqTemp;
-    arqAssinantes = fopen("./dados/dadosAssinantes.csv", "rt");
-    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
-    if (arqAssinantes == NULL || arqTemp == NULL){
+    Assinante* assinante;
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
+    if (arqAssinantes == NULL){
         printf("Falha na manipulação dos arquivos");
         getchar();
         return;
     }
-    while (fscanf(arqAssinantes,"%d[^;]", &assinante->id) != EOF){
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->nome);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->email);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->cpf);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^;]", assinante->dataNascimento);
-        fgetc(arqAssinantes);
-        fscanf(arqAssinantes,"%[^\n]", assinante->endereco);
-        fgetc(arqAssinantes);
-        if(assinante->id != idCom){
-            fprintf(arqTemp,"%d;", assinante->id);
-            fprintf(arqTemp,"%s;", assinante->nome);
-            fprintf(arqTemp,"%s;", assinante->email);
-            fprintf(arqTemp,"%s;", assinante->cpf);
-            fprintf(arqTemp,"%s;", assinante->dataNascimento);
-            fprintf(arqTemp,"%s\n", assinante->endereco);
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+        if((idCom == assinante->id) && (assinante->status == True)){
+            assinante->status = False;
+            fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+            fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+            printf("Assinante Excluído com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();
+            fclose(arqAssinantes);
+            free(assinante);
+            return;  
         }
     }
+}
 
-    fclose(arqTemp);
-    fclose(arqAssinantes);
-
-    if (remove("./dados/dadosAssinantes.csv") != 0) {
-        printf("Erro ao remover o arquivo original.\n");
-        return;
+void alterarAssinanteArquivo(int idCom){
+    char opcao[10];
+    int controle = 1;
+    FILE *arqAssinantes;
+    Assinante* assinante;
+    system("clear||cls");
+    do {
+        printf("║Qual campo você quer alterar?\n");
+        printf("║1. Nome\n║2. Email\n║3. CPF\n║4. Data de nascimento\n║5. Endereço\n");
+        fgets(opcao,10,stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
+        arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
+        if (arqAssinantes == NULL){
+            printf("Falha na manipulação dos arquivos");
+            getchar();
+            return;
+        }
+       switch (opcao[0]){
+        case '1':
+            char nomeNovo[100];
+            printf("Insira o novo nome:\n");
+            fgets(nomeNovo,100,stdin);
+            tratarString(nomeNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->nome, nomeNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
+                }
+            }
+        break;
+        case '2':
+            char emailNovo[100];
+            printf("Insira o novo email:\n");
+            fgets(emailNovo,100,stdin);
+            tratarString(emailNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->email, emailNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
+                }
+            }
+        break;
+        case '3':
+            char cpfNovo[20];
+            printf("Insira o novo cpf:\n");
+            fgets(cpfNovo,20,stdin);
+            tratarString(cpfNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->cpf, cpfNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
+                }
+            }
+        break;
+        case '4':
+            char dataNascimentoNovo[20];
+            printf("Insira a nova data de Nascimento:\n");
+            fgets(dataNascimentoNovo,20,stdin);
+            tratarString(dataNascimentoNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->dataNascimento, dataNascimentoNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
+                }
+            }
+        break;
+        case '5':
+            char enderecoNovo[100];
+            printf("Insira o novo endereço:\n");
+            fgets(enderecoNovo,100,stdin);
+            tratarString(enderecoNovo);
+            assinante = (Assinante*) malloc(sizeof(Assinante));
+            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
+                if((idCom == assinante->id) && (assinante->status == True)){
+                    strcpy(assinante->endereco, enderecoNovo);
+                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
+                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
+                    printf("Assinante alterado com sucesso\n");
+                    printf("Aperte enter para voltar ao menu\n");
+                    getchar();
+                    free(assinante);
+                    fclose(arqAssinantes);
+                    return;
+                }
+            }
+        break; 
+        case '6':
+            controle = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            getchar();
+        break;
+       }
     }
-    
-    // Renomeia o arquivo temporário (usando o caminho completo)
-    if (rename("./dados/arquivoTem.csv", "./dados/dadosAssinantes.csv") == 0) {
-        printf("Assinante excluído com sucesso \n");
-    } else {
-        printf("Erro ao renomear o arquivo.\n");
-    }
+    while (controle == 1);
 }
     

@@ -1,5 +1,7 @@
 #ifndef MODULO_ASSINATURAS_H
     #define MODULO_ASSINATURAS_H
+    #define True 1
+    #define False 0
     typedef struct assinatura Assinatura;
     struct assinatura{
         int id;
@@ -7,6 +9,7 @@
         char idPlano[20];
         char dataAssinatura[20];
         char periodoVencimento[20];
+        int status;
     };
     void telaAssinaturas(void);
     void menuAssinaturas(void);
@@ -14,9 +17,10 @@
     void checarAssinaturas(void);
     void alterarAssinatura(void);
     void excluirAssinatura(void);
-    char confirmarInfoAsstura(Assinatura*);
-    void salvarAssinaturas(Assinatura*);
-    int recuperarAssinatura(int, Assinatura*);
-    void apagarAssinatura(int, Assinatura*);
+    char confirmarInfoAssinatura(const Assinatura*);
+    Assinatura* salvarAssinaturas();
+    Assinatura* recuperarAssinatura(int);
+    void excluirAssinaturaArquivo(int);
+    void alterarAssinaturaArquivo(int);
 
 #endif

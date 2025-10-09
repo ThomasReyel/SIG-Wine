@@ -178,7 +178,7 @@ void excluirProduto(){
     }
     while (controle == 1);
 }
-int confirmarInfoProd(Produto* produto){
+int confirmarInfoProd(const Produto* produto){
     char opcao[10];
     int controleCI = 1;
     do {

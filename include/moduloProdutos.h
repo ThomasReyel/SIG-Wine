@@ -1,5 +1,7 @@
 #ifndef MODULO_PRODUTOS_H
     #define MODULO_PRODUTOS_H
+    #define True 1
+    #define False 0
     typedef struct produto Produto;
     struct produto{
         int id;
@@ -14,7 +16,7 @@
     void checarProdutos();
     void alterarProduto();
     void excluirProduto();
-    int confirmarInfoProd(Produto*);
+    int confirmarInfoProd(const Produto*);
     void salvarProdutos(Produto*);
     int recuperarProduto(int, Produto*);
     void apagarProduto(int, Produto*);

@@ -176,7 +176,7 @@ void excluirPlano(){
     while (controle == 1);
 }
 
-char confirmarInfoPlan(Plano* plano){
+char confirmarInfoPlan(const Plano* plano){
     char opcao[10];
     int controleCI = 1;
     do {
