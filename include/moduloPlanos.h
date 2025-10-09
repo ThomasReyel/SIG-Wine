@@ -1,5 +1,7 @@
 #ifndef MODULO_PLANOS_H
     #define MODULO_PLANOS_H
+    #define True 1
+    #define False 0
     typedef struct plano Plano;
     struct plano{
         int id;

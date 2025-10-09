@@ -1,5 +1,7 @@
 #ifndef MODULO_PRODUTOS_H
     #define MODULO_PRODUTOS_H
+    #define True 1
+    #define False 0
     typedef struct produto Produto;
     struct produto{
         int id;
