@@ -9,6 +9,7 @@
         char preco[100];
         char periodo[20];
         char idProduto[20];
+        int status;
     };
     void telaPlano();
     void menuPlanos();
@@ -16,10 +17,11 @@
     void checarPlanos();
     void alterarPlano();
     void excluirPlano();
-    char confirmarInfoPlan(const Plano*);
-    void salvarPlanos(Plano*);
-    int recuperarPlano(int, Plano*);
-    void apagarPlano(int, Plano*);
+    char confirmarInfoPlano(const Plano*);
+    Plano* salvarPlanos();
+    Plano* recuperarPlano(int);
+    void excluirPlanoArquivo(int);
+    void alterarPlanoArquivo(int);
 
 
 #endif
