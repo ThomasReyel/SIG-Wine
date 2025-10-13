@@ -86,81 +86,56 @@ void cadastroProduto(){
 
 
 void checarProdutos(){
-    int id;
-    Produto produto;
+    int idCom;
+    Produto* produto;
     printf("Insira o id do produto: \n");
-    scanf("%d", &id);
-    getchar();  
-    if (recuperarProduto(id, &produto) == 0){
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                             Produto                              ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", produto.id);
-        printf("║ Nome: %s \n", produto.nome);
-        printf("║ Tipo: %s \n", produto.tipo);
-        printf("║ Marca: %s \n", produto.marca);
-        printf("║ Ano Produção: %s \n", produto.anoProducao);
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de produtos \n");
-        getchar();
-    }
+    scanf("%d", &idCom);
+    getchar();
+    produto = recuperarProduto(idCom);
+    if (produto != NULL){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                               Produto                            ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", produto->id);
+            printf("║ Nome: %s \n", produto->nome);
+            printf("║ Tipo: %s \n", produto->tipo);
+            printf("║ Marca: %s \n", produto->marca);
+            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            printf("\nPressione Enter para voltar ao módulo de produto \n");
+            getchar();
+        
+    } 
 }
 
 void alterarProduto(){
-    // char nome[50];
-    // char tipo[50];
-    // char marca[50];
-    // char anoProducao[20];
-    // char id[5];
-
-    // printf("Insira o id do produto a ser alterado: \n");
-    // fgets(id,sizeof(id),stdin);
-    // printf("Insira o novo nome do vinho:\n");
-    // fgets(nome,50,stdin);
-    // printf("Insira o novo tipo:\n");
-    // fgets(tipo,50,stdin);
-    // printf("Insira a nova marca:\n");
-    // fgets(marca,50,stdin);
-    // printf("Insira a nova data de produção do vinho (dd/mm/aa):\n");
-    // fgets(anoProducao,20,stdin);
-    // int confirmador = confirmarInfoProd(nome,tipo,marca,anoProducao);
-    // if ( confirmador == 1){
-    //     printf("Atualização realizada com sucesso!\n");
-    //     printf("\nPressione Enter para voltar \n");
-    //     getchar();  
-    // } else if (confirmador == 2){
-    //     printf("Atualização cancelada!\n"); 
-    //     printf("\nPressione Enter para voltar \n");
-    //     getchar();
-    // }
-}
-void excluirProduto(){
     char opcao[10];
     int controle = 1;
     int idCom;
-    Produto produto;
-    printf("Insira o id do Produto que você excluir: \n");
+    Produto* produto;
+    printf("Insira o id do produto que você deseja alterar \n");
     scanf("%d", &idCom);
     getchar();
+    produto = recuperarProduto(idCom);
     do {
-        if (recuperarProduto(idCom, &produto) == 0){
+        if (produto != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Produto                           ║\n");
+            printf("║                               Produto                            ║\n");
             printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto.id);
-            printf("║ Nome: %s \n", produto.nome);
-            printf("║ Preço: %s \n", produto.tipo);
-            printf("║ Período do Produto: %s \n", produto.marca);
-            printf("║ Id do Produto: %s \n", produto.anoProducao);
+            printf("║ Id: %d \n", produto->id);
+            printf("║ Nome: %s \n", produto->nome);
+            printf("║ Tipo: %s \n", produto->tipo);
+            printf("║ Marca: %s \n", produto->marca);
+            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse Produto?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
             };
             switch (opcao[0]){
                 case '1':
-                    apagarProduto(idCom,&produto);
+                    alterarProdutoArquivo(idCom);
                     controle = 0;
                 break;
                 case '2':
@@ -178,23 +153,72 @@ void excluirProduto(){
     }
     while (controle == 1);
 }
-int confirmarInfoProd(const Produto* produto){
+
+void excluirProduto(){
+    char opcao[10];
+    int controle = 1;
+    int idCom;
+    Produto* produto;
+    printf("Insira o id do produto que você excluir: \n");
+    scanf("%d", &idCom);
+    getchar();
+    produto = recuperarProduto(idCom);
+    do {
+        if (produto != NULL){
+            printf("╔══════════════════════════════════════════════════════════════════╗\n");
+            printf("║                               Produto                            ║\n");
+            printf("╠══════════════════════════════════════════════════════════════════╝\n");
+            printf("║ Id: %d \n", produto->id);
+            printf("║ Nome: %s \n", produto->nome);
+            printf("║ Tipo: %s \n", produto->tipo);
+            printf("║ Marca: %s \n", produto->marca);
+            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            
+            printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
+            fgets(opcao,10,stdin);
+            if (opcao[1] != '\n'){
+                opcao[0] = 'l';
+            };
+            switch (opcao[0]){
+                case '1':
+                    excluirProdutoArquivo(idCom);
+                    controle = 0;
+                break;
+                case '2':
+                    controle = 0;
+                break;
+                default:
+                    printf("Você inseriu uma opção inválida\n");
+                    printf("\nPressione Enter para tentar novamente \n");
+                    getchar();
+                break;
+            }
+        }else{
+            controle = 0;
+        }
+    }
+    while (controle == 1);
+}
+
+char confirmarInfoProd(const Produto* produto){
     char opcao[10];
     int controleCI = 1;
     do {
         printf("╔═════════════════════════════╗\n");
         printf("║          Confirmação        ║\n");
         printf("╠═════════════════════════════╝\n");
-        printf("║ Nome do Plano: %s \n", produto->nome);
-        printf("║ Preço do Plano: %s \n", produto->tipo);
-        printf("║ Período do plano: %s \n", produto->marca);
-        printf("║ Produtos contidos: %s \n", produto->anoProducao);
+        printf("║ Id: %d \n", produto->id);
+        printf("║ Nome: %s \n", produto->nome);
+        printf("║ Tipo: %s \n", produto->tipo);
+        printf("║ Marca: %s \n", produto->marca);
+        printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
         printf("║ 2. Não                      ║\n");
         printf("╚═════════════════════════════╝\n");
-        fgets(opcao, 10, stdin);
+        fgets(opcao,10, stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
@@ -217,100 +241,192 @@ int confirmarInfoProd(const Produto* produto){
     return 1;
 }
 
-
-void salvarProdutos(Produto* produto){
+Produto* recuperarProduto(int idCom){
     FILE *arqProdutos;
-
-    arqProdutos = fopen("./dados/dadosProdutos.csv", "at");
+    Produto* produto;
+    arqProdutos = fopen("./dados/dadosProdutos.dat", "rt");
     if (arqProdutos == NULL){
-        printf("Falha em abrir o arquivo");
-        printf("Pressione Enter para voltar para o menu");
+        printf("Erro em Abrir o arquivo");
         getchar();
-        return;
+        return NULL;
     }
-    fprintf(arqProdutos,"%d;", produto->id);
-    fprintf(arqProdutos,"%s;", produto->nome);
-    fprintf(arqProdutos,"%s;", produto->tipo);
-    fprintf(arqProdutos,"%s;", produto->marca);
-    fprintf(arqProdutos,"%s\n", produto->anoProducao);
-    fclose(arqProdutos);
-
-}
-
-
-
-
-int recuperarProduto(int idCom, Produto* produto){
-    FILE *arqProduto;
-    arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
-    if (arqProduto == NULL){
-        printf("Falha em abrir o arquivo");
-        getchar();
-        return -1;
-    }
-    while (fscanf(arqProduto,"%d[^;]", &produto->id) != EOF){
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->nome);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->tipo);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->marca);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^\n]", produto->anoProducao);
-        fgetc(arqProduto);
-        if(produto->id == idCom){
-            fclose(arqProduto);
-            return 0;
+    produto = (Produto*) malloc(sizeof(Produto));
+    while (fread(produto,sizeof(Produto),1,arqProdutos)){
+        if((idCom == produto->id) && (produto->status == True)){
+            fclose(arqProdutos);
+            return produto;
         }
     }
-    fclose(arqProduto);
-    printf("Produto não encontrado!");
-    printf("\nPressione Enter para voltar ao módulo de produtos \n");
+    fclose(arqProdutos);
+    printf("O produto com o ID %d não foi encontrado\n", idCom);
     getchar();
-    return -1;
+    return NULL;
 }
 
-void apagarProduto(int idCom, Produto* produto){
-    FILE *arqProduto;
-    FILE *arqTemp;
-    arqProduto = fopen("./dados/dadosProdutos.csv", "rt");
-    arqTemp = fopen("./dados/arquivoTem.csv", "wt");
-    if (arqProduto == NULL || arqTemp == NULL){
+void excluirProdutoArquivo(int idCom){
+    FILE *arqProdutos;
+    Produto* produto;
+    arqProdutos = fopen("./dados/dadosProdutos.dat", "r+b");
+    if (arqProdutos == NULL){
         printf("Falha na manipulação dos arquivos");
         getchar();
         return;
     }
-    while (fscanf(arqProduto,"%d[^;]", &produto->id) != EOF){
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->nome);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->tipo);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^;]", produto->marca);
-        fgetc(arqProduto);
-        fscanf(arqProduto,"%[^\n]", produto->anoProducao);
-        fgetc(arqProduto);
-        if(produto->id != idCom){
-            fprintf(arqTemp,"%d;", produto->id);
-            fprintf(arqTemp,"%s;", produto->nome);
-            fprintf(arqTemp,"%s;", produto->tipo);
-            fprintf(arqTemp,"%s;", produto->marca);
-            fprintf(arqTemp,"%s;", produto->anoProducao);
+    produto = (Produto*) malloc(sizeof(Produto));
+    while (fread(produto,sizeof(Produto),1,arqProdutos)){
+        if((idCom == produto->id) && (produto->status == True)){
+            produto->status = False;
+            fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+            fwrite(produto,sizeof(Produto),1,arqProdutos);
+            printf("Produto Excluído com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();
+            fclose(arqProdutos);
+            free(produto);
+            return;  
         }
     }
+}
 
-    fclose(arqTemp);
-    fclose(arqProduto);
+Produto* salvarProdutos(){
+    Produto* produto;
+    produto = (Produto*) malloc(sizeof(Produto));
+    produto->id = recuperarIdProdutos();
+    printf("Insira o nome:\n");
+    fgets(produto->nome,20,stdin);
+    printf("Insira o preço:\n");
+    fgets(produto->tipo,20,stdin);
+    printf("Insira o período:\n");
+    fgets(produto->marca,20,stdin);
+    printf("Insira o idProduto:\n");
+    fgets(produto->anoProducao,20,stdin);
+    tratarString(produto->nome);
+    tratarString(produto->tipo);
+    tratarString(produto->marca);
+    tratarString(produto->anoProducao);
+    produto->status = True;
+    return produto;
+}
 
-    if (remove("./dados/dadosProdutos.csv") != 0) {
-        printf("Erro ao remover o arquivo original.\n");
-        return;
+void alterarProdutoArquivo(int idCom){
+    char opcao[10];
+    int controle = 1;
+    FILE *arqProdutos;
+    Produto* produto;
+    system("clear||cls");
+    do {
+        printf("║Qual campo você quer alterar?\n");
+        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto");
+        fgets(opcao,10,stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
+        arqProdutos = fopen("./dados/dadosProdutos.dat", "r+b");
+        if (arqProdutos == NULL){
+            printf("Falha na manipulação dos arquivos");
+            getchar();
+            return;
+        }
+       switch (opcao[0]){
+        
+        case '1':
+            {
+                char nomeNovo[20];
+                printf("Insira o nome do produto:\n");
+                fgets(nomeNovo,20,stdin);
+                tratarString(nomeNovo);
+                produto = (Produto*) malloc(sizeof(Produto));
+                while (fread(produto,sizeof(Produto),1,arqProdutos)){
+                    if((idCom == produto->id) && (produto->status == True)){
+                        strcpy(produto->nome, nomeNovo);
+                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+                        fwrite(produto,sizeof(Produto),1,arqProdutos);
+                        printf("Produto alterado com sucesso\n");
+                        printf("Aperte enter para voltar ao menu\n");
+                        getchar();
+                        free(produto);
+                        fclose(arqProdutos);
+                        return;
+                    }
+                }
+            }
+        break;
+        case '2':
+            {
+                char tipoNovo[20];
+                printf("Insira o novo preço:\n");
+                fgets(tipoNovo,20,stdin);
+                tratarString(tipoNovo);
+                produto = (Produto*) malloc(sizeof(Produto));
+                while (fread(produto,sizeof(Produto),1,arqProdutos)){
+                    if((idCom == produto->id) && (produto->status == True)){
+                        strcpy(produto->tipo, tipoNovo);
+                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+                        fwrite(produto,sizeof(Produto),1,arqProdutos);
+                        printf("Produto alterado com sucesso\n");
+                        printf("Aperte enter para voltar ao menu\n");
+                        getchar();
+                        free(produto);
+                        fclose(arqProdutos);
+                        return;
+                    }
+                }
+            }
+        break;
+        case '3':
+            {
+                char marcaNovo[20];
+                printf("Insira o novo período de vencimento:\n");
+                fgets(marcaNovo,20,stdin);
+                tratarString(marcaNovo);
+                produto = (Produto*) malloc(sizeof(Produto));
+                while (fread(produto,sizeof(Produto),1,arqProdutos)){
+                    if((idCom == produto->id) && (produto->status == True)){
+                        strcpy(produto->marca, marcaNovo);
+                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+                        fwrite(produto,sizeof(Produto),1,arqProdutos);
+                        printf("Produto alterado com sucesso\n");
+                        printf("Aperte enter para voltar ao menu\n");
+                        getchar();
+                        free(produto);
+                        fclose(arqProdutos);
+                        return;
+                    }
+                }
+            }
+        break;
+        case '4':
+            {
+                char anoProdNovo[20];
+                printf("Insira o novo ID do produto:\n");
+                fgets(anoProdNovo,20,stdin);
+                tratarString(anoProdNovo);
+                produto = (Produto*) malloc(sizeof(Produto));
+                while (fread(produto,sizeof(Produto),1,arqProdutos)){
+                    if((idCom == produto->id) && (produto->status == True)){
+                        strcpy(produto->anoProducao, anoProdNovo);
+                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+                        fwrite(produto,sizeof(Produto),1,arqProdutos);
+                        printf("Produto alterado com sucesso\n");
+                        printf("Aperte enter para voltar ao menu\n");
+                        getchar();
+                        free(produto);
+                        fclose(arqProdutos);
+                        return;
+                    }
+                }
+            }
+        break;
+        case '5':
+            controle = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            getchar();
+        break;
+       }
     }
-    
-    if (rename("./dados/arquivoTem.csv", "./dados/dadosProdutos.csv") == 0) {
-        printf("Produto excluído com sucesso \n");
-    } else {
-        printf("Erro ao renomear o arquivo.\n");
-    }
+    while (controle == 1);
 }
 

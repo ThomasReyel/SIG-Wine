@@ -9,6 +9,7 @@
         char tipo[100];
         char marca[100];
         char anoProducao[20];
+        int status;
     };
     void telaProdutos();
     void menuProdutos();
@@ -16,8 +17,10 @@
     void checarProdutos();
     void alterarProduto();
     void excluirProduto();
-    int confirmarInfoProd(const Produto*);
-    void salvarProdutos(Produto*);
-    int recuperarProduto(int, Produto*);
-    void apagarProduto(int, Produto*);
+    char confirmarInfoProd(const Produto*);
+    Produto* salvarProdutos();
+    Produto* recuperarProduto(int);
+    void excluirProdutoArquivo(int);
+    void alterarProdutoArquivo(int);
+
 #endif
