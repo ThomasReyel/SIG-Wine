@@ -54,23 +54,20 @@ void telaPlano(){
 }
 
 void cadastroPlano(){
-    Plano plano;
-    plano.id = recuperarIdPlanos();
-    printf("Insira o nome do plano:\n");
-    fgets(plano.nome,100,stdin);
-    printf("Insira o preço:\n");
-    fgets(plano.preco,100,stdin);
-    printf("Insira a período:\n");
-    fgets(plano.periodo,20,stdin);
-    printf("Insira a lista de produtos:\n");
-    fgets(plano.idProduto,20,stdin);
-    tratarString(plano.preco);
-    tratarString(plano.periodo);
-    tratarString(plano.idProduto);
-    tratarString(plano.nome);
-    int confirmador = confirmarInfoPlano(&plano);
+    Plano* plano;
+    FILE* arqPlano;
+    plano = salvarPlanos();
+    int confirmador = confirmarInfoPlano(plano);
     if ( confirmador == 1){
-        salvarPlanos(&plano);
+        arqPlano = fopen("./dados/dadosPlanos.dat", "ab");
+        if (arqPlano == NULL){
+            printf("Erro em abrir o arquivo");
+            getchar();
+            return;
+        }
+        fwrite(plano,sizeof(Plano), 1,arqPlano);
+        fclose(arqPlano);
+        free(plano);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -78,7 +75,7 @@ void cadastroPlano(){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         getchar();
-    }
+    }  
 }
 
 
@@ -97,22 +94,13 @@ void checarPlanos(){
             printf("║ Nome: %s \n", plano->nome);
             printf("║ Preço: %s \n", plano->preco);
             printf("║ Período: %s \n", plano->periodo);
-            printf("║ Id do produto: %s dias\n", plano->idProduto);
+            printf("║ Id do produto: %s \n", plano->idProduto);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de plano \n");
             getchar();
         
     } 
 }
-
-
-
-
-
-
-
-
-
 
 void alterarPlano(){
     char opcao[10];
@@ -134,7 +122,7 @@ void alterarPlano(){
             printf("║ Período: %s \n", plano->periodo);
             printf("║ Id do produto: %s dias\n", plano->idProduto);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse plano?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente alterar esse plano?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
@@ -247,18 +235,6 @@ char confirmarInfoPlano(const Plano* plano){
     return 1;
 }
 
-
-
-
-
-
-
-
-
-
-
-
-
 Plano* recuperarPlano(int idCom){
     FILE *arqPlanos;
     Plano* plano;
@@ -334,7 +310,7 @@ void alterarPlanoArquivo(int idCom){
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto");
+        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';

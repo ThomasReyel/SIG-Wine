@@ -56,24 +56,20 @@ void telaProdutos(){
 
 
 void cadastroProduto(){
-    Produto produto;
-    produto.id = recuperarIdProdutos();
-
-    printf("Insira o nome do vinho:\n");
-    fgets(produto.nome,100,stdin);
-    printf("Insira o tipo:\n");
-    fgets(produto.tipo,100,stdin);
-    printf("Insira a marca:\n");
-    fgets(produto.marca,100,stdin);
-    printf("Insira o ano de produção do vinho:\n");
-    fgets(produto.anoProducao,20,stdin);
-    tratarString(produto.nome);
-    tratarString(produto.tipo);
-    tratarString(produto.marca);
-    tratarString(produto.anoProducao);
-    int confirmador = confirmarInfoProd(&produto);
+    Produto* produto;
+    FILE* arqProduto;
+    produto = salvarProdutos();
+    int confirmador = confirmarInfoProd(produto);
     if ( confirmador == 1){
-        salvarProdutos(&produto);
+        arqProduto = fopen("./dados/dadosProdutos.dat", "ab");
+        if (arqProduto == NULL){
+            printf("Erro em abrir o arquivo");
+            getchar();
+            return;
+        }
+        fwrite(produto,sizeof(Produto), 1,arqProduto);
+        fclose(arqProduto);
+        free(produto);
         printf("Cadastro realizado com sucesso!\n");
         printf("\nPressione Enter para voltar \n");
         getchar();  
@@ -81,7 +77,7 @@ void cadastroProduto(){
         printf("Cadastro cancelado!\n"); 
         printf("\nPressione Enter para voltar \n");
         getchar();
-    }
+    }  
 }
 
 
@@ -100,7 +96,7 @@ void checarProdutos(){
             printf("║ Nome: %s \n", produto->nome);
             printf("║ Tipo: %s \n", produto->tipo);
             printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+            printf("║ Ano de Produção: %s \n", produto->anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nPressione Enter para voltar ao módulo de produto \n");
             getchar();
@@ -128,7 +124,7 @@ void alterarProduto(){
             printf("║ Marca: %s \n", produto->marca);
             printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente alterar esse produto?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
@@ -172,7 +168,7 @@ void excluirProduto(){
             printf("║ Nome: %s \n", produto->nome);
             printf("║ Tipo: %s \n", produto->tipo);
             printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+            printf("║ Ano de Produção: %s\n", produto->anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             
             printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
@@ -294,11 +290,11 @@ Produto* salvarProdutos(){
     produto->id = recuperarIdProdutos();
     printf("Insira o nome:\n");
     fgets(produto->nome,20,stdin);
-    printf("Insira o preço:\n");
+    printf("Insira o tipo:\n");
     fgets(produto->tipo,20,stdin);
-    printf("Insira o período:\n");
+    printf("Insira o marca:\n");
     fgets(produto->marca,20,stdin);
-    printf("Insira o idProduto:\n");
+    printf("Insira o ano de produção:\n");
     fgets(produto->anoProducao,20,stdin);
     tratarString(produto->nome);
     tratarString(produto->tipo);
@@ -316,7 +312,7 @@ void alterarProdutoArquivo(int idCom){
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto");
+        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
