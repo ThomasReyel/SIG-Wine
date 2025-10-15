@@ -178,6 +178,7 @@ void exclusaoFisicaMenu(){
         };
        switch (opcao[0]){
         case '1':
+            apagarAssinanteFisico();
         break;
         case '2':
             apagarProdutoFisico();
@@ -223,3 +224,31 @@ void apagarProdutoFisico(){
     printf("Aperte enter para voltar ao menu\n");
     getchar();
 }
+
+void apagarAssinanteFisico(){
+    FILE *arqAssinantes;
+    FILE *arqTempAssin;
+    Assinante* assinante;
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rt");
+    arqTempAssin = fopen("./dados/arquivoTempAssin.dat", "wt");
+    if (arqAssinantes == NULL || arqTempAssin == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
+        if (!(assinante->status == False)) {
+            fwrite(assinante, sizeof(Assinante), 1, arqTempAssin);
+        } 
+    }
+    fclose(arqAssinantes);
+    fclose(arqTempAssin);
+    free(assinante);
+    remove("./dados/dadosAssinantes.dat");
+    rename("./dados/arquivoTempAssin.dat", "./dados/dadosAssinantes.dat");
+    printf("Assinantes excluídos com sucesso!\n");
+    printf("Aperte enter para voltar ao menu\n");
+    getchar();
+}
+

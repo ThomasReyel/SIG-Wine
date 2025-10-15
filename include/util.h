@@ -11,4 +11,5 @@
     int recuperarIdProdutos(void);
     void exclusaoFisicaMenu(void);
     void apagarProdutoFisico(void);
+    void apagarAssinanteFisico(void);
 #endif
