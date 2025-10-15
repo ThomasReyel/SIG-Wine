@@ -9,4 +9,6 @@
     int recuperarIdAssinaturas(void);
     int recuperarIdPlanos(void);
     int recuperarIdProdutos(void);
+    void exclusaoFisicaMenu(void);
+    void apagarProdutoFisico(void);
 #endif

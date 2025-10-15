@@ -7,6 +7,7 @@
 #include "moduloProdutos.h"
 #include "moduloRelatorios.h"
 #include "moduloFinanceiro.h"
+#include "util.h"
 void tratarString(char string[]){
     int tam = strlen(string);
     string[tam - 1] = '\0';
@@ -155,4 +156,70 @@ int recuperarIdProdutos(void) {
     
     fclose(arqProdutos);
     return ultimoId + 1; 
+}
+
+void exclusaoFisicaMenu(){
+    char opcao[10];
+    int crtl = 1;
+    do {
+        system("clear||cls");
+        printf("╔══════════════════════════╗\n");
+        printf("║  Limpar Registros do BD  ║\n");
+        printf("╠══════════════════════════╣\n");
+        printf("║ 1. Apagar Assinantes     ║\n");
+        printf("║ 2. Apagar Produtos       ║\n");
+        printf("║ 3. Apagar Planos         ║\n");
+        printf("║ 4. Sair                  ║\n");
+        printf("╚══════════════════════════╝\n");
+        printf("Digite sua escolha: \n");
+        fgets(opcao,10,stdin);
+        if (opcao[1] != '\n'){
+            opcao[0] = 'l';
+        };
+       switch (opcao[0]){
+        case '1':
+        break;
+        case '2':
+            apagarProdutoFisico();
+        break;
+        case '3':
+        break;
+        case '4':
+            crtl = 0;
+        break; 
+       default:
+            printf("Você inseriu uma opção inválida\n");
+            printf("\nPressione Enter para tentar novamente \n");
+            getchar();
+        break;
+       }
+    }
+    while (crtl == 1);
+}
+
+void apagarProdutoFisico(){
+    FILE *arqProdutos;
+    FILE *arqTempProd;
+    Produto* produto;
+    arqProdutos = fopen("./dados/dadosProdutos.dat", "rt");
+    arqTempProd = fopen("./dados/arquivoTempProd.dat", "wt");
+    if (arqProdutos == NULL || arqTempProd == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    produto = (Produto*) malloc(sizeof(Produto));
+    while (fread(produto, sizeof(Produto), 1, arqProdutos)) {
+        if (!(produto->status == False)) {
+            fwrite(produto, sizeof(Produto), 1, arqTempProd);
+        } 
+    }
+    fclose(arqProdutos);
+    fclose(arqTempProd);
+    free(produto);
+    remove("./dados/dadosProdutos.dat");
+    rename("./dados/arquivoTempProd.dat", "./dados/dadosProdutos.dat");
+    printf("Produtos excluídos com sucesso!\n");
+    printf("Aperte enter para voltar ao menu\n");
+    getchar();
 }
