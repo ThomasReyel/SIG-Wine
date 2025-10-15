@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "modulos.h"
+#include "util.h"
 
 void telaPrincipal();
 
@@ -34,6 +35,9 @@ void menuPrincipal() {
                 menuFinanceiro();
             break; 
             case '7':
+                exclusaoFisicaMenu();
+            break; 
+            case '8':
                 ctrlMenuPrincipal = 0;
             break;          
         default:
@@ -56,7 +60,8 @@ void telaPrincipal(){
     printf("║ 4. Módulo Produtos       ║\n");
     printf("║ 5. Módulo Relatórios     ║\n");
     printf("║ 6. Módulo Financeiro     ║\n");
-    printf("║ 7. Sair                  ║\n");
+    printf("║ 7. Limpar Registros      ║\n");
+    printf("║ 8. Sair                  ║\n");
     printf("╚══════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 }
