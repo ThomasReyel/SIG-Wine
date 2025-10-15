@@ -12,4 +12,5 @@
     void exclusaoFisicaMenu(void);
     void apagarProdutoFisico(void);
     void apagarAssinanteFisico(void);
+    void apagarPlanoFisico(void);
 #endif

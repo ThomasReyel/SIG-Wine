@@ -184,6 +184,7 @@ void exclusaoFisicaMenu(){
             apagarProdutoFisico();
         break;
         case '3':
+            apagarPlanoFisico();
         break;
         case '4':
             crtl = 0;
@@ -248,6 +249,33 @@ void apagarAssinanteFisico(){
     remove("./dados/dadosAssinantes.dat");
     rename("./dados/arquivoTempAssin.dat", "./dados/dadosAssinantes.dat");
     printf("Assinantes excluídos com sucesso!\n");
+    printf("Aperte enter para voltar ao menu\n");
+    getchar();
+}
+
+void apagarPlanoFisico(){
+    FILE *arqPlano;
+    FILE *arqTempPlan;
+    Plano* plano;
+    arqPlano = fopen("./dados/dadosPlanos.dat", "rt");
+    arqTempPlan = fopen("./dados/arquivoTempPlan.dat", "wt");
+    if (arqPlano == NULL || arqTempPlan == NULL){
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    plano = (Plano*) malloc(sizeof(Plano));
+    while (fread(plano, sizeof(Plano), 1, arqPlano)) {
+        if (!(plano->status == False)) {
+            fwrite(plano, sizeof(Plano), 1, arqTempPlan);
+        } 
+    }
+    fclose(arqPlano);
+    fclose(arqTempPlan);
+    free(plano);
+    remove("./dados/dadosPlanos.dat");
+    rename("./dados/arquivoTempPlan.dat", "./dados/dadosPlanos.dat");
+    printf("Planos excluídos com sucesso!\n");
     printf("Aperte enter para voltar ao menu\n");
     getchar();
 }
