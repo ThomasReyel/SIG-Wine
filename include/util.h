@@ -13,4 +13,7 @@
     void apagarProdutoFisico(void);
     void apagarAssinanteFisico(void);
     void apagarPlanoFisico(void);
+    int ehLetra(char c);
+    int ehVogal(char c);
+    int validarNome(char *nome);
 #endif

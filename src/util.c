@@ -280,3 +280,53 @@ void apagarPlanoFisico(){
     getchar();
 }
 
+
+
+
+int ehLetra(char c) {
+    return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+int ehVogal(char c) {
+    char vogais[] = "AEIOUaeiou";
+    for (int i = 0; vogais[i] != '\0'; i++) {
+        if (c == vogais[i])
+            return 1;
+    }
+    return 0;
+}
+
+int validarNome(char *nome) {
+    int tamanho = strlen(nome);
+    int temVogal = 0;
+    int repeticoes = 1; // contador de repetições consecutivas
+
+    // Tamanho mínimo e máximo
+    if (tamanho < 2 || tamanho > 30)
+        return 0;
+
+    for (int i = 0; nome[i] != '\0'; i++) {
+        if (!ehLetra(nome[i]))
+            return 0; // contém algo que não é letra
+
+        if (ehVogal(nome[i]))
+            temVogal = 1;
+
+        // Verifica repetições consecutivas
+        if (i > 0) {
+            if (nome[i] == nome[i - 1]) {
+                repeticoes++;
+                if (repeticoes >= 3)
+                    return 0; // mais de 2 repetições seguidas → inválido
+            } else {
+                repeticoes = 1;
+            }
+        }
+    }
+
+    // Deve ter pelo menos uma vogal
+    if (!temVogal)
+        return 0;
+
+    return 1; // passou em todas as verificações
+}

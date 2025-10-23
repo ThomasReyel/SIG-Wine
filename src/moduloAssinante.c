@@ -239,8 +239,15 @@ Assinante* salvarAssinantes(){
     Assinante* assinante;
     assinante = (Assinante*) malloc(sizeof(Assinante));
     assinante->id = recuperarIdAssinantes();
-    printf("Insira o nome do Assinante:\n");
-    fgets(assinante->nome,100,stdin);
+    do {
+        printf("Insira o nome do Assinante:\n");
+        fgets(assinante->nome, 100, stdin);
+        tratarString(assinante->nome); // remove '\n' etc.
+
+        if (!validarNome(assinante->nome)) {
+            printf("❌ Nome inválido! Digite novamente.\n");
+        }
+    } while (!validarNome(assinante->nome));
     printf("Insira o email:\n");
     fgets(assinante->email,100,stdin);
     printf("Insira o CPF:\n");
@@ -249,7 +256,6 @@ Assinante* salvarAssinantes(){
     fgets(assinante->dataNascimento,20,stdin);
     printf("Insira o endereço:\n");
     fgets(assinante->endereco,100,stdin);
-    tratarString(assinante->nome);
     tratarString(assinante->email);
     tratarString(assinante->cpf);
     tratarString(assinante->dataNascimento);
