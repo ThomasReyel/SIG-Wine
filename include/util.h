@@ -17,4 +17,5 @@
     int ehVogal(char c);
     int validarNome(char *nome);
     int validar_cpf(const char *cpf);
+    int validarEmail(const char *email);
 #endif

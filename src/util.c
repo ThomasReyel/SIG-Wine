@@ -388,3 +388,20 @@ int validar_cpf(const char *cpf) {
         return 0; 
     }
 }
+
+
+
+
+int validarEmail(const char *email) {
+    
+    const char *arroba = strchr(email, '@');
+    const char *ponto = strrchr(email, '.');
+
+   
+    if (!arroba || !ponto) return 0;
+    if (arroba == email || ponto == email) return 0;
+    if (ponto < arroba + 2) return 0;      
+    if (ponto == email + strlen(email) - 1) return 0; 
+
+    return 1; 
+}

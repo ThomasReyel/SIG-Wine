@@ -248,8 +248,16 @@ Assinante* salvarAssinantes(){
             printf("❌ Nome inválido! Digite novamente.\n");
         }
     } while (!validarNome(assinante->nome));
+    do {
     printf("Insira o email:\n");
-    fgets(assinante->email,100,stdin);
+    fgets(assinante->email, 100, stdin);
+    tratarString(assinante->email);
+
+    if (!validarEmail(assinante->email)) {
+        printf("❌ Email inválido! Digite novamente.\n");
+    }
+} while (!validarEmail(assinante->email));
+
     do {
         printf("Insira o CPF:\n");
         fgets(assinante->cpf, 20, stdin);
