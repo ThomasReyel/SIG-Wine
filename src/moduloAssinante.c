@@ -250,14 +250,21 @@ Assinante* salvarAssinantes(){
     } while (!validarNome(assinante->nome));
     printf("Insira o email:\n");
     fgets(assinante->email,100,stdin);
-    printf("Insira o CPF:\n");
-    fgets(assinante->cpf,20,stdin);
+    do {
+        printf("Insira o CPF:\n");
+        fgets(assinante->cpf, 20, stdin);
+        tratarString(assinante->cpf);
+
+        if (!validar_cpf(assinante->cpf)) {
+            printf("❌ CPF inválido! Digite novamente.\n");
+        }
+    } while (!validar_cpf(assinante->cpf));
     printf("Insira a data de nascimento (dd/mm/aa):\n");
     fgets(assinante->dataNascimento,20,stdin);
     printf("Insira o endereço:\n");
     fgets(assinante->endereco,100,stdin);
     tratarString(assinante->email);
-    tratarString(assinante->cpf);
+    
     tratarString(assinante->dataNascimento);
     tratarString(assinante->endereco);
     assinante->status = True;

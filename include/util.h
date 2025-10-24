@@ -16,4 +16,5 @@
     int ehLetra(char c);
     int ehVogal(char c);
     int validarNome(char *nome);
+    int validar_cpf(const char *cpf);
 #endif

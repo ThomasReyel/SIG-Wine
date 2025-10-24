@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "moduloAssinantes.h"
 #include "moduloAssinaturas.h"
 #include "moduloPlanos.h"
@@ -329,4 +330,61 @@ int validarNome(char *nome) {
         return 0;
 
     return 1; // passou em todas as verificações
+}
+
+
+
+
+
+// peguei do chat gpt 5
+int validar_cpf(const char *cpf) {
+    int i, j, k = 0, soma, resto, digito1, digito2;
+    char numeros[12];
+
+    for (i = 0; cpf[i] != '\0'; i++) {
+        if (isdigit((unsigned char)cpf[i])) {
+            numeros[k++] = cpf[i];
+        }
+    }
+    numeros[k] = '\0';
+
+
+    if (strlen(numeros) != 11) {
+        return 0;
+    }
+
+
+    int todos_iguais = 1;
+    for (i = 1; i < 11; i++) {
+        if (numeros[i] != numeros[0]) {
+            todos_iguais = 0;
+            break;
+        }
+    }
+    if (todos_iguais) {
+        return 0;
+    }
+
+   
+    soma = 0;
+    for (i = 0, j = 10; i < 9; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+    resto = soma % 11;
+    digito1 = (resto < 2) ? 0 : 11 - resto;
+
+   
+    soma = 0;
+    for (i = 0, j = 11; i < 10; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+    resto = soma % 11;
+    digito2 = (resto < 2) ? 0 : 11 - resto;
+
+   
+    if ((numeros[9] - '0') == digito1 && (numeros[10] - '0') == digito2) {
+        return 1; 
+    } else {
+        return 0; 
+    }
 }
