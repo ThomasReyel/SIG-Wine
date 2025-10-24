@@ -405,3 +405,32 @@ int validarEmail(const char *email) {
 
     return 1; 
 }
+
+
+
+int validarEndereco(const char *endereco) {
+    int letrasOuNumeros = 0;
+
+    
+    if (strlen(endereco) < 5) {
+        return 0; 
+    }
+
+    
+    for (int i = 0; endereco[i] != '\0'; i++) {
+        if (isalnum((unsigned char)endereco[i])) {
+            letrasOuNumeros = 1; 
+        }
+        
+        if (!isalnum((unsigned char)endereco[i]) &&
+            endereco[i] != ' ' && endereco[i] != ',' &&
+            endereco[i] != '.' && endereco[i] != '-') {
+            return 0;
+        }
+    }
+
+    
+    if (!letrasOuNumeros) return 0;
+
+    return 1; 
+}
