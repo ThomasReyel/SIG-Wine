@@ -267,8 +267,16 @@ Assinante* salvarAssinantes(){
             printf("❌ CPF inválido! Digite novamente.\n");
         }
     } while (!validar_cpf(assinante->cpf));
-    printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(assinante->dataNascimento,20,stdin);
+    do {
+    printf("Insira a data de nascimento (dd/mm/aaaa):\n");
+    fgets(assinante->dataNascimento, 20, stdin);
+    tratarString(assinante->dataNascimento);
+
+    if (!validarDataNascimento(assinante->dataNascimento)) {
+        printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+    }
+} while (!validarDataNascimento(assinante->dataNascimento));
+
     do {
     printf("Insira o endereço:\n");
     fgets(assinante->endereco, 100, stdin);
@@ -280,8 +288,7 @@ Assinante* salvarAssinantes(){
 } while (!validarEndereco(assinante->endereco));
     
     
-    tratarString(assinante->dataNascimento);
-   
+    
     assinante->status = True;
     return assinante;
 }

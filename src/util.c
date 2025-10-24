@@ -434,3 +434,35 @@ int validarEndereco(const char *endereco) {
 
     return 1; 
 }
+
+
+
+
+int validarDataNascimento(const char *data) {
+    int dia, mes, ano;
+
+   
+    if (strlen(data) < 8 || strlen(data) > 10) return 0;
+
+    
+    if (data[2] != '/' || data[5] != '/') return 0;
+
+  
+    dia = atoi(data);
+    mes = atoi(data + 3);
+    ano = atoi(data + 6);
+
+   
+    if (dia < 1 || dia > 31) return 0;
+    if (mes < 1 || mes > 12) return 0;
+
+
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) return 0;
+
+    
+    if (mes == 2 && dia > 29) return 0;
+
+    if (ano < 1900 || ano > 2025) return 0; 
+
+    return 1; 
+}

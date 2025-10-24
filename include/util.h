@@ -19,4 +19,5 @@
     int validar_cpf(const char *cpf);
     int validarEmail(const char *email);
     int validarEndereco(const char *endereco);
+    int validarDataNascimento(const char *data);
 #endif
