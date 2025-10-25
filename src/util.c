@@ -549,3 +549,54 @@ int validarNomeProduto(const char *nome) {
 
     return 1;
 }
+
+//peguei do chat gpt 5 a função de validar preço
+int validarPreco(const char *preco_str) {
+    int len = strlen(preco_str);
+    if (len == 0) return 0;
+
+    int sep_count = 0;
+    int digito_count = 0;
+
+    for (int i = 0; preco_str[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) preco_str[i];
+
+        if (isdigit(c)) {
+            digito_count++;
+            continue;
+        }
+
+        if (c == '.' || c == ',') {
+            sep_count++;
+         
+            if (sep_count > 1) return 0;
+     
+            if (i == 0 || preco_str[i+1] == '\0') return 0;
+            continue;
+        }
+
+        
+        if (c == ' ' || c == '\t') continue;
+
+        
+        return 0;
+    }
+
+    if (digito_count == 0) return 0; 
+
+    
+    char copia[64];
+    int j = 0;
+    for (int i = 0; preco_str[i] != '\0' && j < (int)sizeof(copia)-1; i++) {
+        unsigned char c = (unsigned char) preco_str[i];
+        if (c == ',') copia[j++] = '.';
+        else if (c == ' ' || c == '\t') continue;
+        else copia[j++] = c;
+    }
+    copia[j] = '\0';
+
+    double val = atof(copia);
+    if (val <= 0.0) return 0;
+
+    return 1;
+}
