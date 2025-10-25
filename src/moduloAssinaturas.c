@@ -303,13 +303,19 @@ Assinatura* salvarAssinaturas(){
         }
     } while (!validarId(assinatura->idPlano));
 
-    printf("Insira o Data da assinatura:\n");
-    fgets(assinatura->dataAssinatura,20,stdin);
+    do {
+        printf("Insira a data da assinatura (dd/mm/aaaa):\n");
+        fgets(assinatura->dataAssinatura, 20, stdin);
+        tratarString(assinatura->dataAssinatura);
+
+        if (!validarDataAssinatura(assinatura->dataAssinatura)) {
+            printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+        }
+    } while (!validarDataAssinatura(assinatura->dataAssinatura));
+
     printf("Insira o período de vencimento:\n");
     fgets(assinatura->periodoVencimento,20,stdin);
-    tratarString(assinatura->idAssinante);
-    tratarString(assinatura->idPlano);
-    tratarString(assinatura->dataAssinatura);
+    
     tratarString(assinatura->periodoVencimento);
     assinatura->status = True;
     return assinatura;
