@@ -521,3 +521,31 @@ int validarPeriodoVencimento(char *periodo) {
 
     return 0; 
 }
+int validarNomeProduto(const char *nome) {
+    int len = strlen(nome);
+    int temAlnum = 0;
+
+    if (len < 2) return 0; 
+
+    for (int i = 0; nome[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) nome[i];
+
+        if (isalnum(c)) {
+            temAlnum = 1;
+            continue;
+        }
+
+       
+        if (c == ' ' || c == '-' || c == '.' || c == ',' || c == '&' || c == '/') {
+            continue;
+        }
+
+        
+        return 0;
+    }
+
+    
+    if (!temAlnum) return 0;
+
+    return 1;
+}

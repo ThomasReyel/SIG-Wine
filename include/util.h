@@ -23,4 +23,5 @@
     int validarId(const char *id);
     int validarDataAssinatura(const char *data);
     int validarPeriodoVencimento(char *periodo);
+    int validarNomeProduto(const char *nome);
 #endif
