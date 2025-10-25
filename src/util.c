@@ -500,3 +500,24 @@ int validarDataAssinatura(const char *data) {
 
     return 1;
 }
+
+int validarPeriodoVencimento(char *periodo) {
+    int i = 0;
+
+    
+    while (periodo[i] == ' ' || periodo[i] == '\t') {
+        i++;
+    }
+
+    char letra = toupper((unsigned char)periodo[i]);
+
+    
+    periodo[0] = letra;
+    periodo[1] = '\0';
+
+    if (letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') {
+        return 1; 
+    }
+
+    return 0; 
+}

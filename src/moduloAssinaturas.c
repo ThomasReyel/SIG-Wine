@@ -313,10 +313,15 @@ Assinatura* salvarAssinaturas(){
         }
     } while (!validarDataAssinatura(assinatura->dataAssinatura));
 
-    printf("Insira o período de vencimento:\n");
-    fgets(assinatura->periodoVencimento,20,stdin);
-    
+    do {
+    printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+    fgets(assinatura->periodoVencimento, 20, stdin);
     tratarString(assinatura->periodoVencimento);
+
+    if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
+        printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
+    }
+} while (!validarPeriodoVencimento(assinatura->periodoVencimento));
     assinatura->status = True;
     return assinatura;
 }

@@ -22,4 +22,5 @@
     int validarDataNascimento(const char *data);
     int validarId(const char *id);
     int validarDataAssinatura(const char *data);
+    int validarPeriodoVencimento(char *periodo);
 #endif
