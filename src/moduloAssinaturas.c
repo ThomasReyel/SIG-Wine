@@ -282,10 +282,27 @@ Assinatura* salvarAssinaturas(){
     Assinatura* assinatura;
     assinatura = (Assinatura*) malloc(sizeof(Assinatura));
     assinatura->id = recuperarIdAssinaturas();
-    printf("Insira o id da assinatura:\n");
-    fgets(assinatura->idAssinante,20,stdin);
-    printf("Insira o id do plano:\n");
-    fgets(assinatura->idPlano,20,stdin);
+     do {
+        printf("Insira o id do assinante:\n");
+        fgets(assinatura->idAssinante, 20, stdin);
+        tratarString(assinatura->idAssinante);
+
+        if (!validarId(assinatura->idAssinante)) {
+            printf("❌ ID inválido! Digite apenas números.\n");
+        }
+    } while (!validarId(assinatura->idAssinante));
+
+   
+    do {
+        printf("Insira o id do plano:\n");
+        fgets(assinatura->idPlano, 20, stdin);
+        tratarString(assinatura->idPlano);
+
+        if (!validarId(assinatura->idPlano)) {
+            printf("❌ ID inválido! Digite apenas números.\n");
+        }
+    } while (!validarId(assinatura->idPlano));
+
     printf("Insira o Data da assinatura:\n");
     fgets(assinatura->dataAssinatura,20,stdin);
     printf("Insira o período de vencimento:\n");

@@ -466,3 +466,17 @@ int validarDataNascimento(const char *data) {
 
     return 1; 
 }
+
+
+
+
+int validarId(const char *id) {
+    if (strlen(id) == 0) return 0; 
+
+    for (int i = 0; id[i] != '\0'; i++) {
+        if (!isdigit((unsigned char)id[i])) {
+            return 0; 
+        }
+    }
+    return 1; 
+}

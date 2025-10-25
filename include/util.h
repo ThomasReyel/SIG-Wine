@@ -20,4 +20,5 @@
     int validarEmail(const char *email);
     int validarEndereco(const char *endereco);
     int validarDataNascimento(const char *data);
+    int validarId(const char *id);
 #endif
