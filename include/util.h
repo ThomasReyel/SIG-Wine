@@ -23,6 +23,6 @@
     int validarId(const char *id);
     int validarDataAssinatura(const char *data);
     int validarPeriodoVencimento(char *periodo);
-    int validarNomeProduto(const char *nome);
+    int validarNomeObjeto(const char *nome);
     int validarPreco(const char *preco_str);
 #endif

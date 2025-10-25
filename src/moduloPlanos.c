@@ -294,12 +294,12 @@ Plano* salvarPlanos() {
         fgets(plano->nome, 20, stdin);
         tratarString(plano->nome);
 
-        if (!validarNomeProduto(plano->nome)) {
+        if (!validarNomeObjeto(plano->nome)) {
             printf("❌ Nome de produto inválido! Digite novamente.\n");
         }
-    } while (!validarNomeProduto(plano->nome));
+    } while (!validarNomeObjeto(plano->nome));
 
-    // Preço
+    
     do {
         printf("Insira o preço (ex: 49.90 ou 49,90):\n");
         fgets(plano->preco, 20, stdin);

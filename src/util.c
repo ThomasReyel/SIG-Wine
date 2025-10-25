@@ -521,7 +521,7 @@ int validarPeriodoVencimento(char *periodo) {
 
     return 0; 
 }
-int validarNomeProduto(const char *nome) {
+int validarNomeObjeto(const char *nome) {
     int len = strlen(nome);
     int temAlnum = 0;
 
