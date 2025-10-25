@@ -600,3 +600,16 @@ int validarPreco(const char *preco_str) {
 
     return 1;
 }
+
+
+int validarMarca(const char *marca) {
+    if (strlen(marca) < 2) return 0;
+
+    for (int i = 0; marca[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) marca[i];
+        if (isalnum(c) || isspace(c) || c == '-' || c == '_') continue;
+        return 0;
+    }
+
+    return 1;
+}

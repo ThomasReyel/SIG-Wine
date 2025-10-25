@@ -25,4 +25,5 @@
     int validarPeriodoVencimento(char *periodo);
     int validarNomeObjeto(const char *nome);
     int validarPreco(const char *preco_str);
+    int validarMarca(const char *marca);
 #endif
