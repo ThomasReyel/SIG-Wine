@@ -625,3 +625,15 @@ int validarAnoProducao(const char *anoStr) {
 
     return 1;
 }
+
+int validarTipo(const char *tipo) {
+    if (strlen(tipo) < 2) return 0;
+
+    for (int i = 0; tipo[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) tipo[i];
+        if (isalpha(c) || isspace(c) || c == '-' || c == '_') continue;
+        return 0;
+    }
+
+    return 1;
+}

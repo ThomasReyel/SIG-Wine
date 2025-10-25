@@ -27,4 +27,5 @@
     int validarPreco(const char *preco_str);
     int validarMarca(const char *marca);
     int validarAnoProducao(const char *anoStr);
+    int validarTipo(const char *tipo);
 #endif
