@@ -613,3 +613,15 @@ int validarMarca(const char *marca) {
 
     return 1;
 }
+int validarAnoProducao(const char *anoStr) {
+    if (strlen(anoStr) != 4) return 0;
+
+    for (int i = 0; i < 4; i++) {
+        if (!isdigit(anoStr[i])) return 0;
+    }
+
+    int ano = atoi(anoStr);
+    if (ano < 1900 || ano > 2025) return 0;
+
+    return 1;
+}
