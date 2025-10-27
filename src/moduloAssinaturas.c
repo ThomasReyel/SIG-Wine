@@ -313,13 +313,13 @@ Assinatura* salvarAssinaturas(){
     } while (!validarDataAssinatura(assinatura->dataAssinatura));
 
     do {
-    printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
-    fgets(assinatura->periodoVencimento, 20, stdin);
-    tratarString(assinatura->periodoVencimento);
+        printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+        fgets(assinatura->periodoVencimento, 20, stdin);
+        tratarString(assinatura->periodoVencimento);
 
-    if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
-        printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
-    }
+        if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
+            printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
+        }
 } while (!validarPeriodoVencimento(assinatura->periodoVencimento));
     assinatura->status = True;
     return assinatura;
@@ -328,104 +328,61 @@ Assinatura* salvarAssinaturas(){
 void alterarAssinaturaArquivo(int idCom){
     char opcao[10];
     int controle = 1;
-    FILE *arqAssinaturas;
-    Assinatura* assinatura;
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Id do Assinante\n║2. Id do Plano\n║3. Data da assinatura\n║4. Período de vencimento\n");
+        printf("║1. Id do Assinante\n║2. Id do Plano\n║3. Data da assinatura\n");
+        printf("║4. Período de vencimento\n║5. Sair\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
-        arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "r+b");
-        if (arqAssinaturas == NULL){
-            printf("Falha na manipulação dos arquivos");
-            getchar();
-            return;
-        }
        switch (opcao[0]){
         case '1':
             char idAssNovo[20];
             do {
-                printf("Insira o novo ID do produto:\n");
+                printf("Insira o novo ID do assinante:\n");
                 fgets(idAssNovo,20,stdin);
                 tratarString(idAssNovo); 
             } while (!(validarId(idAssNovo, 2)));  
-            assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-            while (fread(assinatura,sizeof(Assinatura),1,arqAssinaturas)){
-                if((idCom == assinatura->id) && (assinatura->status == True)){
-                    strcpy(assinatura->idAssinante, idAssNovo);
-                    fseek(arqAssinaturas,-1*sizeof(Assinatura), SEEK_CUR);
-                    fwrite(assinatura,sizeof(Assinatura),1,arqAssinaturas);
-                    printf("Assinatura alterada com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinatura);
-                    fclose(arqAssinaturas);
-                    return;
-                }
-            }
+            atualizarCampoAssinatura(idCom, idAssNovo, 1);
+            controle = 0;
         break;
         case '2':
             char idPlanNovo[20];
-            printf("Insira o novo ID do plano:\n");
-            fgets(idPlanNovo,20,stdin);
-            tratarString(idPlanNovo);
-            assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-            while (fread(assinatura,sizeof(Assinatura),1,arqAssinaturas)){
-                if((idCom == assinatura->id) && (assinatura->status == True)){
-                    strcpy(assinatura->idAssinante, idPlanNovo);
-                    fseek(arqAssinaturas,-1*sizeof(Assinatura), SEEK_CUR);
-                    fwrite(assinatura,sizeof(Assinatura),1,arqAssinaturas);
-                    printf("Assinatura alterada com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinatura);
-                    fclose(arqAssinaturas);
-                    return;
-                }
-            }
+            do {
+                printf("Insira o id do plano:\n");
+                fgets(idPlanNovo, 20, stdin);
+                tratarString(idPlanNovo);
+            } while (!validarId(idPlanNovo, 1));
+            atualizarCampoAssinatura(idCom, idPlanNovo, 2);
+            controle = 0;
         break;
         case '3':
             char dataNascNovo[20];
-            printf("Insira a nova data de nascimento:\n");
-            fgets(idPlanNovo,20,stdin);
-            tratarString(idPlanNovo);
-            assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-            while (fread(assinatura,sizeof(Assinatura),1,arqAssinaturas)){
-                if((idCom == assinatura->id) && (assinatura->status == True)){
-                    strcpy(assinatura->idAssinante, dataNascNovo);
-                    fseek(arqAssinaturas,-1*sizeof(Assinatura), SEEK_CUR);
-                    fwrite(assinatura,sizeof(Assinatura),1,arqAssinaturas);
-                    printf("Assinatura alterada com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinatura);
-                    fclose(arqAssinaturas);
-                    return;
+            do {
+                printf("Insira a data da assinatura (dd/mm/aaaa):\n");
+                fgets(dataNascNovo, 20, stdin);
+                tratarString(dataNascNovo);
+                if (!validarDataAssinatura(dataNascNovo)) {
+                    printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
                 }
-            }
+            } while (!validarDataAssinatura(dataNascNovo));
+            atualizarCampoAssinatura(idCom, dataNascNovo,3);
+            controle = 0;
         break;
         case '4':
             char periodoVenciNovo[20];
-            printf("Insira o novo período de vencimento:\n");
-            fgets(periodoVenciNovo,20,stdin);
-            tratarString(periodoVenciNovo);
-            assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-            while (fread(assinatura,sizeof(Assinatura),1,arqAssinaturas)){
-                if((idCom == assinatura->id) && (assinatura->status == True)){
-                    strcpy(assinatura->idAssinante, periodoVenciNovo);
-                    fseek(arqAssinaturas,-1*sizeof(Assinatura), SEEK_CUR);
-                    fwrite(assinatura,sizeof(Assinatura),1,arqAssinaturas);
-                    printf("Assinatura alterada com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinatura);
-                    fclose(arqAssinaturas);
-                    return;
+            do {
+                printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+                fgets(periodoVenciNovo, 20, stdin);
+                tratarString(periodoVenciNovo);
+                if (!validarPeriodoVencimento(periodoVenciNovo)) {
+                    printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
                 }
-            }
+            } while (!validarPeriodoVencimento(periodoVenciNovo));
+            atualizarCampoAssinatura(idCom, periodoVenciNovo,4);
+            controle = 0;
         break;
         case '5':
             controle = 0;
@@ -438,4 +395,54 @@ void alterarAssinaturaArquivo(int idCom){
        }
     }
     while (controle == 1);
+}
+
+void atualizarCampoAssinatura(int idCom, const char* novoValor, int campo) {
+    FILE *arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "r+b");
+    if (arqAssinaturas == NULL) {
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    
+    Assinatura* assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    
+    while (fread(assinatura, sizeof(Assinatura), 1, arqAssinaturas)) {
+        if ((idCom == assinatura->id) && (assinatura->status == True)) {
+            switch (campo) {
+                case 1: 
+                    strcpy(assinatura->idAssinante, novoValor);
+                    break;
+                case 2: 
+                    strcpy(assinatura->idPlano, novoValor);
+                    break;
+                case 3: 
+                    strcpy(assinatura->dataAssinatura, novoValor);
+                    break;
+                case 4:
+                    strcpy(assinatura->periodoVencimento, novoValor);
+                    break;
+                case 5: 
+                    strcpy(assinatura->periodoVencimento, novoValor);
+                    break;
+                default:
+                    break;
+            }
+            
+            fseek(arqAssinaturas, -1 * sizeof(Assinatura), SEEK_CUR);
+            fwrite(assinatura, sizeof(Assinatura), 1, arqAssinaturas);
+            
+            printf("Assinatura alterada com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();
+            
+            free(assinatura);
+            fclose(arqAssinaturas);
+            return;
+        }
+    }
+    
+    printf("Assinatura não encontrada!\n");
+    free(assinatura);
+    fclose(arqAssinaturas);
 }
