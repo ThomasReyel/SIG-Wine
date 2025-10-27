@@ -13,4 +13,19 @@
     void apagarProdutoFisico(void);
     void apagarAssinanteFisico(void);
     void apagarPlanoFisico(void);
+    int ehLetra(char c);
+    int ehVogal(char c);
+    int validarNome(char *nome);
+    int validar_cpf(const char *cpf);
+    int validarEmail(const char *email);
+    int validarEndereco(const char *endereco);
+    int validarDataNascimento(const char *data);
+    int validarId(const char *id);
+    int validarDataAssinatura(const char *data);
+    int validarPeriodoVencimento(char *periodo);
+    int validarNomeObjeto(const char *nome);
+    int validarPreco(const char *preco_str);
+    int validarMarca(const char *marca);
+    int validarAnoProducao(const char *anoStr);
+    int validarTipo(const char *tipo);
 #endif

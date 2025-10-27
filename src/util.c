@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <ctype.h>
 #include "moduloAssinantes.h"
 #include "moduloAssinaturas.h"
 #include "moduloPlanos.h"
@@ -280,3 +281,359 @@ void apagarPlanoFisico(){
     getchar();
 }
 
+
+
+
+int ehLetra(char c) {
+    return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
+}
+
+int ehVogal(char c) {
+    char vogais[] = "AEIOUaeiou";
+    for (int i = 0; vogais[i] != '\0'; i++) {
+        if (c == vogais[i])
+            return 1;
+    }
+    return 0;
+}
+
+int validarNome(char *nome) {
+    int tamanho = strlen(nome);
+    int temVogal = 0;
+    int repeticoes = 1; // contador de repetições consecutivas
+
+    // Tamanho mínimo e máximo
+    if (tamanho < 2 || tamanho > 30)
+        return 0;
+
+    for (int i = 0; nome[i] != '\0'; i++) {
+        if (!ehLetra(nome[i]))
+            return 0; // contém algo que não é letra
+
+        if (ehVogal(nome[i]))
+            temVogal = 1;
+
+        // Verifica repetições consecutivas
+        if (i > 0) {
+            if (nome[i] == nome[i - 1]) {
+                repeticoes++;
+                if (repeticoes >= 3)
+                    return 0; // mais de 2 repetições seguidas → inválido
+            } else {
+                repeticoes = 1;
+            }
+        }
+    }
+
+    // Deve ter pelo menos uma vogal
+    if (!temVogal)
+        return 0;
+
+    return 1; // passou em todas as verificações
+}
+
+
+
+
+
+// peguei do chat gpt 5
+int validar_cpf(const char *cpf) {
+    int i, j, k = 0, soma, resto, digito1, digito2;
+    char numeros[12];
+
+    for (i = 0; cpf[i] != '\0'; i++) {
+        if (isdigit((unsigned char)cpf[i])) {
+            numeros[k++] = cpf[i];
+        }
+    }
+    numeros[k] = '\0';
+
+
+    if (strlen(numeros) != 11) {
+        return 0;
+    }
+
+
+    int todos_iguais = 1;
+    for (i = 1; i < 11; i++) {
+        if (numeros[i] != numeros[0]) {
+            todos_iguais = 0;
+            break;
+        }
+    }
+    if (todos_iguais) {
+        return 0;
+    }
+
+   
+    soma = 0;
+    for (i = 0, j = 10; i < 9; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+    resto = soma % 11;
+    digito1 = (resto < 2) ? 0 : 11 - resto;
+
+   
+    soma = 0;
+    for (i = 0, j = 11; i < 10; i++, j--) {
+        soma += (numeros[i] - '0') * j;
+    }
+    resto = soma % 11;
+    digito2 = (resto < 2) ? 0 : 11 - resto;
+
+   
+    if ((numeros[9] - '0') == digito1 && (numeros[10] - '0') == digito2) {
+        return 1; 
+    } else {
+        return 0; 
+    }
+}
+
+
+
+
+int validarEmail(const char *email) {
+    
+    const char *arroba = strchr(email, '@');
+    const char *ponto = strrchr(email, '.');
+
+   
+    if (!arroba || !ponto) return 0;
+    if (arroba == email || ponto == email) return 0;
+    if (ponto < arroba + 2) return 0;      
+    if (ponto == email + strlen(email) - 1) return 0; 
+
+    return 1; 
+}
+
+
+
+int validarEndereco(const char *endereco) {
+    int letrasOuNumeros = 0;
+
+    
+    if (strlen(endereco) < 5) {
+        return 0; 
+    }
+
+    
+    for (int i = 0; endereco[i] != '\0'; i++) {
+        if (isalnum((unsigned char)endereco[i])) {
+            letrasOuNumeros = 1; 
+        }
+        
+        if (!isalnum((unsigned char)endereco[i]) &&
+            endereco[i] != ' ' && endereco[i] != ',' &&
+            endereco[i] != '.' && endereco[i] != '-') {
+            return 0;
+        }
+    }
+
+    
+    if (!letrasOuNumeros) return 0;
+
+    return 1; 
+}
+
+
+
+
+int validarDataNascimento(const char *data) {
+    int dia, mes, ano;
+
+   
+    if (strlen(data) < 8 || strlen(data) > 10) return 0;
+
+    
+    if (data[2] != '/' || data[5] != '/') return 0;
+
+  
+    dia = atoi(data);
+    mes = atoi(data + 3);
+    ano = atoi(data + 6);
+
+   
+    if (dia < 1 || dia > 31) return 0;
+    if (mes < 1 || mes > 12) return 0;
+
+
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) return 0;
+
+    
+    if (mes == 2 && dia > 29) return 0;
+
+    if (ano < 1900 || ano > 2025) return 0; 
+
+    return 1; 
+}
+
+
+
+
+int validarId(const char *id) {
+    if (strlen(id) == 0) return 0; 
+
+    for (int i = 0; id[i] != '\0'; i++) {
+        if (!isdigit((unsigned char)id[i])) {
+            return 0; 
+        }
+    }
+    return 1; 
+}
+
+
+int validarDataAssinatura(const char *data) {
+    int dia, mes, ano;
+
+    if (strlen(data) < 8 || strlen(data) > 10) return 0;
+    if (data[2] != '/' || data[5] != '/') return 0;
+
+    dia = atoi(data);
+    mes = atoi(data + 3);
+    ano = atoi(data + 6);
+
+    if (dia < 1 || dia > 31) return 0;
+    if (mes < 1 || mes > 12) return 0;
+    if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) return 0;
+    if (mes == 2 && dia > 29) return 0;
+    if (ano < 2000 || ano > 2025) return 0; // intervalo ajustável
+
+    return 1;
+}
+
+int validarPeriodoVencimento(char *periodo) {
+    int i = 0;
+
+    
+    while (periodo[i] == ' ' || periodo[i] == '\t') {
+        i++;
+    }
+
+    char letra = toupper((unsigned char)periodo[i]);
+
+    
+    periodo[0] = letra;
+    periodo[1] = '\0';
+
+    if (letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') {
+        return 1; 
+    }
+
+    return 0; 
+}
+int validarNomeObjeto(const char *nome) {
+    int len = strlen(nome);
+    int temAlnum = 0;
+
+    if (len < 2) return 0; 
+
+    for (int i = 0; nome[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) nome[i];
+
+        if (isalnum(c)) {
+            temAlnum = 1;
+            continue;
+        }
+
+       
+        if (c == ' ' || c == '-' || c == '.' || c == ',' || c == '&' || c == '/') {
+            continue;
+        }
+
+        
+        return 0;
+    }
+
+    
+    if (!temAlnum) return 0;
+
+    return 1;
+}
+
+//peguei do chat gpt 5 a função de validar preço
+int validarPreco(const char *preco_str) {
+    int len = strlen(preco_str);
+    if (len == 0) return 0;
+
+    int sep_count = 0;
+    int digito_count = 0;
+
+    for (int i = 0; preco_str[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) preco_str[i];
+
+        if (isdigit(c)) {
+            digito_count++;
+            continue;
+        }
+
+        if (c == '.' || c == ',') {
+            sep_count++;
+         
+            if (sep_count > 1) return 0;
+     
+            if (i == 0 || preco_str[i+1] == '\0') return 0;
+            continue;
+        }
+
+        
+        if (c == ' ' || c == '\t') continue;
+
+        
+        return 0;
+    }
+
+    if (digito_count == 0) return 0; 
+
+    
+    char copia[64];
+    int j = 0;
+    for (int i = 0; preco_str[i] != '\0' && j < (int)sizeof(copia)-1; i++) {
+        unsigned char c = (unsigned char) preco_str[i];
+        if (c == ',') copia[j++] = '.';
+        else if (c == ' ' || c == '\t') continue;
+        else copia[j++] = c;
+    }
+    copia[j] = '\0';
+
+    double val = atof(copia);
+    if (val <= 0.0) return 0;
+
+    return 1;
+}
+
+
+int validarMarca(const char *marca) {
+    if (strlen(marca) < 2) return 0;
+
+    for (int i = 0; marca[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) marca[i];
+        if (isalnum(c) || isspace(c) || c == '-' || c == '_') continue;
+        return 0;
+    }
+
+    return 1;
+}
+int validarAnoProducao(const char *anoStr) {
+    if (strlen(anoStr) != 4) return 0;
+
+    for (int i = 0; i < 4; i++) {
+        if (!isdigit(anoStr[i])) return 0;
+    }
+
+    int ano = atoi(anoStr);
+    if (ano < 1900 || ano > 2025) return 0;
+
+    return 1;
+}
+
+int validarTipo(const char *tipo) {
+    if (strlen(tipo) < 2) return 0;
+
+    for (int i = 0; tipo[i] != '\0'; i++) {
+        unsigned char c = (unsigned char) tipo[i];
+        if (isalpha(c) || isspace(c) || c == '-' || c == '_') continue;
+        return 0;
+    }
+
+    return 1;
+}

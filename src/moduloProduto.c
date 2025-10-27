@@ -284,22 +284,56 @@ void excluirProdutoArquivo(int idCom){
     }
 }
 
-Produto* salvarProdutos(){
+Produto* salvarProdutos() {
     Produto* produto;
     produto = (Produto*) malloc(sizeof(Produto));
+    if (!produto) return NULL;
+
     produto->id = recuperarIdProdutos();
-    printf("Insira o nome:\n");
-    fgets(produto->nome,20,stdin);
-    printf("Insira o tipo:\n");
-    fgets(produto->tipo,20,stdin);
-    printf("Insira o marca:\n");
-    fgets(produto->marca,20,stdin);
-    printf("Insira o ano de produção:\n");
-    fgets(produto->anoProducao,20,stdin);
-    tratarString(produto->nome);
-    tratarString(produto->tipo);
-    tratarString(produto->marca);
-    tratarString(produto->anoProducao);
+
+    do {
+        printf("Insira o nome:\n");
+        fgets(produto->nome, 20, stdin);
+        tratarString(produto->nome);
+
+        if (!validarNomeObjeto(produto->nome)) {
+            printf("❌ Nome inválido! Digite novamente.\n");
+        }
+    } while (!validarNomeObjeto(produto->nome));
+
+    
+    do {
+        printf("Insira o tipo:\n");
+        fgets(produto->tipo, 20, stdin);
+        tratarString(produto->tipo);
+
+        if (!validarTipo(produto->tipo)) {
+            printf("❌ Tipo inválido! Use apenas letras e espaços.\n");
+        }
+    } while (!validarTipo(produto->tipo));
+
+    
+    do {
+        printf("Insira a marca:\n");
+        fgets(produto->marca, 20, stdin);
+        tratarString(produto->marca);
+
+        if (!validarMarca(produto->marca)) {
+            printf("❌ Marca inválida! Use apenas letras, números e espaços.\n");
+        }
+    } while (!validarMarca(produto->marca));
+
+  
+    do {
+        printf("Insira o ano de produção (ex: 2023):\n");
+        fgets(produto->anoProducao, 20, stdin);
+        tratarString(produto->anoProducao);
+
+        if (!validarAnoProducao(produto->anoProducao)) {
+            printf("❌ Ano inválido! Digite um ano entre 1900 e 2025.\n");
+        }
+    } while (!validarAnoProducao(produto->anoProducao));
+
     produto->status = True;
     return produto;
 }

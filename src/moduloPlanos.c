@@ -282,22 +282,56 @@ void excluirPlanoArquivo(int idCom){
     }
 }
 
-Plano* salvarPlanos(){
+Plano* salvarPlanos() {
     Plano* plano;
     plano = (Plano*) malloc(sizeof(Plano));
+    if (!plano) return NULL;
     plano->id = recuperarIdPlanos();
-    printf("Insira o nome:\n");
-    fgets(plano->nome,20,stdin);
-    printf("Insira o preço:\n");
-    fgets(plano->preco,20,stdin);
-    printf("Insira o período:\n");
-    fgets(plano->periodo,20,stdin);
-    printf("Insira o idProduto:\n");
-    fgets(plano->idProduto,20,stdin);
-    tratarString(plano->nome);
-    tratarString(plano->preco);
-    tratarString(plano->periodo);
-    tratarString(plano->idProduto);
+
+    
+    do {
+        printf("Insira o nome:\n");
+        fgets(plano->nome, 20, stdin);
+        tratarString(plano->nome);
+
+        if (!validarNomeObjeto(plano->nome)) {
+            printf("❌ Nome de produto inválido! Digite novamente.\n");
+        }
+    } while (!validarNomeObjeto(plano->nome));
+
+    
+    do {
+        printf("Insira o preço (ex: 49.90 ou 49,90):\n");
+        fgets(plano->preco, 20, stdin);
+        tratarString(plano->preco);
+
+        if (!validarPreco(plano->preco)) {
+            printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
+        }
+    } while (!validarPreco(plano->preco));
+
+   
+    do {
+        printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+        fgets(plano->periodo, 20, stdin);
+        tratarString(plano->periodo);
+
+        if (!validarPeriodoVencimento(plano->periodo)) {
+            printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
+        }
+    } while (!validarPeriodoVencimento(plano->periodo));
+
+    
+    do {
+        printf("Insira o idProduto:\n");
+        fgets(plano->idProduto, 20, stdin);
+        tratarString(plano->idProduto);
+
+        if (!validarId(plano->idProduto)) {
+            printf("❌ ID do produto inválido! Digite apenas números.\n");
+        }
+    } while (!validarId(plano->idProduto));
+
     plano->status = True;
     return plano;
 }

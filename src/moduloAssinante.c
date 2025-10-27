@@ -239,21 +239,56 @@ Assinante* salvarAssinantes(){
     Assinante* assinante;
     assinante = (Assinante*) malloc(sizeof(Assinante));
     assinante->id = recuperarIdAssinantes();
-    printf("Insira o nome do Assinante:\n");
-    fgets(assinante->nome,100,stdin);
+    do {
+        printf("Insira o nome do Assinante:\n");
+        fgets(assinante->nome, 100, stdin);
+        tratarString(assinante->nome); 
+
+        if (!validarNome(assinante->nome)) {
+            printf("❌ Nome inválido! Digite novamente.\n");
+        }
+    } while (!validarNome(assinante->nome));
+    do {
     printf("Insira o email:\n");
-    fgets(assinante->email,100,stdin);
-    printf("Insira o CPF:\n");
-    fgets(assinante->cpf,20,stdin);
-    printf("Insira a data de nascimento (dd/mm/aa):\n");
-    fgets(assinante->dataNascimento,20,stdin);
-    printf("Insira o endereço:\n");
-    fgets(assinante->endereco,100,stdin);
-    tratarString(assinante->nome);
+    fgets(assinante->email, 100, stdin);
     tratarString(assinante->email);
-    tratarString(assinante->cpf);
+
+    if (!validarEmail(assinante->email)) {
+        printf("❌ Email inválido! Digite novamente.\n");
+    }
+} while (!validarEmail(assinante->email));
+
+    do {
+        printf("Insira o CPF:\n");
+        fgets(assinante->cpf, 20, stdin);
+        tratarString(assinante->cpf);
+
+        if (!validar_cpf(assinante->cpf)) {
+            printf("❌ CPF inválido! Digite novamente.\n");
+        }
+    } while (!validar_cpf(assinante->cpf));
+    do {
+    printf("Insira a data de nascimento (dd/mm/aaaa):\n");
+    fgets(assinante->dataNascimento, 20, stdin);
     tratarString(assinante->dataNascimento);
+
+    if (!validarDataNascimento(assinante->dataNascimento)) {
+        printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+    }
+} while (!validarDataNascimento(assinante->dataNascimento));
+
+    do {
+    printf("Insira o endereço:\n");
+    fgets(assinante->endereco, 100, stdin);
     tratarString(assinante->endereco);
+
+    if (!validarEndereco(assinante->endereco)) {
+        printf("❌ Endereço inválido! Digite novamente.\n");
+    }
+} while (!validarEndereco(assinante->endereco));
+    
+    
+    
     assinante->status = True;
     return assinante;
 }
