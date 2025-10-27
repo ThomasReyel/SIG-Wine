@@ -287,7 +287,6 @@ Plano* salvarPlanos() {
     plano = (Plano*) malloc(sizeof(Plano));
     if (!plano) return NULL;
     plano->id = recuperarIdPlanos();
-
     
     do {
         printf("Insira o nome:\n");
@@ -298,7 +297,6 @@ Plano* salvarPlanos() {
             printf("❌ Nome de produto inválido! Digite novamente.\n");
         }
     } while (!validarNomeObjeto(plano->nome));
-
     
     do {
         printf("Insira o preço (ex: 49.90 ou 49,90):\n");
@@ -320,18 +318,12 @@ Plano* salvarPlanos() {
             printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
         }
     } while (!validarPeriodoVencimento(plano->periodo));
-
     
     do {
         printf("Insira o idProduto:\n");
         fgets(plano->idProduto, 20, stdin);
         tratarString(plano->idProduto);
-
-        if (!validarId(plano->idProduto)) {
-            printf("❌ ID do produto inválido! Digite apenas números.\n");
-        }
-    } while (!validarId(plano->idProduto));
-
+    } while (!validarId(plano->idProduto, 2));
     plano->status = True;
     return plano;
 }

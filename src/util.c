@@ -331,11 +331,6 @@ int validarNome(char *nome) {
 
     return 1; // passou em todas as verificações
 }
-
-
-
-
-
 // peguei do chat gpt 5
 int validar_cpf(const char *cpf) {
     int i, j, k = 0, soma, resto, digito1, digito2;
@@ -353,26 +348,23 @@ int validar_cpf(const char *cpf) {
         return 0;
     }
 
-
-    int todos_iguais = 1;
+    int todosIguais = 1;
     for (i = 1; i < 11; i++) {
         if (numeros[i] != numeros[0]) {
-            todos_iguais = 0;
+            todosIguais = 0;
             break;
         }
     }
-    if (todos_iguais) {
+    if (todosIguais) {
         return 0;
     }
 
-   
     soma = 0;
     for (i = 0, j = 10; i < 9; i++, j--) {
         soma += (numeros[i] - '0') * j;
     }
     resto = soma % 11;
     digito1 = (resto < 2) ? 0 : 11 - resto;
-
    
     soma = 0;
     for (i = 0, j = 11; i < 10; i++, j--) {
@@ -389,9 +381,6 @@ int validar_cpf(const char *cpf) {
     }
 }
 
-
-
-
 int validarEmail(const char *email) {
     
     const char *arroba = strchr(email, '@');
@@ -406,17 +395,11 @@ int validarEmail(const char *email) {
     return 1; 
 }
 
-
-
 int validarEndereco(const char *endereco) {
     int letrasOuNumeros = 0;
-
-    
     if (strlen(endereco) < 5) {
         return 0; 
-    }
-
-    
+    }    
     for (int i = 0; endereco[i] != '\0'; i++) {
         if (isalnum((unsigned char)endereco[i])) {
             letrasOuNumeros = 1; 
@@ -427,60 +410,53 @@ int validarEndereco(const char *endereco) {
             endereco[i] != '.' && endereco[i] != '-') {
             return 0;
         }
-    }
-
-    
+    } 
     if (!letrasOuNumeros) return 0;
-
     return 1; 
 }
-
-
-
-
 int validarDataNascimento(const char *data) {
-    int dia, mes, ano;
-
-   
+    int dia, mes, ano; 
     if (strlen(data) < 8 || strlen(data) > 10) return 0;
-
-    
     if (data[2] != '/' || data[5] != '/') return 0;
-
-  
     dia = atoi(data);
     mes = atoi(data + 3);
     ano = atoi(data + 6);
-
-   
     if (dia < 1 || dia > 31) return 0;
     if (mes < 1 || mes > 12) return 0;
-
-
     if ((mes == 4 || mes == 6 || mes == 9 || mes == 11) && dia > 30) return 0;
-
-    
     if (mes == 2 && dia > 29) return 0;
-
     if (ano < 1900 || ano > 2025) return 0; 
-
     return 1; 
 }
-
-
-
-
-int validarId(const char *id) {
+int validarId(const char *id, int tipo) {
+    Assinante* assinante;
+    Plano* plano;
+    Produto* produto;
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    plano = (Plano*) malloc(sizeof(Plano));
+    produto = (Produto*) malloc(sizeof(Produto));
     if (strlen(id) == 0) return 0; 
 
     for (int i = 0; id[i] != '\0'; i++) {
         if (!isdigit((unsigned char)id[i])) {
+            printf("❌ ID inválido! Digite novamente.\n");
+            getchar();
             return 0; 
         }
     }
+    
+    if ((tipo == 0) && !(assinante = recuperarAssinante(atoi(id)))){
+        return 0;
+    }
+    if ((tipo == 1) && !(plano = recuperarPlano(atoi(id)))){
+        return 0;
+    }
+    if ((tipo == 2) && !(produto = recuperarProduto(atoi(id))))
+    {
+        return 0;
+    }
     return 1; 
 }
-
 
 int validarDataAssinatura(const char *data) {
     int dia, mes, ano;
@@ -502,16 +478,11 @@ int validarDataAssinatura(const char *data) {
 }
 
 int validarPeriodoVencimento(char *periodo) {
-    int i = 0;
-
-    
+    int i = 0;    
     while (periodo[i] == ' ' || periodo[i] == '\t') {
         i++;
     }
-
     char letra = toupper((unsigned char)periodo[i]);
-
-    
     periodo[0] = letra;
     periodo[1] = '\0';
 
@@ -524,29 +495,19 @@ int validarPeriodoVencimento(char *periodo) {
 int validarNomeObjeto(const char *nome) {
     int len = strlen(nome);
     int temAlnum = 0;
-
     if (len < 2) return 0; 
-
     for (int i = 0; nome[i] != '\0'; i++) {
         unsigned char c = (unsigned char) nome[i];
-
         if (isalnum(c)) {
             temAlnum = 1;
             continue;
         }
-
-       
         if (c == ' ' || c == '-' || c == '.' || c == ',' || c == '&' || c == '/') {
             continue;
         }
-
-        
         return 0;
     }
-
-    
     if (!temAlnum) return 0;
-
     return 1;
 }
 
@@ -554,10 +515,8 @@ int validarNomeObjeto(const char *nome) {
 int validarPreco(const char *preco_str) {
     int len = strlen(preco_str);
     if (len == 0) return 0;
-
     int sep_count = 0;
     int digito_count = 0;
-
     for (int i = 0; preco_str[i] != '\0'; i++) {
         unsigned char c = (unsigned char) preco_str[i];
 
@@ -565,7 +524,6 @@ int validarPreco(const char *preco_str) {
             digito_count++;
             continue;
         }
-
         if (c == '.' || c == ',') {
             sep_count++;
          
@@ -574,17 +532,11 @@ int validarPreco(const char *preco_str) {
             if (i == 0 || preco_str[i+1] == '\0') return 0;
             continue;
         }
-
-        
         if (c == ' ' || c == '\t') continue;
-
-        
         return 0;
     }
 
     if (digito_count == 0) return 0; 
-
-    
     char copia[64];
     int j = 0;
     for (int i = 0; preco_str[i] != '\0' && j < (int)sizeof(copia)-1; i++) {
@@ -594,17 +546,14 @@ int validarPreco(const char *preco_str) {
         else copia[j++] = c;
     }
     copia[j] = '\0';
-
     double val = atof(copia);
     if (val <= 0.0) return 0;
-
     return 1;
 }
 
 
 int validarMarca(const char *marca) {
     if (strlen(marca) < 2) return 0;
-
     for (int i = 0; marca[i] != '\0'; i++) {
         unsigned char c = (unsigned char) marca[i];
         if (isalnum(c) || isspace(c) || c == '-' || c == '_') continue;
@@ -615,11 +564,9 @@ int validarMarca(const char *marca) {
 }
 int validarAnoProducao(const char *anoStr) {
     if (strlen(anoStr) != 4) return 0;
-
     for (int i = 0; i < 4; i++) {
         if (!isdigit(anoStr[i])) return 0;
     }
-
     int ano = atoi(anoStr);
     if (ano < 1900 || ano > 2025) return 0;
 

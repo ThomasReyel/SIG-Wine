@@ -256,7 +256,7 @@ Assinante* salvarAssinantes(){
     if (!validarEmail(assinante->email)) {
         printf("❌ Email inválido! Digite novamente.\n");
     }
-} while (!validarEmail(assinante->email));
+    } while (!validarEmail(assinante->email));
 
     do {
         printf("Insira o CPF:\n");
@@ -275,7 +275,7 @@ Assinante* salvarAssinantes(){
     if (!validarDataNascimento(assinante->dataNascimento)) {
         printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
     }
-} while (!validarDataNascimento(assinante->dataNascimento));
+    } while (!validarDataNascimento(assinante->dataNascimento));
 
     do {
     printf("Insira o endereço:\n");
@@ -285,10 +285,7 @@ Assinante* salvarAssinantes(){
     if (!validarEndereco(assinante->endereco)) {
         printf("❌ Endereço inválido! Digite novamente.\n");
     }
-} while (!validarEndereco(assinante->endereco));
-    
-    
-    
+    } while (!validarEndereco(assinante->endereco));
     assinante->status = True;
     return assinante;
 }

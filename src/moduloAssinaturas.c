@@ -2,6 +2,8 @@
 #include <stdio.h>
 #include <string.h>
 #include "moduloAssinaturas.h"
+#include "moduloAssinantes.h"
+#include "moduloPlanos.h"
 #include "util.h"
 
 void menuAssinaturas(){
@@ -282,26 +284,17 @@ Assinatura* salvarAssinaturas(){
     Assinatura* assinatura;
     assinatura = (Assinatura*) malloc(sizeof(Assinatura));
     assinatura->id = recuperarIdAssinaturas();
-     do {
+    do {
         printf("Insira o id do assinante:\n");
         fgets(assinatura->idAssinante, 20, stdin);
         tratarString(assinatura->idAssinante);
+    } while (!validarId(assinatura->idAssinante, 0));
 
-        if (!validarId(assinatura->idAssinante)) {
-            printf("❌ ID inválido! Digite apenas números.\n");
-        }
-    } while (!validarId(assinatura->idAssinante));
-
-   
     do {
         printf("Insira o id do plano:\n");
         fgets(assinatura->idPlano, 20, stdin);
         tratarString(assinatura->idPlano);
-
-        if (!validarId(assinatura->idPlano)) {
-            printf("❌ ID inválido! Digite apenas números.\n");
-        }
-    } while (!validarId(assinatura->idPlano));
+    } while (!validarId(assinatura->idPlano, 1));
 
     do {
         printf("Insira a data da assinatura (dd/mm/aaaa):\n");
