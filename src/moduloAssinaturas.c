@@ -107,7 +107,7 @@ void alterarAssinatura(){
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
-    printf("Insira o id do assinante que você excluir: \n");
+    printf("Insira o id do assinante que você quer alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
     if (!(validarId(idCom,3))){
@@ -156,7 +156,7 @@ void excluirAssinatura(){
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
-    printf("Insira o id do assinante que você excluir: \n");
+    printf("Insira o id do assinante que você quer excluir: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
     if (!(validarId(idCom,3))){

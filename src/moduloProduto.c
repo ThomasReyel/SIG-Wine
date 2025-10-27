@@ -107,12 +107,15 @@ void checarProdutos(){
 void alterarProduto(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Produto* produto;
-    printf("Insira o id do produto que você deseja alterar \n");
-    scanf("%d", &idCom);
-    getchar();
-    produto = recuperarProduto(idCom);
+    printf("Insira o id do produto que você deseja alterar: \n");
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    produto = recuperarProduto(atoi(idCom));
     do {
         if (produto != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -122,7 +125,7 @@ void alterarProduto(){
             printf("║ Nome: %s \n", produto->nome);
             printf("║ Tipo: %s \n", produto->tipo);
             printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+            printf("║ Ano de Produção: %s \n", produto->anoProducao);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nDeseja realmente alterar esse produto?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
@@ -131,7 +134,7 @@ void alterarProduto(){
             };
             switch (opcao[0]){
                 case '1':
-                    alterarProdutoArquivo(idCom);
+                    alterarProdutoArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -153,12 +156,15 @@ void alterarProduto(){
 void excluirProduto(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Produto* produto;
-    printf("Insira o id do produto que você excluir: \n");
-    scanf("%d", &idCom);
-    getchar();
-    produto = recuperarProduto(idCom);
+    printf("Insira o id do produto que você deseja excluir: \n");
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    produto = recuperarProduto(atoi(idCom));
     do {
         if (produto != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -178,7 +184,7 @@ void excluirProduto(){
             };
             switch (opcao[0]){
                 case '1':
-                    excluirProdutoArquivo(idCom);
+                    excluirProdutoArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -208,7 +214,7 @@ char confirmarInfoProd(const Produto* produto){
         printf("║ Nome: %s \n", produto->nome);
         printf("║ Tipo: %s \n", produto->tipo);
         printf("║ Marca: %s \n", produto->marca);
-        printf("║ Ano de Produção: %s dias\n", produto->anoProducao);
+        printf("║ Ano de Produção: %s \n", produto->anoProducao);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
