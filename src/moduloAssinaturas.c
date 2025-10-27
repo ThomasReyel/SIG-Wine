@@ -123,7 +123,7 @@ void alterarAssinatura(){
             printf("║ Id do Assinante: %s \n", assinatura->idAssinante);
             printf("║ Id do Plano: %s \n", assinatura->idPlano);
             printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-            printf("║ Período de Vencimento: %s dias\n", assinatura->periodoVencimento);
+            printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
             printf("\nDeseja realmente alterar essa assinatura?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);

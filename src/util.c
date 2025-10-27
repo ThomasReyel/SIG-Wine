@@ -421,47 +421,45 @@ int validarDataNascimento(const char *data) {
     return 1; 
 }
 int validarId(const char *id, int tipo) {
-    Assinante* assinante;
-    Plano* plano;
-    Produto* produto;
-    assinante = (Assinante*) malloc(sizeof(Assinante));
-    plano = (Plano*) malloc(sizeof(Plano));
-    produto = (Produto*) malloc(sizeof(Produto));
     if (strlen(id) == 0) return 0; 
 
+    // Verifica se são apenas dígitos
     for (int i = 0; id[i] != '\0'; i++) {
         if (!isdigit((unsigned char)id[i])) {
             printf("❌ ID inválido! Digite novamente.\n");
             getchar();
-            free(assinante);
-            free(plano);
-            free(produto);
             return 0; 
         }
     }
-    
-    if ((tipo == 0) && !(assinante = recuperarAssinante(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
+    int id_num = atoi(id);
+    switch (tipo) {
+        case 0: 
+            Assinante* assinante = recuperarAssinante(id_num);
+            if (assinante != NULL) {
+                free(assinante); 
+                return 1;
+            }
+            break;
+        case 1: 
+            Plano* plano = recuperarPlano(id_num);
+            if (plano != NULL) {
+                free(plano);
+                return 1;
+            }
+            break;
+        case 2: 
+            Produto* produto = recuperarProduto(id_num);
+            if (produto != NULL) {
+                free(produto);
+                return 1;
+            }
+            break;
+        case 3:
+            return 1;
+        default:
+            return 0;
     }
-    if ((tipo == 1) && !(plano = recuperarPlano(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
-    }
-    if ((tipo == 2) && !(produto = recuperarProduto(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
-    }
-    free(assinante);
-    free(plano);
-    free(produto);
-    return 1; 
+    return 0;
 }
 
 int validarDataAssinatura(const char *data) {
