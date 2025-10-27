@@ -417,9 +417,11 @@ void alterarPlanoArquivo(int idCom){
         break;
         case '4':
             char idProdNovo[20];
-            printf("Insira o novo ID do produto:\n");
-            fgets(idProdNovo,20,stdin);
-            tratarString(idProdNovo);
+            do {
+                printf("Insira o novo ID do produto:\n");
+                fgets(idProdNovo,20,stdin);
+                tratarString(idProdNovo); 
+            } while (!(validarId(idProdNovo, 2)));  
             plano = (Plano*) malloc(sizeof(Plano));
             while (fread(plano,sizeof(Plano),1,arqPlanos)){
                 if((idCom == plano->id) && (plano->status == True)){
