@@ -281,9 +281,6 @@ void apagarPlanoFisico(){
     getchar();
 }
 
-
-
-
 int ehLetra(char c) {
     return ((c >= 'A' && c <= 'Z') || (c >= 'a' && c <= 'z'));
 }
@@ -300,36 +297,32 @@ int ehVogal(char c) {
 int validarNome(char *nome) {
     int tamanho = strlen(nome);
     int temVogal = 0;
-    int repeticoes = 1; // contador de repetições consecutivas
+    int repeticoes = 1;
 
-    // Tamanho mínimo e máximo
     if (tamanho < 2 || tamanho > 30)
         return 0;
 
     for (int i = 0; nome[i] != '\0'; i++) {
         if (!ehLetra(nome[i]))
-            return 0; // contém algo que não é letra
+            return 0; 
 
         if (ehVogal(nome[i]))
             temVogal = 1;
 
-        // Verifica repetições consecutivas
         if (i > 0) {
             if (nome[i] == nome[i - 1]) {
                 repeticoes++;
                 if (repeticoes >= 3)
-                    return 0; // mais de 2 repetições seguidas → inválido
+                    return 0; 
             } else {
                 repeticoes = 1;
             }
         }
     }
-
-    // Deve ter pelo menos uma vogal
     if (!temVogal)
         return 0;
 
-    return 1; // passou em todas as verificações
+    return 1;
 }
 // peguei do chat gpt 5
 int validar_cpf(const char *cpf) {
@@ -342,7 +335,6 @@ int validar_cpf(const char *cpf) {
         }
     }
     numeros[k] = '\0';
-
 
     if (strlen(numeros) != 11) {
         return 0;
@@ -429,14 +421,9 @@ int validarDataNascimento(const char *data) {
     return 1; 
 }
 int validarId(const char *id, int tipo) {
-    Assinante* assinante;
-    Plano* plano;
-    Produto* produto;
-    assinante = (Assinante*) malloc(sizeof(Assinante));
-    plano = (Plano*) malloc(sizeof(Plano));
-    produto = (Produto*) malloc(sizeof(Produto));
     if (strlen(id) == 0) return 0; 
 
+    // Verifica se são apenas dígitos
     for (int i = 0; id[i] != '\0'; i++) {
         if (!isdigit((unsigned char)id[i])) {
             printf("❌ ID inválido! Digite novamente.\n");
@@ -444,29 +431,35 @@ int validarId(const char *id, int tipo) {
             return 0; 
         }
     }
-    
-    if ((tipo == 0) && !(assinante = recuperarAssinante(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
+    int id_num = atoi(id);
+    switch (tipo) {
+        case 0: 
+            Assinante* assinante = recuperarAssinante(id_num);
+            if (assinante != NULL) {
+                free(assinante); 
+                return 1;
+            }
+            break;
+        case 1: 
+            Plano* plano = recuperarPlano(id_num);
+            if (plano != NULL) {
+                free(plano);
+                return 1;
+            }
+            break;
+        case 2: 
+            Produto* produto = recuperarProduto(id_num);
+            if (produto != NULL) {
+                free(produto);
+                return 1;
+            }
+            break;
+        case 3:
+            return 1;
+        default:
+            return 0;
     }
-    if ((tipo == 1) && !(plano = recuperarPlano(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
-    }
-    if ((tipo == 2) && !(produto = recuperarProduto(atoi(id)))){
-        free(assinante);
-        free(plano);
-        free(produto);
-        return 0;
-    }
-    free(assinante);
-    free(plano);
-    free(produto);
-    return 1; 
+    return 0;
 }
 
 int validarDataAssinatura(const char *data) {
@@ -494,10 +487,10 @@ int validarPeriodoVencimento(char *periodo) {
         i++;
     }
     char letra = toupper((unsigned char)periodo[i]);
-    periodo[0] = letra;
-    periodo[1] = '\0';
 
-    if (letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') {
+    if ((letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') && periodo[i +1] == '\0') {
+        periodo[0] = letra;
+        periodo[1] = '\0';
         return 1; 
     }
 

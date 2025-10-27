@@ -293,12 +293,10 @@ Plano* salvarPlanos() {
     plano = (Plano*) malloc(sizeof(Plano));
     if (!plano) return NULL;
     plano->id = recuperarIdPlanos();
-    
     do {
         printf("Insira o nome:\n");
         fgets(plano->nome, 20, stdin);
         tratarString(plano->nome);
-
         if (!validarNomeObjeto(plano->nome)) {
             printf("❌ Nome de produto inválido! Digite novamente.\n");
         }
@@ -308,18 +306,15 @@ Plano* salvarPlanos() {
         printf("Insira o preço (ex: 49.90 ou 49,90):\n");
         fgets(plano->preco, 20, stdin);
         tratarString(plano->preco);
-
         if (!validarPreco(plano->preco)) {
             printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
         }
     } while (!validarPreco(plano->preco));
 
-   
     do {
         printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
         fgets(plano->periodo, 20, stdin);
         tratarString(plano->periodo);
-
         if (!validarPeriodoVencimento(plano->periodo)) {
             printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
         }
@@ -337,83 +332,54 @@ Plano* salvarPlanos() {
 void alterarPlanoArquivo(int idCom){
     char opcao[10];
     int controle = 1;
-    FILE *arqPlanos;
-    Plano* plano;
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n");
+        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n║5. Sair\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
-        arqPlanos = fopen("./dados/dadosPlanos.dat", "r+b");
-        if (arqPlanos == NULL){
-            printf("Falha na manipulação dos arquivos");
-            getchar();
-            return;
-        }
        switch (opcao[0]){
         
         case '1':
             char nomeNovo[20];
-            printf("Insira o nome do plano:\n");
-            fgets(nomeNovo,20,stdin);
-            tratarString(nomeNovo);
-            plano = (Plano*) malloc(sizeof(Plano));
-            while (fread(plano,sizeof(Plano),1,arqPlanos)){
-                if((idCom == plano->id) && (plano->status == True)){
-                    strcpy(plano->nome, nomeNovo);
-                    fseek(arqPlanos,-1*sizeof(Plano), SEEK_CUR);
-                    fwrite(plano,sizeof(Plano),1,arqPlanos);
-                    printf("Plano alterada com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(plano);
-                    fclose(arqPlanos);
-                    return;
+            do {
+                printf("Insira o nome:\n");
+                fgets(nomeNovo, 20, stdin);
+                tratarString(nomeNovo);
+                if (!validarNomeObjeto(nomeNovo)) {
+                    printf("❌ Nome de produto inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validarNomeObjeto(nomeNovo));
+            atualizarCampoPlano(idCom, nomeNovo, 1);
+            controle = 0;
         break;
         case '2':
             char precoNovo[20];
-            printf("Insira o novo preço:\n");
-            fgets(precoNovo,20,stdin);
-            tratarString(precoNovo);
-            plano = (Plano*) malloc(sizeof(Plano));
-            while (fread(plano,sizeof(Plano),1,arqPlanos)){
-                if((idCom == plano->id) && (plano->status == True)){
-                    strcpy(plano->preco, precoNovo);
-                    fseek(arqPlanos,-1*sizeof(Plano), SEEK_CUR);
-                    fwrite(plano,sizeof(Plano),1,arqPlanos);
-                    printf("Plano alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(plano);
-                    fclose(arqPlanos);
-                    return;
+            do {
+                printf("Insira o preço (ex: 49.90 ou 49,90):\n");
+                fgets(precoNovo, 20, stdin);
+                tratarString(precoNovo);
+                if (!validarPreco(precoNovo)) {
+                    printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
                 }
-            }
+            } while (!validarPreco(precoNovo));
+            atualizarCampoPlano(idCom, precoNovo, 2);
+            controle = 0;
         break;
         case '3':
             char periodoNovo[20];
-            printf("Insira o novo período de vencimento:\n");
-            fgets(periodoNovo,20,stdin);
-            tratarString(periodoNovo);
-            plano = (Plano*) malloc(sizeof(Plano));
-            while (fread(plano,sizeof(Plano),1,arqPlanos)){
-                if((idCom == plano->id) && (plano->status == True)){
-                    strcpy(plano->periodo, periodoNovo);
-                    fseek(arqPlanos,-1*sizeof(Plano), SEEK_CUR);
-                    fwrite(plano,sizeof(Plano),1,arqPlanos);
-                    printf("Plano alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(plano);
-                    fclose(arqPlanos);
-                    return;
+            do {
+                printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+                fgets(periodoNovo, 20, stdin);
+                tratarString(periodoNovo);
+                if (!validarPeriodoVencimento(periodoNovo)) {
+                    printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
                 }
-            }
+            } while (!validarPeriodoVencimento(periodoNovo));
+            atualizarCampoPlano(idCom, periodoNovo, 3);
+            controle = 0;
         break;
         case '4':
             char idProdNovo[20];
@@ -422,20 +388,8 @@ void alterarPlanoArquivo(int idCom){
                 fgets(idProdNovo,20,stdin);
                 tratarString(idProdNovo); 
             } while (!(validarId(idProdNovo, 2)));  
-            plano = (Plano*) malloc(sizeof(Plano));
-            while (fread(plano,sizeof(Plano),1,arqPlanos)){
-                if((idCom == plano->id) && (plano->status == True)){
-                    strcpy(plano->idProduto, idProdNovo);
-                    fseek(arqPlanos,-1*sizeof(Plano), SEEK_CUR);
-                    fwrite(plano,sizeof(Plano),1,arqPlanos);
-                    printf("Plano alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(plano);
-                    fclose(arqPlanos);
-                    return;
-                }
-            }
+            atualizarCampoPlano(idCom, idProdNovo, 4);
+            controle = 0;
         break;
         case '5':
             controle = 0;
@@ -448,4 +402,49 @@ void alterarPlanoArquivo(int idCom){
        }
     }
     while (controle == 1);
+}
+
+void atualizarCampoPlano(int idCom, const char* novoValor, int campo) {
+    FILE *arqPlanos = fopen("./dados/dadosPlanos.dat", "r+b");
+    if (arqPlanos == NULL) {
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }   
+    Plano* plano = (Plano*) malloc(sizeof(Plano));
+    
+    while (fread(plano, sizeof(Plano), 1, arqPlanos)) {
+        if ((idCom == plano->id) && (plano->status == True)) {
+            switch (campo) {
+                case 1: 
+                    strcpy(plano->nome, novoValor);
+                    break;
+                case 2: 
+                    strcpy(plano->preco, novoValor);
+                    break;
+                case 3: 
+                    strcpy(plano->periodo, novoValor);
+                    break;
+                case 4: 
+                    strcpy(plano->idProduto, novoValor);
+                    break;
+                default:
+                    break;
+            }
+            
+            fseek(arqPlanos, -1 * sizeof(Plano), SEEK_CUR);
+            fwrite(plano, sizeof(Plano), 1, arqPlanos);
+            
+            printf("Plano alterado com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();
+            
+            free(plano);
+            fclose(arqPlanos);
+            return;
+        }
+    }
+    printf("Plano não encontrado!\n");
+    free(plano);
+    fclose(arqPlanos);
 }

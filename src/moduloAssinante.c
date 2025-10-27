@@ -255,13 +255,13 @@ Assinante* salvarAssinantes(){
         }
     } while (!validarNome(assinante->nome));
     do {
-    printf("Insira o email:\n");
-    fgets(assinante->email, 100, stdin);
-    tratarString(assinante->email);
+        printf("Insira o email:\n");
+        fgets(assinante->email, 100, stdin);
+        tratarString(assinante->email);
 
-    if (!validarEmail(assinante->email)) {
-        printf("❌ Email inválido! Digite novamente.\n");
-    }
+        if (!validarEmail(assinante->email)) {
+            printf("❌ Email inválido! Digite novamente.\n");
+        }
     } while (!validarEmail(assinante->email));
 
     do {
@@ -273,24 +273,25 @@ Assinante* salvarAssinantes(){
             printf("❌ CPF inválido! Digite novamente.\n");
         }
     } while (!validar_cpf(assinante->cpf));
-    do {
-    printf("Insira a data de nascimento (dd/mm/aaaa):\n");
-    fgets(assinante->dataNascimento, 20, stdin);
-    tratarString(assinante->dataNascimento);
 
-    if (!validarDataNascimento(assinante->dataNascimento)) {
-        printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
-    }
+    do {
+        printf("Insira a data de nascimento (dd/mm/aaaa):\n");
+        fgets(assinante->dataNascimento, 20, stdin);
+        tratarString(assinante->dataNascimento);
+
+        if (!validarDataNascimento(assinante->dataNascimento)) {
+            printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+        }
     } while (!validarDataNascimento(assinante->dataNascimento));
 
     do {
-    printf("Insira o endereço:\n");
-    fgets(assinante->endereco, 100, stdin);
-    tratarString(assinante->endereco);
+        printf("Insira o endereço:\n");
+        fgets(assinante->endereco, 100, stdin);
+        tratarString(assinante->endereco);
 
-    if (!validarEndereco(assinante->endereco)) {
-        printf("❌ Endereço inválido! Digite novamente.\n");
-    }
+        if (!validarEndereco(assinante->endereco)) {
+            printf("❌ Endereço inválido! Digite novamente.\n");
+        }
     } while (!validarEndereco(assinante->endereco));
     assinante->status = True;
     return assinante;
@@ -346,8 +347,6 @@ void excluirAssinanteArquivo(int idCom){
 void alterarAssinanteArquivo(int idCom){
     char opcao[10];
     int controle = 1;
-    FILE *arqAssinantes;
-    Assinante* assinante;
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
@@ -356,112 +355,70 @@ void alterarAssinanteArquivo(int idCom){
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
-        arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
-        if (arqAssinantes == NULL){
-            printf("Falha na manipulação dos arquivos");
-            getchar();
-            return;
-        }
        switch (opcao[0]){
         case '1':
             char nomeNovo[100];
-            printf("Insira o novo nome:\n");
-            fgets(nomeNovo,100,stdin);
-            tratarString(nomeNovo);
-            assinante = (Assinante*) malloc(sizeof(Assinante));
-            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
-                if((idCom == assinante->id) && (assinante->status == True)){
-                    strcpy(assinante->nome, nomeNovo);
-                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
-                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
-                    printf("Assinante alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinante);
-                    fclose(arqAssinantes);
-                    return;
+            do {
+                printf("Insira o nome do Assinante:\n");
+                fgets(nomeNovo, 100, stdin);
+                tratarString(nomeNovo); 
+                if (!validarNome(nomeNovo)) {
+                    printf("❌ Nome inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validarNome(nomeNovo));
+            atualizarCampoAssinante(idCom, nomeNovo, 1);
+            controle = 0;
         break;
         case '2':
             char emailNovo[100];
-            printf("Insira o novo email:\n");
-            fgets(emailNovo,100,stdin);
-            tratarString(emailNovo);
-            assinante = (Assinante*) malloc(sizeof(Assinante));
-            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
-                if((idCom == assinante->id) && (assinante->status == True)){
-                    strcpy(assinante->email, emailNovo);
-                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
-                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
-                    printf("Assinante alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinante);
-                    fclose(arqAssinantes);
-                    return;
+            do {
+                printf("Insira o email:\n");
+                fgets(emailNovo, 100, stdin);
+                tratarString(emailNovo);
+                if (!validarEmail(emailNovo)) {
+                    printf("❌ Email inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validarEmail(emailNovo));
+            atualizarCampoAssinante(idCom, emailNovo,2);
+            controle = 0;
         break;
         case '3':
             char cpfNovo[20];
-            printf("Insira o novo cpf:\n");
-            fgets(cpfNovo,20,stdin);
-            tratarString(cpfNovo);
-            assinante = (Assinante*) malloc(sizeof(Assinante));
-            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
-                if((idCom == assinante->id) && (assinante->status == True)){
-                    strcpy(assinante->cpf, cpfNovo);
-                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
-                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
-                    printf("Assinante alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinante);
-                    fclose(arqAssinantes);
-                    return;
+            do {
+                printf("Insira o CPF:\n");
+                fgets(cpfNovo, 20, stdin);
+                tratarString(cpfNovo);
+                if (!validar_cpf(cpfNovo)) {
+                    printf("❌ CPF inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validar_cpf(cpfNovo));
+            atualizarCampoAssinante(idCom, cpfNovo, 3);
+            controle = 0;
         break;
         case '4':
             char dataNascimentoNovo[20];
-            printf("Insira a nova data de Nascimento:\n");
-            fgets(dataNascimentoNovo,20,stdin);
-            tratarString(dataNascimentoNovo);
-            assinante = (Assinante*) malloc(sizeof(Assinante));
-            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
-                if((idCom == assinante->id) && (assinante->status == True)){
-                    strcpy(assinante->dataNascimento, dataNascimentoNovo);
-                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
-                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
-                    printf("Assinante alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinante);
-                    fclose(arqAssinantes);
-                    return;
+            do {
+                printf("Insira a data de nascimento (dd/mm/aaaa):\n");
+                fgets(dataNascimentoNovo, 20, stdin);
+                tratarString(dataNascimentoNovo);
+                if (!validarDataNascimento(dataNascimentoNovo)) {
+                    printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
                 }
-            }
-        break;
+            } while (!validarDataNascimento(dataNascimentoNovo));
+            atualizarCampoAssinante(idCom, dataNascimentoNovo, 4);
+            controle = 0;
         case '5':
             char enderecoNovo[100];
-            printf("Insira o novo endereço:\n");
-            fgets(enderecoNovo,100,stdin);
-            tratarString(enderecoNovo);
-            assinante = (Assinante*) malloc(sizeof(Assinante));
-            while (fread(assinante,sizeof(Assinante),1,arqAssinantes)){
-                if((idCom == assinante->id) && (assinante->status == True)){
-                    strcpy(assinante->endereco, enderecoNovo);
-                    fseek(arqAssinantes,-1*sizeof(Assinante), SEEK_CUR);
-                    fwrite(assinante,sizeof(Assinante),1,arqAssinantes);
-                    printf("Assinante alterado com sucesso\n");
-                    printf("Aperte enter para voltar ao menu\n");
-                    getchar();
-                    free(assinante);
-                    fclose(arqAssinantes);
-                    return;
+            do {
+                printf("Insira o endereço:\n");
+                fgets(enderecoNovo, 100, stdin);
+                tratarString(enderecoNovo);
+                if (!validarEndereco(enderecoNovo)) {
+                    printf("❌ Endereço inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validarEndereco(enderecoNovo));
+            atualizarCampoAssinante(idCom, enderecoNovo, 5);
+            controle = 0;
         break; 
         case '6':
             controle = 0;
@@ -475,4 +432,52 @@ void alterarAssinanteArquivo(int idCom){
     }
     while (controle == 1);
 }
+
+void atualizarCampoAssinante(int idCom, const char* novoValor, int campo) {
+    FILE *arqAssinantes = fopen("./dados/dadosAssinantes.dat", "r+b");
+    if (arqAssinantes == NULL) {
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
     
+    Assinante* assinante = (Assinante*) malloc(sizeof(Assinante));
+    
+    while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
+        if ((idCom == assinante->id) && (assinante->status == True)) {
+            switch (campo){
+            case 1:
+                strcpy(assinante->nome, novoValor);
+                break;
+            case 2:
+                strcpy(assinante->email, novoValor);;
+                break;
+            case 3:
+                strcpy(assinante->cpf, novoValor);;
+                break;
+            case 4:
+                strcpy(assinante->dataNascimento, novoValor);
+                break;
+            case 5:
+                strcpy(assinante->endereco, novoValor);
+                break;
+            default:
+                break;      
+            }
+            fseek(arqAssinantes, -1 * sizeof(Assinante), SEEK_CUR);
+            fwrite(assinante, sizeof(Assinante), 1, arqAssinantes);
+            
+            printf("Assinante alterado com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();
+            
+            free(assinante);
+            fclose(arqAssinantes);
+            return;
+        }
+    }
+
+    printf("Assinante não encontrado!\n");
+    free(assinante);
+    fclose(arqAssinantes);
+}

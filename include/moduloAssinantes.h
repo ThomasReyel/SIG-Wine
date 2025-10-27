@@ -23,6 +23,7 @@
     Assinante* recuperarAssinante(int);
     void excluirAssinanteArquivo(int);
     void alterarAssinanteArquivo(int);
+    void atualizarCampoAssinante(int, const char*,int);
     
 
 #endif

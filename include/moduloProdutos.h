@@ -11,16 +11,17 @@
         char anoProducao[20];
         int status;
     };
-    void telaProdutos();
-    void menuProdutos();
-    void cadastroProduto();
-    void checarProdutos();
-    void alterarProduto();
-    void excluirProduto();
+    void telaProdutos(void);
+    void menuProdutos(void);
+    void cadastroProduto(void);
+    void checarProdutos(void);
+    void alterarProduto(void);
+    void excluirProduto(void);
     char confirmarInfoProd(const Produto*);
-    Produto* salvarProdutos();
+    Produto* salvarProdutos(void);
     Produto* recuperarProduto(int);
     void excluirProdutoArquivo(int);
     void alterarProdutoArquivo(int);
+    void atualizarCampoProduto(int, const char*, int);
 
 #endif

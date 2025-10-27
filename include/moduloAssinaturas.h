@@ -18,9 +18,10 @@
     void alterarAssinatura(void);
     void excluirAssinatura(void);
     char confirmarInfoAssinatura(const Assinatura*);
-    Assinatura* salvarAssinaturas();
+    Assinatura* salvarAssinaturas(void);
     Assinatura* recuperarAssinatura(int);
     void excluirAssinaturaArquivo(int);
     void alterarAssinaturaArquivo(int);
+    void atualizarCampoAssinatura(int, const char*, int);
 
 #endif

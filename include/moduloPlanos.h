@@ -11,17 +11,18 @@
         char idProduto[20];
         int status;
     };
-    void telaPlano();
-    void menuPlanos();
-    void cadastroPlano();
-    void checarPlanos();
-    void alterarPlano();
-    void excluirPlano();
+    void telaPlano(void);
+    void menuPlanos(void);
+    void cadastroPlano(void);
+    void checarPlanos(void);
+    void alterarPlano(void);
+    void excluirPlano(void);
     char confirmarInfoPlano(const Plano*);
-    Plano* salvarPlanos();
+    Plano* salvarPlanos(void);
     Plano* recuperarPlano(int);
     void excluirPlanoArquivo(int);
     void alterarPlanoArquivo(int);
+    void atualizarCampoPlano(int, const char*, int);
 
 
 #endif
