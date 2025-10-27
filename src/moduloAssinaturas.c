@@ -107,7 +107,7 @@ void alterarAssinatura(){
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
-    printf("Insira o id do assinante que você quer alterar: \n");
+    printf("Insira o id da assinatura que você quer alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
     if (!(validarId(idCom,3))){
@@ -125,7 +125,7 @@ void alterarAssinatura(){
             printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
             printf("║ Período de Vencimento: %s dias\n", assinatura->periodoVencimento);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente alterar essa assinatura?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
@@ -156,7 +156,7 @@ void excluirAssinatura(){
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
-    printf("Insira o id do assinante que você quer excluir: \n");
+    printf("Insira o id da assinatura que você quer excluir: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
     if (!(validarId(idCom,3))){
@@ -174,7 +174,7 @@ void excluirAssinatura(){
             printf("║ Data da assinatura: %s \n", assinatura->dataAssinatura);
             printf("║ Período de vencimento: %s \n", assinatura->periodoVencimento);
             printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente apagar esse assinatura?\n1. Sim\n2. Não\n");
+            printf("\nDeseja realmente excluir essa assinatura?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';

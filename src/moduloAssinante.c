@@ -366,7 +366,8 @@ void alterarAssinanteArquivo(int idCom){
                     printf("❌ Nome inválido! Digite novamente.\n");
                 }
             } while (!validarNome(nomeNovo));
-            atualizarCampoAssinante(idCom, nomeNovo, 0);
+            atualizarCampoAssinante(idCom, nomeNovo, 1);
+            controle = 0;
         break;
         case '2':
             char emailNovo[100];
@@ -378,7 +379,8 @@ void alterarAssinanteArquivo(int idCom){
                     printf("❌ Email inválido! Digite novamente.\n");
                 }
             } while (!validarEmail(emailNovo));
-            atualizarCampoAssinante(idCom, emailNovo,1);
+            atualizarCampoAssinante(idCom, emailNovo,2);
+            controle = 0;
         break;
         case '3':
             char cpfNovo[20];
@@ -390,7 +392,8 @@ void alterarAssinanteArquivo(int idCom){
                     printf("❌ CPF inválido! Digite novamente.\n");
                 }
             } while (!validar_cpf(cpfNovo));
-            atualizarCampoAssinante(idCom, cpfNovo, 2);
+            atualizarCampoAssinante(idCom, cpfNovo, 3);
+            controle = 0;
         break;
         case '4':
             char dataNascimentoNovo[20];
@@ -402,7 +405,8 @@ void alterarAssinanteArquivo(int idCom){
                     printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
                 }
             } while (!validarDataNascimento(dataNascimentoNovo));
-            atualizarCampoAssinante(idCom, dataNascimentoNovo, 3);
+            atualizarCampoAssinante(idCom, dataNascimentoNovo, 4);
+            controle = 0;
         case '5':
             char enderecoNovo[100];
             do {
@@ -413,7 +417,8 @@ void alterarAssinanteArquivo(int idCom){
                     printf("❌ Endereço inválido! Digite novamente.\n");
                 }
             } while (!validarEndereco(enderecoNovo));
-            atualizarCampoAssinante(idCom, enderecoNovo, 4);
+            atualizarCampoAssinante(idCom, enderecoNovo, 5);
+            controle = 0;
         break; 
         case '6':
             controle = 0;
@@ -441,19 +446,19 @@ void atualizarCampoAssinante(int idCom, const char* novoValor, int campo) {
     while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
         if ((idCom == assinante->id) && (assinante->status == True)) {
             switch (campo){
-            case 0:
+            case 1:
                 strcpy(assinante->nome, novoValor);
                 break;
-            case 1:
+            case 2:
                 strcpy(assinante->email, novoValor);;
                 break;
-            case 2:
+            case 3:
                 strcpy(assinante->cpf, novoValor);;
                 break;
-            case 3:
+            case 4:
                 strcpy(assinante->dataNascimento, novoValor);
                 break;
-            case 4:
+            case 5:
                 strcpy(assinante->endereco, novoValor);
                 break;
             default:
