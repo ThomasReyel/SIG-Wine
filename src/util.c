@@ -487,10 +487,10 @@ int validarPeriodoVencimento(char *periodo) {
         i++;
     }
     char letra = toupper((unsigned char)periodo[i]);
-    periodo[0] = letra;
-    periodo[1] = '\0';
 
-    if (letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') {
+    if ((letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') && periodo[i +1] == '\0') {
+        periodo[0] = letra;
+        periodo[1] = '\0';
         return 1; 
     }
 
