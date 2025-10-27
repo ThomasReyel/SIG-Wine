@@ -318,7 +318,7 @@ Produto* salvarProdutos() {
         }
     } while (!validarTipo(produto->tipo));
 
-    
+
     do {
         printf("Insira a marca:\n");
         fgets(produto->marca, 20, stdin);
