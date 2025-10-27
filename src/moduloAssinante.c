@@ -104,12 +104,15 @@ void checarAssinantes(){
 void alterarAssinante() {
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Assinante* assinante;
     printf("Insira o id do assinante que você deseja alterar: \n");
-    scanf("%d", &idCom);
-    getchar();
-    assinante = recuperarAssinante(idCom);
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    assinante = recuperarAssinante(atoi(idCom));
     do {
         if (assinante != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -129,7 +132,7 @@ void alterarAssinante() {
             };
             switch (opcao[0]){
                 case '1':
-                    alterarAssinanteArquivo(idCom);
+                    alterarAssinanteArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -151,12 +154,15 @@ void alterarAssinante() {
 void excluirAssinante(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Assinante* assinante;
     printf("Insira o id do assinante que você excluir: \n");
-    scanf("%d", &idCom);
-    getchar();
-    assinante = recuperarAssinante(idCom);
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    assinante = recuperarAssinante(atoi(idCom));
     do {
         if (assinante != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -176,7 +182,7 @@ void excluirAssinante(){
             };
             switch (opcao[0]){
                 case '1':
-                    excluirAssinanteArquivo(idCom);
+                    excluirAssinanteArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
