@@ -319,12 +319,10 @@ int validarNome(char *nome) {
             }
         }
     }
-
-    // Deve ter pelo menos uma vogal
     if (!temVogal)
         return 0;
 
-    return 1; // passou em todas as verificações
+    return 1;
 }
 // peguei do chat gpt 5
 int validar_cpf(const char *cpf) {
@@ -337,7 +335,6 @@ int validar_cpf(const char *cpf) {
         }
     }
     numeros[k] = '\0';
-
 
     if (strlen(numeros) != 11) {
         return 0;
@@ -436,6 +433,9 @@ int validarId(const char *id, int tipo) {
         if (!isdigit((unsigned char)id[i])) {
             printf("❌ ID inválido! Digite novamente.\n");
             getchar();
+            free(assinante);
+            free(plano);
+            free(produto);
             return 0; 
         }
     }

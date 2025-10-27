@@ -307,12 +307,10 @@ Produto* salvarProdutos() {
         }
     } while (!validarNomeObjeto(produto->nome));
 
-    
     do {
         printf("Insira o tipo:\n");
         fgets(produto->tipo, 20, stdin);
         tratarString(produto->tipo);
-
         if (!validarTipo(produto->tipo)) {
             printf("❌ Tipo inválido! Use apenas letras e espaços.\n");
         }
@@ -323,13 +321,11 @@ Produto* salvarProdutos() {
         printf("Insira a marca:\n");
         fgets(produto->marca, 20, stdin);
         tratarString(produto->marca);
-
         if (!validarMarca(produto->marca)) {
             printf("❌ Marca inválida! Use apenas letras, números e espaços.\n");
         }
     } while (!validarMarca(produto->marca));
 
-  
     do {
         printf("Insira o ano de produção (ex: 2023):\n");
         fgets(produto->anoProducao, 20, stdin);
@@ -347,111 +343,67 @@ Produto* salvarProdutos() {
 void alterarProdutoArquivo(int idCom){
     char opcao[10];
     int controle = 1;
-    FILE *arqProdutos;
-    Produto* produto;
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n");
+        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n║5. Sair\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
         };
-        arqProdutos = fopen("./dados/dadosProdutos.dat", "r+b");
-        if (arqProdutos == NULL){
-            printf("Falha na manipulação dos arquivos");
-            getchar();
-            return;
-        }
-       switch (opcao[0]){
-        
+       switch (opcao[0]){     
         case '1':
-            {
-                char nomeNovo[20];
-                printf("Insira o nome do produto:\n");
-                fgets(nomeNovo,20,stdin);
+            char nomeNovo[100];
+            do {
+                printf("Insira o nome:\n");
+                fgets(nomeNovo, 20, stdin);
                 tratarString(nomeNovo);
-                produto = (Produto*) malloc(sizeof(Produto));
-                while (fread(produto,sizeof(Produto),1,arqProdutos)){
-                    if((idCom == produto->id) && (produto->status == True)){
-                        strcpy(produto->nome, nomeNovo);
-                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
-                        fwrite(produto,sizeof(Produto),1,arqProdutos);
-                        printf("Produto alterado com sucesso\n");
-                        printf("Aperte enter para voltar ao menu\n");
-                        getchar();
-                        free(produto);
-                        fclose(arqProdutos);
-                        return;
-                    }
+                if (!validarNomeObjeto(nomeNovo)) {
+                    printf("❌ Nome inválido! Digite novamente.\n");
                 }
-            }
+            } while (!validarNomeObjeto(nomeNovo));
+            atualizarCampoProduto(idCom, nomeNovo, 1);
+            controle = 0;
         break;
         case '2':
-            {
-                char tipoNovo[20];
-                printf("Insira o novo preço:\n");
-                fgets(tipoNovo,20,stdin);
+            char tipoNovo[20];
+            do {
+                printf("Insira o tipo:\n");
+                fgets(tipoNovo, 20, stdin);
                 tratarString(tipoNovo);
-                produto = (Produto*) malloc(sizeof(Produto));
-                while (fread(produto,sizeof(Produto),1,arqProdutos)){
-                    if((idCom == produto->id) && (produto->status == True)){
-                        strcpy(produto->tipo, tipoNovo);
-                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
-                        fwrite(produto,sizeof(Produto),1,arqProdutos);
-                        printf("Produto alterado com sucesso\n");
-                        printf("Aperte enter para voltar ao menu\n");
-                        getchar();
-                        free(produto);
-                        fclose(arqProdutos);
-                        return;
-                    }
+                if (!validarTipo(tipoNovo)) {
+                    printf("❌ Tipo inválido! Use apenas letras e espaços.\n");
                 }
-            }
+            } while (!validarTipo(tipoNovo));
+            atualizarCampoProduto(idCom, tipoNovo, 2);
+            controle = 0;
         break;
         case '3':
-            {
-                char marcaNovo[20];
-                printf("Insira o novo período de vencimento:\n");
-                fgets(marcaNovo,20,stdin);
+            char marcaNovo[20];
+            do {
+                printf("Insira a marca:\n");
+                fgets(marcaNovo, 20, stdin);
                 tratarString(marcaNovo);
-                produto = (Produto*) malloc(sizeof(Produto));
-                while (fread(produto,sizeof(Produto),1,arqProdutos)){
-                    if((idCom == produto->id) && (produto->status == True)){
-                        strcpy(produto->marca, marcaNovo);
-                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
-                        fwrite(produto,sizeof(Produto),1,arqProdutos);
-                        printf("Produto alterado com sucesso\n");
-                        printf("Aperte enter para voltar ao menu\n");
-                        getchar();
-                        free(produto);
-                        fclose(arqProdutos);
-                        return;
-                    }
+                if (!validarMarca(marcaNovo)) {
+                    printf("❌ Marca inválida! Use apenas letras, números e espaços.\n");
                 }
-            }
+            } while (!validarMarca(marcaNovo));
+            atualizarCampoProduto(idCom, marcaNovo, 3);
+            controle = 0;
         break;
         case '4':
-            {
-                char anoProdNovo[20];
-                printf("Insira o novo ID do produto:\n");
-                fgets(anoProdNovo,20,stdin);
+            char anoProdNovo[20];
+            do {
+                printf("Insira o ano de produção (ex: 2023):\n");
+                fgets(anoProdNovo, 20, stdin);
                 tratarString(anoProdNovo);
-                produto = (Produto*) malloc(sizeof(Produto));
-                while (fread(produto,sizeof(Produto),1,arqProdutos)){
-                    if((idCom == produto->id) && (produto->status == True)){
-                        strcpy(produto->anoProducao, anoProdNovo);
-                        fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
-                        fwrite(produto,sizeof(Produto),1,arqProdutos);
-                        printf("Produto alterado com sucesso\n");
-                        printf("Aperte enter para voltar ao menu\n");
-                        getchar();
-                        free(produto);
-                        fclose(arqProdutos);
-                        return;
-                    }
+
+                if (!validarAnoProducao(anoProdNovo)) {
+                    printf("❌ Ano inválido! Digite um ano entre 1900 e 2025.\n");
                 }
-            }
+            } while (!validarAnoProducao(anoProdNovo));
+            atualizarCampoProduto(idCom, marcaNovo, 3);
+            controle = 0;
         break;
         case '5':
             controle = 0;
@@ -466,3 +418,44 @@ void alterarProdutoArquivo(int idCom){
     while (controle == 1);
 }
 
+void atualizarCampoProduto(int idCom, const char* novoValor, int tipoCampo) {
+    FILE *arqProdutos = fopen("./dados/dadosProdutos.dat", "r+b");
+    if (arqProdutos == NULL) {
+        printf("Falha na manipulação dos arquivos");
+        getchar();
+        return;
+    }
+    Produto* produto = (Produto*) malloc(sizeof(Produto));
+    while (fread(produto, sizeof(Produto), 1, arqProdutos)) {
+        if ((idCom == produto->id) && (produto->status == True)) {
+            switch (tipoCampo) {
+                case 1: 
+                    strcpy(produto->nome, novoValor);
+                    break;
+                case 2: 
+                    strcpy(produto->tipo, novoValor);
+                    break;
+                case 3: 
+                    strcpy(produto->marca, novoValor);
+                    break;
+                case 4:
+                    strcpy(produto->anoProducao, novoValor);
+                    break;
+                default:
+                    break;
+            }  
+            fseek(arqProdutos, -1 * sizeof(Produto), SEEK_CUR);
+            fwrite(produto, sizeof(Produto), 1, arqProdutos);        
+            printf("Produto alterado com sucesso\n");
+            printf("Aperte enter para voltar ao menu\n");
+            getchar();    
+            free(produto);
+            fclose(arqProdutos);
+            return;
+        }
+    }
+    
+    printf("Produto não encontrado!\n");
+    free(produto);
+    fclose(arqProdutos);
+}
