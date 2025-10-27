@@ -105,12 +105,15 @@ void checarAssinaturas(){
 void alterarAssinatura(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Assinatura* assinatura;
-    printf("Insira o id da assinatura que você deseja alterar \n");
-    scanf("%d", &idCom);
-    getchar();
-    assinatura = recuperarAssinatura(idCom);
+    printf("Insira o id do assinante que você excluir: \n");
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    assinatura = recuperarAssinatura(atoi(idCom));
     do {
         if (assinatura != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -129,7 +132,7 @@ void alterarAssinatura(){
             };
             switch (opcao[0]){
                 case '1':
-                    alterarAssinaturaArquivo(idCom);
+                    alterarAssinaturaArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -151,12 +154,15 @@ void alterarAssinatura(){
 void excluirAssinatura(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Assinatura* assinatura;
     printf("Insira o id do assinante que você excluir: \n");
-    scanf("%d", &idCom);
-    getchar();
-    assinatura = recuperarAssinatura(idCom);
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    assinatura = recuperarAssinatura(atoi(idCom));
     do {
         if (assinatura != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -175,7 +181,7 @@ void excluirAssinatura(){
             };
             switch (opcao[0]){
                 case '1':
-                    excluirAssinaturaArquivo(idCom);
+                    excluirAssinaturaArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -341,9 +347,11 @@ void alterarAssinaturaArquivo(int idCom){
        switch (opcao[0]){
         case '1':
             char idAssNovo[20];
-            printf("Insira o novo ID do assinante:\n");
-            fgets(idAssNovo,20,stdin);
-            tratarString(idAssNovo);
+            do {
+                printf("Insira o novo ID do produto:\n");
+                fgets(idAssNovo,20,stdin);
+                tratarString(idAssNovo); 
+            } while (!(validarId(idAssNovo, 2)));  
             assinatura = (Assinatura*) malloc(sizeof(Assinatura));
             while (fread(assinatura,sizeof(Assinatura),1,arqAssinaturas)){
                 if((idCom == assinatura->id) && (assinatura->status == True)){
