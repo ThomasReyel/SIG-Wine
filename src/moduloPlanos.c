@@ -105,12 +105,15 @@ void checarPlanos(){
 void alterarPlano(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Plano* plano;
     printf("Insira o id do plano que você deseja alterar \n");
-    scanf("%d", &idCom);
-    getchar();
-    plano = recuperarPlano(idCom);
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    plano = recuperarPlano(atoi(idCom));
     do {
         if (plano != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -129,7 +132,7 @@ void alterarPlano(){
             };
             switch (opcao[0]){
                 case '1':
-                    alterarPlanoArquivo(idCom);
+                    alterarPlanoArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':
@@ -152,12 +155,15 @@ void alterarPlano(){
 void excluirPlano(){
     char opcao[10];
     int controle = 1;
-    int idCom;
+    char idCom[10];
     Plano* plano;
     printf("Insira o id do plano que você excluir: \n");
-    scanf("%d", &idCom);
-    getchar();
-    plano = recuperarPlano(idCom);
+    fgets(idCom, 10, stdin);
+    tratarString(idCom);
+    if (!(validarId(idCom,3))){
+        return;
+    }
+    plano = recuperarPlano(atoi(idCom));
     do {
         if (plano != NULL){
             printf("╔══════════════════════════════════════════════════════════════════╗\n");
@@ -177,7 +183,7 @@ void excluirPlano(){
             };
             switch (opcao[0]){
                 case '1':
-                    excluirPlanoArquivo(idCom);
+                    excluirPlanoArquivo(atoi(idCom));
                     controle = 0;
                 break;
                 case '2':

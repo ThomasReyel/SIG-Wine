@@ -446,15 +446,26 @@ int validarId(const char *id, int tipo) {
     }
     
     if ((tipo == 0) && !(assinante = recuperarAssinante(atoi(id)))){
+        free(assinante);
+        free(plano);
+        free(produto);
         return 0;
     }
     if ((tipo == 1) && !(plano = recuperarPlano(atoi(id)))){
+        free(assinante);
+        free(plano);
+        free(produto);
         return 0;
     }
-    if ((tipo == 2) && !(produto = recuperarProduto(atoi(id))))
-    {
+    if ((tipo == 2) && !(produto = recuperarProduto(atoi(id)))){
+        free(assinante);
+        free(plano);
+        free(produto);
         return 0;
     }
+    free(assinante);
+    free(plano);
+    free(produto);
     return 1; 
 }
 
