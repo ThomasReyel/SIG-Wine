@@ -79,27 +79,39 @@ void cadastrarAssinante(){
     }  
 }
 
-void checarAssinantes(){
+
+void checarAssinantes() {
     int idCom;
     Assinante* assinante;
+
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
-    getchar();
+    getchar(); // limpa o buffer do teclado
+
     assinante = recuperarAssinante(idCom);
-    if (assinante != NULL){
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                              Assinantes                          ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinante->id);
-        printf("║ Nome: %s \n", assinante->nome);
-        printf("║ Email: %s \n", assinante->email);
-        printf("║ CPF: %s \n", assinante->cpf);
-        printf("║ Data: %s \n", assinante->dataNascimento);
-        printf("║ Endereço: %s \n", assinante->endereco);
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+
+    if (assinante != NULL) {
+        exibirAssinante(assinante);
+        printf("\nPressione Enter para voltar ao módulo de assinantes\n");
         getchar();
-    } 
+    } else {
+        printf("Assinante não encontrado.\n");
+    }
+}
+
+
+
+void exibirAssinante(const Assinante* assinante) {
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                              Assinantes                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ Id: %d \n", assinante->id);
+    printf("║ Nome: %s \n", assinante->nome);
+    printf("║ Email: %s \n", assinante->email);
+    printf("║ CPF: %s \n", assinante->cpf);
+    printf("║ Data: %s \n", assinante->dataNascimento);
+    printf("║ Endereço: %s \n", assinante->endereco);
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
 }
 void alterarAssinante() {
     char opcao[10];
