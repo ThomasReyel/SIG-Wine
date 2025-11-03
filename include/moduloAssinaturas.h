@@ -15,6 +15,7 @@
     void menuAssinaturas(void);
     void cadastroAssinatura(void);
     void checarAssinaturas(void);
+    void exibirAssinatura(const Assinatura* assinatura);
     void alterarAssinatura(void);
     void excluirAssinatura(void);
     char confirmarInfoAssinatura(const Assinatura*);
