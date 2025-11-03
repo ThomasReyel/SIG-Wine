@@ -79,77 +79,91 @@ void cadastrarAssinante(){
     }  
 }
 
-void checarAssinantes(){
+
+void checarAssinantes() {
     int idCom;
     Assinante* assinante;
+
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
-    getchar();
+    getchar(); 
+
     assinante = recuperarAssinante(idCom);
-    if (assinante != NULL){
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                              Assinantes                          ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinante->id);
-        printf("║ Nome: %s \n", assinante->nome);
-        printf("║ Email: %s \n", assinante->email);
-        printf("║ CPF: %s \n", assinante->cpf);
-        printf("║ Data: %s \n", assinante->dataNascimento);
-        printf("║ Endereço: %s \n", assinante->endereco);
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de assinantes \n");
+
+    if (assinante != NULL) {
+        exibirAssinante(assinante);
+        printf("\nPressione Enter para voltar ao módulo de assinantes\n");
         getchar();
-    } 
+    } else {
+        printf("Assinante não encontrado.\n");
+    }
+}
+
+
+
+void exibirAssinante(const Assinante* assinante) {
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                              Assinantes                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ Id: %d \n", assinante->id);
+    printf("║ Nome: %s \n", assinante->nome);
+    printf("║ Email: %s \n", assinante->email);
+    printf("║ CPF: %s \n", assinante->cpf);
+    printf("║ Data: %s \n", assinante->dataNascimento);
+    printf("║ Endereço: %s \n", assinante->endereco);
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
 }
 void alterarAssinante() {
     char opcao[10];
     int controle = 1;
     char idCom[10];
     Assinante* assinante;
+
     printf("Insira o id do assinante que você deseja alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))) {
         return;
     }
+
     assinante = recuperarAssinante(atoi(idCom));
+
     do {
-        if (assinante != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinante                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante->id);
-            printf("║ Nome: %s \n", assinante->nome);
-            printf("║ Email: %s \n", assinante->email);
-            printf("║ CPF: %s \n", assinante->cpf);
-            printf("║ Data: %s \n", assinante->dataNascimento);
-            printf("║ Endereço: %s \n", assinante->endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente alterar esse assinante?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
+        if (assinante != NULL) {
+            exibirAssinante(assinante);
+
+            printf("\nDeseja realmente alterar esse assinante?\n");
+            printf("1. Sim\n");
+            printf("2. Não\n");
+            fgets(opcao, 10, stdin);
+
+            
+            if (opcao[1] != '\n') {
                 opcao[0] = 'l';
-            };
-            switch (opcao[0]){
+            }
+
+            switch (opcao[0]) {
                 case '1':
                     alterarAssinanteArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
+                    printf("\nPressione Enter para tentar novamente\n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
+            printf("Assinante não encontrado.\n");
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
+
 
 void excluirAssinante(){
     char opcao[10];

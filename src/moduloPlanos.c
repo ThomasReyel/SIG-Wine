@@ -79,76 +79,87 @@ void cadastroPlano(){
 }
 
 
-void checarPlanos(){
+void checarPlanos() {
     int idCom;
     Plano* plano;
+
     printf("Insira o id do plano: \n");
     scanf("%d", &idCom);
     getchar();
+
     plano = recuperarPlano(idCom);
-    if (plano != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                               Plano                              ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", plano->id);
-            printf("║ Nome: %s \n", plano->nome);
-            printf("║ Preço: %s \n", plano->preco);
-            printf("║ Período: %s \n", plano->periodo);
-            printf("║ Id do produto: %s \n", plano->idProduto);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de plano \n");
-            getchar();
-        
-    } 
+
+    if (plano != NULL) {
+        exibirPlano(plano);
+        printf("\nPressione Enter para voltar ao módulo de plano\n");
+        getchar();
+    } else {
+        printf("Plano não encontrado.\n");
+    }
 }
 
-void alterarPlano(){
+
+void exibirPlano(const Plano* plano) {
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                               Plano                              ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ Id: %d \n", plano->id);
+    printf("║ Nome: %s \n", plano->nome);
+    printf("║ Preço: %s \n", plano->preco);
+    printf("║ Período: %s \n", plano->periodo);
+    printf("║ Id do Produto: %s \n", plano->idProduto);
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
+}
+
+
+void alterarPlano() {
     char opcao[10];
     int controle = 1;
     char idCom[10];
     Plano* plano;
-    printf("Insira o id do plano que você deseja alterar \n");
+
+    printf("Insira o id do plano que você deseja alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))) {
         return;
     }
+
     plano = recuperarPlano(atoi(idCom));
+
     do {
-        if (plano != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Plano                                ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", plano->id);
-            printf("║ Nome: %s \n", plano->nome);
-            printf("║ Preço: %s \n", plano->preco);
-            printf("║ Período: %s \n", plano->periodo);
-            printf("║ Id do produto: %s dias\n", plano->idProduto);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente alterar esse plano?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
-                opcao[0] = 'l';
-            };
-            switch (opcao[0]){
+        if (plano != NULL) {
+            exibirPlano(plano);
+
+            printf("\nDeseja realmente alterar esse plano?\n");
+            printf("1. Sim\n");
+            printf("2. Não\n");
+            fgets(opcao, 10, stdin);
+
+            if (opcao[1] != '\n') {
+                opcao[0] = 'l'; 
+            }
+
+            switch (opcao[0]) {
                 case '1':
                     alterarPlanoArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
+                    printf("\nPressione Enter para tentar novamente\n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
+            printf("Plano não encontrado.\n");
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
 
 

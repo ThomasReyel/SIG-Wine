@@ -16,6 +16,7 @@
     void menuAssinante();
     void cadastrarAssinante();
     void checarAssinantes();
+    void exibirAssinante(const Assinante* assinante);
     void alterarAssinante();
     void excluirAssinante();
     int confirmarInfoAss(const Assinante*);
