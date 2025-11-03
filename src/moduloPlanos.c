@@ -177,16 +177,7 @@ void excluirPlano(){
     plano = recuperarPlano(atoi(idCom));
     do {
         if (plano != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Plano                                ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", plano->id);
-            printf("║ Nome: %s \n", plano->nome);
-            printf("║ Preço: %s \n", plano->preco);
-            printf("║ Período: %s \n", plano->periodo);
-            printf("║ Id do produto: %s dias\n", plano->idProduto);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            
+            exibirPlano(plano);
             printf("\nDeseja realmente apagar esse plano?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){

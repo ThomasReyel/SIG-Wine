@@ -132,7 +132,7 @@ void alterarProduto(){
 
     do {
         if (produto != NULL){
-            // Exibe o produto
+            
             exibirProduto(produto);
 
             printf("\nDeseja realmente alterar esse produto?\n1. Sim\n2. Não\n");
@@ -177,15 +177,7 @@ void excluirProduto(){
     produto = recuperarProduto(atoi(idCom));
     do {
         if (produto != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                               Produto                            ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto->id);
-            printf("║ Nome: %s \n", produto->nome);
-            printf("║ Tipo: %s \n", produto->tipo);
-            printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s\n", produto->anoProducao);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirProduto(produto);
             
             printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);

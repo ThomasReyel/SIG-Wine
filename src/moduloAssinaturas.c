@@ -179,15 +179,7 @@ void excluirAssinatura(){
     assinatura = recuperarAssinatura(atoi(idCom));
     do {
         if (assinatura != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             assinatura                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinatura->id);
-            printf("║ Id do assinante: %s \n", assinatura->idAssinante);
-            printf("║ Id do plano: %s \n", assinatura->idPlano);
-            printf("║ Data da assinatura: %s \n", assinatura->dataAssinatura);
-            printf("║ Período de vencimento: %s \n", assinatura->periodoVencimento);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirAssinatura(assinatura);
             printf("\nDeseja realmente excluir essa assinatura?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){

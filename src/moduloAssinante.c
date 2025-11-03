@@ -179,16 +179,7 @@ void excluirAssinante(){
     assinante = recuperarAssinante(atoi(idCom));
     do {
         if (assinante != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinante                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante->id);
-            printf("║ Nome: %s \n", assinante->nome);
-            printf("║ Email: %s \n", assinante->email);
-            printf("║ CPF: %s \n", assinante->cpf);
-            printf("║ Data: %s \n", assinante->dataNascimento);
-            printf("║ Endereço: %s \n", assinante->endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirAssinante(assinante);
             printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
