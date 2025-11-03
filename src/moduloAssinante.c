@@ -118,36 +118,52 @@ void alterarAssinante() {
     int controle = 1;
     char idCom[10];
     Assinante* assinante;
+
     printf("Insira o id do assinante que você deseja alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))) {
         return;
     }
+
     assinante = recuperarAssinante(atoi(idCom));
+
     do {
-        if (assinante != NULL){
+        if (assinante != NULL) {
             exibirAssinante(assinante);
-            switch (opcao[0]){
+
+            printf("\nDeseja realmente alterar esse assinante?\n");
+            printf("1. Sim\n");
+            printf("2. Não\n");
+            fgets(opcao, 10, stdin);
+
+            
+            if (opcao[1] != '\n') {
+                opcao[0] = 'l';
+            }
+
+            switch (opcao[0]) {
                 case '1':
                     alterarAssinanteArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
+                    printf("\nPressione Enter para tentar novamente\n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
+            printf("Assinante não encontrado.\n");
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
+
 
 void excluirAssinante(){
     char opcao[10];
