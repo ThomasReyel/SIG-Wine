@@ -86,7 +86,7 @@ void checarAssinantes() {
 
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
-    getchar(); // limpa o buffer do teclado
+    getchar(); 
 
     assinante = recuperarAssinante(idCom);
 
@@ -127,21 +127,7 @@ void alterarAssinante() {
     assinante = recuperarAssinante(atoi(idCom));
     do {
         if (assinante != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinante                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante->id);
-            printf("║ Nome: %s \n", assinante->nome);
-            printf("║ Email: %s \n", assinante->email);
-            printf("║ CPF: %s \n", assinante->cpf);
-            printf("║ Data: %s \n", assinante->dataNascimento);
-            printf("║ Endereço: %s \n", assinante->endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente alterar esse assinante?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
-                opcao[0] = 'l';
-            };
+            exibirAssinante(assinante);
             switch (opcao[0]){
                 case '1':
                     alterarAssinanteArquivo(atoi(idCom));
