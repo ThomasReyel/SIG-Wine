@@ -81,77 +81,87 @@ void cadastroProduto(){
 }
 
 
-void checarProdutos(){
+void checarProdutos() {
     int idCom;
     Produto* produto;
+
     printf("Insira o id do produto: \n");
     scanf("%d", &idCom);
     getchar();
+
     produto = recuperarProduto(idCom);
-    if (produto != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                               Produto                            ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto->id);
-            printf("║ Nome: %s \n", produto->nome);
-            printf("║ Tipo: %s \n", produto->tipo);
-            printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s \n", produto->anoProducao);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nPressione Enter para voltar ao módulo de produto \n");
-            getchar();
-        
-    } 
+
+    if (produto != NULL) {
+        exibirProduto(produto);
+        printf("\nPressione Enter para voltar ao módulo de produto\n");
+        getchar();
+    } else {
+        printf("Produto não encontrado.\n");
+    }
 }
+
+
+void exibirProduto(const Produto* produto) {
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                               Produto                            ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ Id: %d \n", produto->id);
+    printf("║ Nome: %s \n", produto->nome);
+    printf("║ Tipo: %s \n", produto->tipo);
+    printf("║ Marca: %s \n", produto->marca);
+    printf("║ Ano de Produção: %s \n", produto->anoProducao);
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
+}
+
 
 void alterarProduto(){
     char opcao[10];
     int controle = 1;
     char idCom[10];
     Produto* produto;
+
     printf("Insira o id do produto que você deseja alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))){
         return;
     }
+
     produto = recuperarProduto(atoi(idCom));
+
     do {
         if (produto != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                               Produto                            ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto->id);
-            printf("║ Nome: %s \n", produto->nome);
-            printf("║ Tipo: %s \n", produto->tipo);
-            printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s \n", produto->anoProducao);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            // Exibe o produto
+            exibirProduto(produto);
+
             printf("\nDeseja realmente alterar esse produto?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
+            fgets(opcao, 10, stdin);
+            
             if (opcao[1] != '\n'){
                 opcao[0] = 'l';
-            };
+            }
+
             switch (opcao[0]){
                 case '1':
                     alterarProdutoArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
                     printf("\nPressione Enter para tentar novamente \n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
+
 
 void excluirProduto(){
     char opcao[10];

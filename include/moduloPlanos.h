@@ -15,6 +15,7 @@
     void menuPlanos(void);
     void cadastroPlano(void);
     void checarPlanos(void);
+    void exibirPlano(const Plano* plano);
     void alterarPlano(void);
     void excluirPlano(void);
     char confirmarInfoPlano(const Plano*);

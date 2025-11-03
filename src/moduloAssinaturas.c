@@ -80,76 +80,90 @@ void cadastroAssinatura(){
     }  
 }
 
-void checarAssinaturas(){
+void checarAssinaturas() {
     int idCom;
     Assinatura* assinatura;
+
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
     getchar();
+
     assinatura = recuperarAssinatura(idCom);
-    if (assinatura != NULL){
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                              Assinatura                          ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinatura->id);
-        printf("║ id Assinante: %s \n", assinatura->idAssinante);
-        printf("║ ID Plano: %s \n", assinatura->idPlano);
-        printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-        printf("║ Período Vencimento: %s \n", assinatura->periodoVencimento);
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de assinatura \n");
+
+    if (assinatura != NULL) {
+        exibirAssinatura(assinatura);
+        printf("\nPressione Enter para voltar ao módulo de assinatura\n");
         getchar();
-    } 
+    } else {
+        printf("Assinatura não encontrada.\n");
+    }
 }
 
-void alterarAssinatura(){
+
+void exibirAssinatura(const Assinatura* assinatura) {
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                              Assinatura                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╝\n");
+    printf("║ Id: %d \n", assinatura->id);
+    printf("║ Id do Assinante: %s \n", assinatura->idAssinante);
+    printf("║ Id do Plano: %s \n", assinatura->idPlano);
+    printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
+    printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
+    printf("╚═══════════════════════════════════════════════════════════════════\n");
+}
+
+
+
+void alterarAssinatura() {
     char opcao[10];
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
+
     printf("Insira o id da assinatura que você quer alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))) {
         return;
     }
+
     assinatura = recuperarAssinatura(atoi(idCom));
+
     do {
-        if (assinatura != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Assinatura                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinatura->id);
-            printf("║ Id do Assinante: %s \n", assinatura->idAssinante);
-            printf("║ Id do Plano: %s \n", assinatura->idPlano);
-            printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-            printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente alterar essa assinatura?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
-                opcao[0] = 'l';
-            };
-            switch (opcao[0]){
+        if (assinatura != NULL) {
+            exibirAssinatura(assinatura);
+
+            printf("\nDeseja realmente alterar essa assinatura?\n");
+            printf("1. Sim\n");
+            printf("2. Não\n");
+            fgets(opcao, 10, stdin);
+
+            if (opcao[1] != '\n') {
+                opcao[0] = 'l'; 
+            }
+
+            switch (opcao[0]) {
                 case '1':
                     alterarAssinaturaArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
+                    printf("\nPressione Enter para tentar novamente\n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
+            printf("Assinatura não encontrada.\n");
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
+
 
 void excluirAssinatura(){
     char opcao[10];
