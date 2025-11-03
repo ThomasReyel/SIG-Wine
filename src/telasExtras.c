@@ -1,5 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#define RESET     "\033[0m"
+#define ROXO  "\033[1;35m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
+
 char telaSair();
 void telaEquipe();
 void telaSobre();
@@ -73,23 +79,32 @@ void telaSobre() {
     getchar();
 }
 
-void telaInicial(){
+void telaInicial() {
     system("clear||cls");
-    printf("╔════════════════════════════════════════════╗\n");
-    printf("║                                            ║\n");
-    printf("║  ____ ___ ____    __        ___            ║\n");
-    printf("║ / ___|_ _/ ___|   \\ \\      / (_)_ __   ___ ║\n");
-    printf("║ \\___ \\| | |  _ ____\\ \\ /\\ / /| | '_ \\ / _ \\║\n");
-    printf("║  ___) | | |_| |_____\\ V  V / | | | | |  __/║\n");
-    printf("║ |____/___\\____|      \\_/\\_/  |_|_| |_|\\___|║\n");
-    printf("║                                            ║\n");
-    printf("╠════════════════════════════════════════════╣\n");
-    printf("║           MENU PRINCIPAL                   ║\n");
-    printf("╠════════════════════════════════════════════╣\n");
-    printf("║ 1. Tela Principal                          ║\n");
-    printf("║ 2. Sobre                                   ║\n");
-    printf("║ 3. Equipe                                  ║\n");
-    printf("║ 4. Sair                                    ║\n");
-    printf("╚════════════════════════════════════════════╝\n");
-    printf("Digite sua escolha: ");
+
+    printf(CINZA); 
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                                                        ║\n");
+
+ 
+    printf("║   " ROXO "█▀ █ █▀▀ ▄▄ █░█░█ █ █▄░█ █▀▀" CINZA "                         ║\n");
+    printf("║   " ROXO "▄█ █ █▄█ ░░ ▀▄▀▄▀ █ █░▀█ ██▄" CINZA "                         ║\n");
+
+    printf("║                                                        ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+
+   
+    printf("║                 " AMARELO "MENU PRINCIPAL" CINZA "                         ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+
+   
+    printf("║  " BRANCO "1." CINZA " Tela Principal                                     ║\n");
+    printf("║  " BRANCO "2." CINZA " Sobre                                              ║\n");
+    printf("║  " BRANCO "3." CINZA " Equipe                                             ║\n");
+    printf("║  " BRANCO "4." CINZA " Sair                                               ║\n");
+
+    printf("╚════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
 }
