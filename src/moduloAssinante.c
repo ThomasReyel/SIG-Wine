@@ -3,6 +3,12 @@
 #include <stdio.h>
 #include "moduloAssinantes.h"
 #include "util.h"
+#define RESET     "\033[0m"
+#define VERMELHO  "\033[1;31m"
+#define CINZA     "\033[1;37m"
+#define CIANO    "\033[1;36m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
 
 void menuAssinante(){
     char opcao[10];
@@ -39,19 +45,26 @@ void menuAssinante(){
     while (crtlAssinante == 1);
 }
 
-void telaAssinante(){
+void telaAssinante() {
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO ASSINANTES    ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Assinantes  ║\n");
-    printf("║ 2. Checar Assinantes     ║\n");
-    printf("║ 3. Alterar Assinantes    ║\n");
-    printf("║ 4. Excluir Assinantes    ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
-    printf("Digite sua escolha: \n");
 
+    printf(CINZA);
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                                                        ║\n");
+    printf("║             " AMARELO "M Ó D U L O   D E   A S S I N A N T E S" CINZA "    ║\n");
+    printf("║                                                        ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Cadastrar Assinantes                           " CINZA "   ║\n");
+    printf("║   " AMARELO "2." BRANCO " Checar Assinantes                              " CINZA "   ║\n");
+    printf("║   " AMARELO "3." BRANCO " Alterar Assinantes                             " CINZA "   ║\n");
+    printf("║   " AMARELO "4." BRANCO " Excluir Assinantes                             " CINZA "   ║\n");
+    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "   ║\n");
+
+    printf("╚════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
 }
 
 void cadastrarAssinante(){
@@ -102,17 +115,29 @@ void checarAssinantes() {
 
 
 void exibirAssinante(const Assinante* assinante) {
+    system("clear||cls");
+
+    printf(VERMELHO); 
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                              Assinantes                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╝\n");
-    printf("║ Id: %d \n", assinante->id);
-    printf("║ Nome: %s \n", assinante->nome);
-    printf("║ Email: %s \n", assinante->email);
-    printf("║ CPF: %s \n", assinante->cpf);
-    printf("║ Data: %s \n", assinante->dataNascimento);
-    printf("║ Endereço: %s \n", assinante->endereco);
-    printf("╚═══════════════════════════════════════════════════════════════════\n");
+    printf("║                        DADOS DO ASSINANTE                        ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET); 
+
+    printf(CIANO "║ Id: %-60d ║\n" RESET, assinante->id);                      
+    printf(CIANO "║ Nome: %-58s ║\n" RESET, assinante->nome);
+    printf(CIANO "║ Email: %-57s ║\n" RESET, assinante->email);
+    printf(CIANO "║ CPF: %-59s ║\n" RESET, assinante->cpf);
+    printf(CIANO "║ Data de Nascimento: %-44s ║\n" RESET, assinante->dataNascimento);
+    printf(CIANO "║ Endereço: %-54s ║\n" RESET, assinante->endereco);
+
+    printf(VERMELHO); 
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET);
+
+    printf("\n>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 }
+
 void alterarAssinante() {
     char opcao[10];
     int controle = 1;
@@ -179,16 +204,7 @@ void excluirAssinante(){
     assinante = recuperarAssinante(atoi(idCom));
     do {
         if (assinante != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                              Assinante                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinante->id);
-            printf("║ Nome: %s \n", assinante->nome);
-            printf("║ Email: %s \n", assinante->email);
-            printf("║ CPF: %s \n", assinante->cpf);
-            printf("║ Data: %s \n", assinante->dataNascimento);
-            printf("║ Endereço: %s \n", assinante->endereco);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirAssinante(assinante);
             printf("\nDeseja realmente apagar esse assinante?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){

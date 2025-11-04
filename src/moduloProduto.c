@@ -3,7 +3,12 @@
 #include "moduloProdutos.h"
 #include "util.h"
 #include <string.h>
-
+#define VERMELHO "\033[1;31m"
+#define CIANO    "\033[1;36m"
+#define RESET    "\033[0m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
 
 void menuProdutos(){
     char opcao[10];
@@ -42,15 +47,22 @@ void menuProdutos(){
 
 void telaProdutos(){
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO PRODUTOS      ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Produtos    ║\n");
-    printf("║ 2. Checar Produtos       ║\n");
-    printf("║ 3. Alterar Produtos      ║\n");
-    printf("║ 4. Excluir Produtos      ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
+    printf(CINZA);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                  ║\n");
+    printf("║                 " AMARELO "M Ó D U L O   D E   P R O D U T O S" CINZA "              ║\n");
+    printf("║                                                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Cadastrar Produtos                            " CINZA "              ║\n");
+    printf("║   " AMARELO "2." BRANCO " Checar Produtos                                 " CINZA "            ║\n");
+    printf("║   " AMARELO "3." BRANCO " Alterar Produtos                                " CINZA "            ║\n");
+    printf("║   " AMARELO "4." BRANCO " Excluir Produtos                                " CINZA "            ║\n");
+    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
     printf("Digite sua escolha: \n");
 }
 
@@ -102,15 +114,21 @@ void checarProdutos() {
 
 
 void exibirProduto(const Produto* produto) {
+    printf(VERMELHO); 
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                               Produto                            ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╝\n");
-    printf("║ Id: %d \n", produto->id);
-    printf("║ Nome: %s \n", produto->nome);
-    printf("║ Tipo: %s \n", produto->tipo);
-    printf("║ Marca: %s \n", produto->marca);
-    printf("║ Ano de Produção: %s \n", produto->anoProducao);
-    printf("╚═══════════════════════════════════════════════════════════════════\n");
+    printf("║                              PRODUTO                               ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    printf(CIANO "║ Id: %-59d ║\n" RESET, produto->id);
+    printf(CIANO "║ Nome: %-58s ║\n" RESET, produto->nome);
+    printf(CIANO "║ Tipo: %-58s ║\n" RESET, produto->tipo);
+    printf(CIANO "║ Marca: %-57s ║\n" RESET, produto->marca);
+    printf(CIANO "║ Ano de Produção: %-48s ║\n" RESET, produto->anoProducao);
+
+    printf(VERMELHO);
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET);
 }
 
 
@@ -132,7 +150,7 @@ void alterarProduto(){
 
     do {
         if (produto != NULL){
-            // Exibe o produto
+            
             exibirProduto(produto);
 
             printf("\nDeseja realmente alterar esse produto?\n1. Sim\n2. Não\n");
@@ -177,15 +195,7 @@ void excluirProduto(){
     produto = recuperarProduto(atoi(idCom));
     do {
         if (produto != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                               Produto                            ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", produto->id);
-            printf("║ Nome: %s \n", produto->nome);
-            printf("║ Tipo: %s \n", produto->tipo);
-            printf("║ Marca: %s \n", produto->marca);
-            printf("║ Ano de Produção: %s\n", produto->anoProducao);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirProduto(produto);
             
             printf("\nDeseja realmente apagar esse produto?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);

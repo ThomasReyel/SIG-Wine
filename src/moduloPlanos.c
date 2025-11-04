@@ -3,6 +3,12 @@
 #include "moduloPlanos.h"
 #include "util.h"
 #include <string.h>
+#define RESET     "\033[0m"
+#define VERMELHO  "\033[1;31m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
+#define CIANO    "\033[1;36m"
 
 void menuPlanos(){
     char opcao[10];
@@ -41,15 +47,23 @@ void menuPlanos(){
 
 void telaPlano(){
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║       MÓDULO PLANOS      ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Plano       ║\n");
-    printf("║ 2. Checar Planos         ║\n");
-    printf("║ 3. Alterar Plano         ║\n");
-    printf("║ 4. Excluir Plano         ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
+    printf(CINZA);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                  ║\n");
+    printf("║                " AMARELO "M Ó D U L O   D E   P L A N O S" CINZA "                   ║\n");
+    printf("║                                                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Cadastrar Plano                                " CINZA "             ║\n");
+    printf("║   " AMARELO "2." BRANCO " Checar Planos                                  " CINZA "             ║\n");
+    printf("║   " AMARELO "3." BRANCO " Alterar Plano                                   " CINZA "            ║\n");
+    printf("║   " AMARELO "4." BRANCO " Excluir Plano                                   " CINZA "            ║\n");
+    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
     printf("Digite sua escolha: \n");
 }
 
@@ -100,15 +114,23 @@ void checarPlanos() {
 
 
 void exibirPlano(const Plano* plano) {
+    printf(VERMELHO); 
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                               Plano                              ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╝\n");
-    printf("║ Id: %d \n", plano->id);
-    printf("║ Nome: %s \n", plano->nome);
-    printf("║ Preço: %s \n", plano->preco);
-    printf("║ Período: %s \n", plano->periodo);
-    printf("║ Id do Produto: %s \n", plano->idProduto);
-    printf("╚═══════════════════════════════════════════════════════════════════\n");
+    printf("║                              PLANO                               ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    printf(CIANO "║ Id: %-60d ║\n" RESET, plano->id);
+    printf(CIANO "║ Nome: %-58s ║\n" RESET, plano->nome);
+    printf(CIANO "║ Preço: %-57s ║\n" RESET, plano->preco);
+    printf(CIANO "║ Período: %-55s ║\n" RESET, plano->periodo);
+    printf(CIANO "║ Id do Produto: %-49s ║\n" RESET, plano->idProduto);
+
+    printf(VERMELHO);
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET);
+
+    printf("\n>>> Tecle <ENTER> para continuar...\n");
 }
 
 
@@ -177,16 +199,7 @@ void excluirPlano(){
     plano = recuperarPlano(atoi(idCom));
     do {
         if (plano != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Plano                                ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", plano->id);
-            printf("║ Nome: %s \n", plano->nome);
-            printf("║ Preço: %s \n", plano->preco);
-            printf("║ Período: %s \n", plano->periodo);
-            printf("║ Id do produto: %s dias\n", plano->idProduto);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            
+            exibirPlano(plano);
             printf("\nDeseja realmente apagar esse plano?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){
