@@ -542,13 +542,7 @@ void listarAssinantes(void) {
     while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
         if (assinante->status == True) {
             encontrou = 1;
-            printf(CIANO "ID: %d\n" RESET, assinante->id);
-            printf("Nome: %s\n", assinante->nome);
-            printf("Email: %s\n", assinante->email);
-            printf("CPF: %s\n", assinante->cpf);
-            printf("Data de Nascimento: %s\n", assinante->dataNascimento);
-            printf("Endereço: %s\n", assinante->endereco);
-            printf("--------------------------------------------------------------\n");
+            exibirAssinante(assinante);
         }
     }
 
