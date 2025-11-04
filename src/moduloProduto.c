@@ -33,6 +33,9 @@ void menuProdutos(){
             excluirProduto();
         break;
         case '5':
+            listarProdutos();
+        break;
+        case '6':
             crtlProduto = 0;
         break; 
        default:
@@ -58,7 +61,8 @@ void telaProdutos(){
     printf("║   " AMARELO "2." BRANCO " Checar Produtos                                 " CINZA "            ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Produtos                                " CINZA "            ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Produtos                                " CINZA "            ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Produtos                                  " CINZA "           ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                           " CINZA "           ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
@@ -478,4 +482,46 @@ void atualizarCampoProduto(int idCom, const char* novoValor, int tipoCampo) {
     printf("Produto não encontrado!\n");
     free(produto);
     fclose(arqProdutos);
+}
+
+
+void listarProdutos(void) {
+    FILE *arqProduto;
+    Produto* produto;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      LISTAGEM DE PRODUTOS                        ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqProduto = fopen("./dados/dadosProdutos.dat", "rb");
+    if (arqProduto == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de produtos!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    produto = (Produto*) malloc(sizeof(Produto));
+    int encontrou = 0;
+
+    while (fread(produto, sizeof(produto), 1, arqProduto)) {
+        if (produto->status == True) {
+            encontrou = 1;
+            exibirProduto(produto);
+        }
+    }
+
+    if (!encontrou) {
+        printf(AMARELO "Nenhum produto encontrado.\n" RESET);
+    }
+
+    fclose(arqProduto);
+    free(produto);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }

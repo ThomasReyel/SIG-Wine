@@ -24,5 +24,6 @@
     void excluirProdutoArquivo(int);
     void alterarProdutoArquivo(int);
     void atualizarCampoProduto(int, const char*, int);
+    void listarProdutos(void);
 
 #endif
