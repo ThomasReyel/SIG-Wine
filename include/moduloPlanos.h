@@ -24,6 +24,7 @@
     void excluirPlanoArquivo(int);
     void alterarPlanoArquivo(int);
     void atualizarCampoPlano(int, const char*, int);
+    void listarPlanos(void);
 
 
 #endif

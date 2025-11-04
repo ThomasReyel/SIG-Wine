@@ -33,6 +33,9 @@ void menuPlanos(){
             excluirPlano();
         break;
         case '5':
+            listarPlanos();
+        break;
+        case '6':
             crtlPlano = 0;
         break; 
        default:
@@ -58,7 +61,8 @@ void telaPlano(){
     printf("║   " AMARELO "2." BRANCO " Checar Planos                                  " CINZA "             ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Plano                                   " CINZA "            ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Plano                                   " CINZA "            ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Planos                                    " CINZA "           ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                           " CINZA "           ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
@@ -471,4 +475,48 @@ void atualizarCampoPlano(int idCom, const char* novoValor, int campo) {
     printf("Plano não encontrado!\n");
     free(plano);
     fclose(arqPlanos);
+}
+
+
+
+
+void listarPlanos(void) {
+    FILE *arqPlano;
+    Plano* plano;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      LISTAGEM DE PLANOS                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqPlano = fopen("./dados/dadosPlanos.dat", "rb");
+    if (arqPlano == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de planos!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    plano = (Plano*) malloc(sizeof(Plano));
+    int encontrou = 0;
+
+    while (fread(plano, sizeof(plano), 1, arqPlano)) {
+        if (plano->status == True) {
+            encontrou = 1;
+            exibirPlano(plano);
+        }
+    }
+
+    if (!encontrou) {
+        printf(AMARELO "Nenhum plano encontrado.\n" RESET);
+    }
+
+    fclose(arqPlano);
+    free(plano);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }
