@@ -62,20 +62,27 @@ void telaEquipe() {
     printf(">>> Tecle <ENTER> para continuar...\n");
     getchar();
 }
+
 void telaSobre() {
     system("clear||cls");
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║               SOBRE               ║\n");
-    printf("╠═══════════════════════════════════╣\n");
-    printf("║ Projeto acadêmico desenvolvido na ║\n");
-    printf("║ disciplina de Programação do      ║\n");
-    printf("║ curso de Sistemas de Informação   ║\n");
-    printf("║ na UFRN. Contém todos os módulos  ║\n");
-    printf("║ e funcionalidades exigidos pela   ║\n");
-    printf("║ disciplina                        ║\n");
-    printf("╚═══════════════════════════════════╝\n");
-    printf("\n");
-    printf(">>> Tecle <ENTER> para continuar...\n");
+
+    printf(CINZA);
+    printf("╔════════════════════════════════════════════════════════╗\n");
+    printf("║                                                        ║\n");
+    printf("║                   " AMARELO "S O B R E" CINZA "                            ║\n");
+    printf("║                                                        ║\n");
+    printf("╠════════════════════════════════════════════════════════╣\n");
+
+    printf("║  " BRANCO "Projeto acadêmico desenvolvido na disciplina de      " CINZA " ║\n");
+    printf("║  " BRANCO "Programação do curso de Sistemas de Informação da    " CINZA " ║\n");
+    printf("║  " BRANCO "UFRN. O projeto contém todos os módulos e             " CINZA "║\n");
+    printf("║  " BRANCO "funcionalidades exigidos pela disciplina." CINZA "             ║\n");
+
+    printf("║                                                        ║\n");
+    printf("╚════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO ">>> Tecle <ENTER> para continuar..." RESET);
     getchar();
 }
 
