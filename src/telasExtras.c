@@ -15,14 +15,22 @@ char telaSair(){
     int ctrlSaida = 1;
     do {
         system("clear||cls");
-        printf("╔══════════════════════════╗\n");
-        printf("║        Tem certeza       ║\n");
-        printf("║     que deseja sair?     ║\n");
-        printf("╠══════════════════════════╣\n");
-        printf("║ 1. Não                   ║\n");
-        printf("║ 2. Sim                   ║\n");
-        printf("╚══════════════════════════╝\n");
-        printf("Digite sua escolha: \n");
+        printf(CINZA);
+        printf("╔════════════════════════════════════════════════════════╗\n");
+        printf("║                                                        ║\n");
+        printf("║                " ROXO "C O N F I R M A Ç Ã O" CINZA "                   ║\n");
+        printf("║                                                        ║\n");
+        printf("╠════════════════════════════════════════════════════════╣\n");
+        
+        printf("║   " BRANCO "Tem certeza que deseja sair do programa?" CINZA "             ║\n");
+        printf("║                                                        ║\n");
+        printf("║   " AMARELO "1." BRANCO " Não, voltar ao menu principal               " CINZA "      ║\n");
+        printf("║   " AMARELO "2." BRANCO " Sim, encerrar o programa                   " CINZA "       ║\n");
+
+        printf("╚════════════════════════════════════════════════════════╝\n");
+        printf(RESET "\n");
+
+        printf(BRANCO "Digite sua escolha: " RESET);
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
