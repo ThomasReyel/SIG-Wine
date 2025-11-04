@@ -1,6 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#define VERMELHO "\033[1;31m"
+#define CIANO    "\033[1;36m"
+#define RESET    "\033[0m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
 #include "moduloAssinaturas.h"
 #include "moduloAssinantes.h"
 #include "moduloPlanos.h"
@@ -43,15 +50,23 @@ void menuAssinaturas(){
 
 void telaAssinaturas(){
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO ASSINATURAS   ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Assinaturas ║\n");
-    printf("║ 2. Checar Assinaturas    ║\n");
-    printf("║ 3. Alterar Assinaturas   ║\n");
-    printf("║ 4. Excluir Assinaturas   ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
+    printf(CINZA);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                  ║\n");
+    printf("║             " AMARELO "M Ó D U L O   D E   A S S I N A T U R A S" CINZA "            ║\n");
+    printf("║                                                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Cadastrar Assinaturas                        " CINZA "               ║\n");
+    printf("║   " AMARELO "2." BRANCO " Checar Assinaturas                             " CINZA "             ║\n");
+    printf("║   " AMARELO "3." BRANCO " Alterar Assinaturas                            " CINZA "             ║\n");
+    printf("║   " AMARELO "4." BRANCO " Excluir Assinaturas                            " CINZA "             ║\n");
+    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "             ║\n");
+
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
     printf("Digite sua escolha: \n");
 }
 
@@ -80,76 +95,101 @@ void cadastroAssinatura(){
     }  
 }
 
-void checarAssinaturas(){
+void checarAssinaturas() {
     int idCom;
     Assinatura* assinatura;
+
     printf("Insira o id do assinante: \n");
     scanf("%d", &idCom);
     getchar();
+
     assinatura = recuperarAssinatura(idCom);
-    if (assinatura != NULL){
-        printf("╔══════════════════════════════════════════════════════════════════╗\n");
-        printf("║                              Assinatura                          ║\n");
-        printf("╠══════════════════════════════════════════════════════════════════╝\n");
-        printf("║ Id: %d \n", assinatura->id);
-        printf("║ id Assinante: %s \n", assinatura->idAssinante);
-        printf("║ ID Plano: %s \n", assinatura->idPlano);
-        printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-        printf("║ Período Vencimento: %s \n", assinatura->periodoVencimento);
-        printf("╚═══════════════════════════════════════════════════════════════════\n");
-        printf("\nPressione Enter para voltar ao módulo de assinatura \n");
+
+    if (assinatura != NULL) {
+        exibirAssinatura(assinatura);
+        printf("\nPressione Enter para voltar ao módulo de assinatura\n");
         getchar();
-    } 
+    } else {
+        printf("Assinatura não encontrada.\n");
+    }
 }
 
-void alterarAssinatura(){
+
+void exibirAssinatura(const Assinatura* assinatura) {
+ system("clear||cls");
+
+    printf(VERMELHO); 
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                              ASSINATURA                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    printf(CIANO "║ Id: %-60d ║\n" RESET, assinatura->id);
+    printf(CIANO "║ Id do Assinante: %-47s ║\n" RESET, assinatura->idAssinante);
+    printf(CIANO "║ Id do Plano: %-51s ║\n" RESET, assinatura->idPlano);
+    printf(CIANO "║ Data da Assinatura: %-44s ║\n" RESET, assinatura->dataAssinatura);
+    printf(CIANO "║ Período de Vencimento: %-41s ║\n" RESET, assinatura->periodoVencimento);
+
+    printf(VERMELHO);
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET);
+
+    printf("\n>>> Tecle <ENTER> para continuar...\n");
+    getchar();
+}
+
+
+
+void alterarAssinatura() {
     char opcao[10];
     int controle = 1;
     char idCom[10];
     Assinatura* assinatura;
+
     printf("Insira o id da assinatura que você quer alterar: \n");
     fgets(idCom, 10, stdin);
     tratarString(idCom);
-    if (!(validarId(idCom,3))){
+
+    if (!(validarId(idCom, 3))) {
         return;
     }
+
     assinatura = recuperarAssinatura(atoi(idCom));
+
     do {
-        if (assinatura != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             Assinatura                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinatura->id);
-            printf("║ Id do Assinante: %s \n", assinatura->idAssinante);
-            printf("║ Id do Plano: %s \n", assinatura->idPlano);
-            printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-            printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
-            printf("\nDeseja realmente alterar essa assinatura?\n1. Sim\n2. Não\n");
-            fgets(opcao,10,stdin);
-            if (opcao[1] != '\n'){
-                opcao[0] = 'l';
-            };
-            switch (opcao[0]){
+        if (assinatura != NULL) {
+            exibirAssinatura(assinatura);
+
+            printf("\nDeseja realmente alterar essa assinatura?\n");
+            printf("1. Sim\n");
+            printf("2. Não\n");
+            fgets(opcao, 10, stdin);
+
+            if (opcao[1] != '\n') {
+                opcao[0] = 'l'; 
+            }
+
+            switch (opcao[0]) {
                 case '1':
                     alterarAssinaturaArquivo(atoi(idCom));
                     controle = 0;
-                break;
+                    break;
                 case '2':
                     controle = 0;
-                break;
+                    break;
                 default:
                     printf("Você inseriu uma opção inválida\n");
-                    printf("\nPressione Enter para tentar novamente \n");
+                    printf("\nPressione Enter para tentar novamente\n");
                     getchar();
-                break;
+                    break;
             }
-        }else{
+        } else {
+            printf("Assinatura não encontrada.\n");
             controle = 0;
         }
-    }
-    while (controle == 1);
+    } while (controle == 1);
 }
+
 
 void excluirAssinatura(){
     char opcao[10];
@@ -165,15 +205,7 @@ void excluirAssinatura(){
     assinatura = recuperarAssinatura(atoi(idCom));
     do {
         if (assinatura != NULL){
-            printf("╔══════════════════════════════════════════════════════════════════╗\n");
-            printf("║                             assinatura                           ║\n");
-            printf("╠══════════════════════════════════════════════════════════════════╝\n");
-            printf("║ Id: %d \n", assinatura->id);
-            printf("║ Id do assinante: %s \n", assinatura->idAssinante);
-            printf("║ Id do plano: %s \n", assinatura->idPlano);
-            printf("║ Data da assinatura: %s \n", assinatura->dataAssinatura);
-            printf("║ Período de vencimento: %s \n", assinatura->periodoVencimento);
-            printf("╚═══════════════════════════════════════════════════════════════════\n");
+            exibirAssinatura(assinatura);
             printf("\nDeseja realmente excluir essa assinatura?\n1. Sim\n2. Não\n");
             fgets(opcao,10,stdin);
             if (opcao[1] != '\n'){

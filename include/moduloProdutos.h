@@ -15,6 +15,7 @@
     void menuProdutos(void);
     void cadastroProduto(void);
     void checarProdutos(void);
+    void exibirProduto(const Produto* produto);
     void alterarProduto(void);
     void excluirProduto(void);
     char confirmarInfoProd(const Produto*);
