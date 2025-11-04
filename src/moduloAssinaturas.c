@@ -1,6 +1,13 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
+
+#define VERMELHO "\033[1;31m"
+#define CIANO    "\033[1;36m"
+#define RESET    "\033[0m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
 #include "moduloAssinaturas.h"
 #include "moduloAssinantes.h"
 #include "moduloPlanos.h"
@@ -43,15 +50,23 @@ void menuAssinaturas(){
 
 void telaAssinaturas(){
     system("clear||cls");
-    printf("╔══════════════════════════╗\n");
-    printf("║     MÓDULO ASSINATURAS   ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Cadastrar Assinaturas ║\n");
-    printf("║ 2. Checar Assinaturas    ║\n");
-    printf("║ 3. Alterar Assinaturas   ║\n");
-    printf("║ 4. Excluir Assinaturas   ║\n");
-    printf("║ 5. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
+    printf(CINZA);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                  ║\n");
+    printf("║             " AMARELO "M Ó D U L O   D E   A S S I N A T U R A S" CINZA "            ║\n");
+    printf("║                                                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Cadastrar Assinaturas                        " CINZA "               ║\n");
+    printf("║   " AMARELO "2." BRANCO " Checar Assinaturas                             " CINZA "             ║\n");
+    printf("║   " AMARELO "3." BRANCO " Alterar Assinaturas                            " CINZA "             ║\n");
+    printf("║   " AMARELO "4." BRANCO " Excluir Assinaturas                            " CINZA "             ║\n");
+    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "             ║\n");
+
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
     printf("Digite sua escolha: \n");
 }
 
@@ -101,15 +116,26 @@ void checarAssinaturas() {
 
 
 void exibirAssinatura(const Assinatura* assinatura) {
+ system("clear||cls");
+
+    printf(VERMELHO); 
     printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                              Assinatura                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╝\n");
-    printf("║ Id: %d \n", assinatura->id);
-    printf("║ Id do Assinante: %s \n", assinatura->idAssinante);
-    printf("║ Id do Plano: %s \n", assinatura->idPlano);
-    printf("║ Data da Assinatura: %s \n", assinatura->dataAssinatura);
-    printf("║ Período de Vencimento: %s \n", assinatura->periodoVencimento);
-    printf("╚═══════════════════════════════════════════════════════════════════\n");
+    printf("║                              ASSINATURA                          ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    printf(CIANO "║ Id: %-60d ║\n" RESET, assinatura->id);
+    printf(CIANO "║ Id do Assinante: %-47s ║\n" RESET, assinatura->idAssinante);
+    printf(CIANO "║ Id do Plano: %-51s ║\n" RESET, assinatura->idPlano);
+    printf(CIANO "║ Data da Assinatura: %-44s ║\n" RESET, assinatura->dataAssinatura);
+    printf(CIANO "║ Período de Vencimento: %-41s ║\n" RESET, assinatura->periodoVencimento);
+
+    printf(VERMELHO);
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET);
+
+    printf("\n>>> Tecle <ENTER> para continuar...\n");
+    getchar();
 }
 
 
