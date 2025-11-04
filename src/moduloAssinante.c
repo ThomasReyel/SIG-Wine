@@ -315,7 +315,7 @@ Assinante* salvarAssinantes(){
     } while (!validarDataNascimento(assinante->dataNascimento));
 
     do {
-        printf("Insira o endereço:\n");
+        printf("Insira o endereço (Cidade, Bairro, Rua, Número):\n");
         fgets(assinante->endereco, 100, stdin);
         tratarString(assinante->endereco);
 
@@ -440,7 +440,7 @@ void alterarAssinanteArquivo(int idCom){
         case '5':
             char enderecoNovo[100];
             do {
-                printf("Insira o endereço:\n");
+                printf("Insira o endereço (Cidade, Bairro, Rua, Número):\n");
                 fgets(enderecoNovo, 100, stdin);
                 tratarString(enderecoNovo);
                 if (!validarEndereco(enderecoNovo)) {
