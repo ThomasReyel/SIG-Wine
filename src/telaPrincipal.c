@@ -73,6 +73,5 @@ void telaPrincipal(){
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
 
-    printf(BRANCO "Digite sua escolha: " RESET);
-    printf("Digite sua escolha: \n");
+    printf(BRANCO "Digite sua escolha: \n" RESET);
 }

@@ -33,6 +33,9 @@ void menuAssinante(){
             excluirAssinante();
         break;
         case '5':
+            listarAssinantes();
+        break;
+        case '6':
             crtlAssinante = 0;
         break; 
        default:
@@ -59,7 +62,8 @@ void telaAssinante() {
     printf("║   " AMARELO "2." BRANCO " Checar Assinantes                              " CINZA "   ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Assinantes                             " CINZA "   ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Assinantes                             " CINZA "   ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "   ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Assinantes                              " CINZA "   ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                         " CINZA "   ║\n");
 
     printf("╚════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
@@ -510,4 +514,51 @@ void atualizarCampoAssinante(int idCom, const char* novoValor, int campo) {
     printf("Assinante não encontrado!\n");
     free(assinante);
     fclose(arqAssinantes);
+}
+
+void listarAssinantes(void) {
+    FILE *arqAssinantes;
+    Assinante* assinante;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      LISTAGEM DE ASSINANTES                      ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rb");
+    if (arqAssinantes == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de assinantes!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    assinante = (Assinante*) malloc(sizeof(Assinante));
+    int encontrou = 0;
+
+    while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
+        if (assinante->status == True) {
+            encontrou = 1;
+            printf(CIANO "ID: %d\n" RESET, assinante->id);
+            printf("Nome: %s\n", assinante->nome);
+            printf("Email: %s\n", assinante->email);
+            printf("CPF: %s\n", assinante->cpf);
+            printf("Data de Nascimento: %s\n", assinante->dataNascimento);
+            printf("Endereço: %s\n", assinante->endereco);
+            printf("--------------------------------------------------------------\n");
+        }
+    }
+
+    if (!encontrou) {
+        printf(AMARELO "Nenhum assinante encontrado.\n" RESET);
+    }
+
+    fclose(arqAssinantes);
+    free(assinante);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }
