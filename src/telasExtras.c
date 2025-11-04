@@ -101,7 +101,7 @@ void telaInicial() {
     printf("╔════════════════════════════════════════════════════════╗\n");
     printf("║                                                        ║\n");
 
- 
+ // peguei no text art
     printf("║   " ROXO "█▀ █ █▀▀ ▄▄ █░█░█ █ █▄░█ █▀▀" CINZA "                         ║\n");
     printf("║   " ROXO "▄█ █ █▄█ ░░ ▀▄▀▄▀ █ █░▀█ ██▄" CINZA "                         ║\n");
 
