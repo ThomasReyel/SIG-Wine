@@ -2,7 +2,10 @@
 #include <stdlib.h>
 #include "modulos.h"
 #include "util.h"
-
+#define RESET     "\033[0m"
+#define CINZA     "\033[1;37m"
+#define BRANCO    "\033[0;97m"
+#define AMARELO   "\033[1;33m"
 void telaPrincipal();
 
 void menuPrincipal() {
@@ -51,17 +54,25 @@ void menuPrincipal() {
 }
 
 void telaPrincipal(){
-    printf("╔══════════════════════════╗\n");
-    printf("║      MENU PRINCIPAL      ║\n");
-    printf("╠══════════════════════════╣\n");
-    printf("║ 1. Módulo Assinante      ║\n");
-    printf("║ 2. Módulo Assinaturas    ║\n");
-    printf("║ 3. Módulo Planos         ║\n");
-    printf("║ 4. Módulo Produtos       ║\n");
-    printf("║ 5. Módulo Relatórios     ║\n");
-    printf("║ 6. Módulo Financeiro     ║\n");
-    printf("║ 7. Limpar Registros      ║\n");
-    printf("║ 8. Sair                  ║\n");
-    printf("╚══════════════════════════╝\n");
+    printf(CINZA);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                                  ║\n");
+    printf("║                  " AMARELO "M E N U   P R I N C I P A L" CINZA "                     ║\n");
+    printf("║                                                                  ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+
+    printf("║   " AMARELO "1." BRANCO " Módulo Assinante                                " CINZA "            ║\n");
+    printf("║   " AMARELO "2." BRANCO " Módulo Assinaturas                              " CINZA "            ║\n");
+    printf("║   " AMARELO "3." BRANCO " Módulo Planos                                     " CINZA "          ║\n");
+    printf("║   " AMARELO "4." BRANCO " Módulo Produtos                                   " CINZA "          ║\n");
+    printf("║   " AMARELO "5." BRANCO " Módulo Relatórios                                 " CINZA "          ║\n");
+    printf("║   " AMARELO "6." BRANCO " Módulo Financeiro                                 " CINZA "          ║\n");
+    printf("║   " AMARELO "7." BRANCO " Limpar Registros                                   " CINZA "         ║\n");
+    printf("║   " AMARELO "8." BRANCO " Sair                                               " CINZA "         ║\n");
+
+    printf("╚══════════════════════════════════════════════════════════════════╝\n");
+    printf(RESET "\n");
+
+    printf(BRANCO "Digite sua escolha: " RESET);
     printf("Digite sua escolha: \n");
 }
