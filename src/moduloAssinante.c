@@ -275,61 +275,55 @@ int confirmarInfoAss(const Assinante* assinante){
     return 1;
 }
 
-Assinante* salvarAssinantes(){
-    Assinante* assinante;
-    assinante = (Assinante*) malloc(sizeof(Assinante));
-    assinante->id = recuperarIdAssinantes();
-    do {
-        printf("Insira o nome do Assinante:\n");
-        fgets(assinante->nome, 100, stdin);
-        tratarString(assinante->nome); 
+Assinante* salvarAssinantes() {
+    Assinante* a = criarAssinante();
+    if (a == NULL) {
+        fprintf(stderr, "Erro ao alocar memória!\n");
+        return NULL;
+    }
 
-        if (!validarNome(assinante->nome)) {
-            printf("❌ Nome inválido! Digite novamente.\n");
-        }
-    } while (!validarNome(assinante->nome));
-    do {
-        printf("Insira o email:\n");
-        fgets(assinante->email, 100, stdin);
-        tratarString(assinante->email);
+    preencherAssinante(a);
 
-        if (!validarEmail(assinante->email)) {
-            printf("❌ Email inválido! Digite novamente.\n");
-        }
-    } while (!validarEmail(assinante->email));
+    if (!validarAssinante(a)) {
+        printf("❌ Dados do assinante inválidos!\n");
+        free(a);
+        return NULL;
+    }
 
-    do {
-        printf("Insira o CPF:\n");
-        fgets(assinante->cpf, 20, stdin);
-        tratarString(assinante->cpf);
-
-        if (!validar_cpf(assinante->cpf)) {
-            printf("❌ CPF inválido! Digite novamente.\n");
-        }
-    } while (!validar_cpf(assinante->cpf));
-
-    do {
-        printf("Insira a data de nascimento (dd/mm/aaaa):\n");
-        fgets(assinante->dataNascimento, 20, stdin);
-        tratarString(assinante->dataNascimento);
-
-        if (!validarDataNascimento(assinante->dataNascimento)) {
-            printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
-        }
-    } while (!validarDataNascimento(assinante->dataNascimento));
-
-    do {
-        printf("Insira o endereço (Cidade, Bairro, Rua, Número):\n");
-        fgets(assinante->endereco, 100, stdin);
-        tratarString(assinante->endereco);
-
-        if (!validarEndereco(assinante->endereco)) {
-            printf("❌ Endereço inválido! Digite novamente.\n");
-        }
-    } while (!validarEndereco(assinante->endereco));
-    assinante->status = True;
-    return assinante;
+    a->status = True;
+    return a;
 }
+Assinante* criarAssinante() {
+    Assinante* a = (Assinante*) malloc(sizeof(Assinante));
+    if (!a) return NULL;
+
+    a->id = recuperarIdAssinantes();
+    return a;
+}
+void preencherAssinante(Assinante* a) {
+    lerCampo("Insira o nome do Assinante:", a->nome, 100, validarNome);
+    lerCampo("Insira o email:", a->email, 100, validarEmail);
+    lerCampo("Insira o CPF:", a->cpf, 20, validar_cpf);
+    lerCampo("Insira a data de nascimento (dd/mm/aaaa):", a->dataNascimento, 20, validarDataNascimento);
+    lerCampo("Insira o endereço (Cidade, Bairro, Rua, Número):", a->endereco, 100, validarEndereco);
+}
+int validarAssinante(const Assinante* a) {
+    return validarNome(a->nome)
+        && validarEmail(a->email)
+        && validar_cpf(a->cpf)
+        && validarDataNascimento(a->dataNascimento)
+        && validarEndereco(a->endereco);
+}
+void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*)) {
+    do {
+        printf("%s ", label);
+        fgets(destino, max, stdin);
+        destino[strcspn(destino, "\n")] = '\0';
+    } while (!validar(destino));
+}
+
+
+
 
 Assinante* recuperarAssinante(int idCom){
     FILE *arqAssinantes;

@@ -21,6 +21,10 @@
     void excluirAssinante();
     int confirmarInfoAss(const Assinante*);
     Assinante* salvarAssinantes();
+    Assinante* criarAssinante();
+    void preencherAssinante(Assinante* a);
+    int validarAssinante(const Assinante* a);
+    void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*));
     Assinante* recuperarAssinante(int);
     void excluirAssinanteArquivo(int);
     void alterarAssinanteArquivo(int);

@@ -15,7 +15,7 @@
     void apagarPlanoFisico(void);
     int ehLetra(char);
     int ehVogal(char);
-    int validarNome(char*);
+    int validarNome(const char*);
     int validar_cpf(const char*);
     int validarEmail(const char*);
     int validarEndereco(const char*);

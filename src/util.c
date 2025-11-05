@@ -294,7 +294,7 @@ int ehVogal(char c) {
     return 0;
 }
 
-int validarNome(char *nome) {
+int validarNome(const char *nome) {
     int tamanho = strlen(nome);
     int temVogal = 0;
     int repeticoes = 1;
