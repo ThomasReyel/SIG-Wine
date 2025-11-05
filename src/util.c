@@ -389,23 +389,30 @@ int validarEmail(const char *email) {
 
 int validarEndereco(const char *endereco) {
     int letrasOuNumeros = 0;
+
     if (strlen(endereco) < 5) {
-        return 0; 
-    }    
+        return 0;
+    }
     for (int i = 0; endereco[i] != '\0'; i++) {
-        if (isalnum((unsigned char)endereco[i])) {
-            letrasOuNumeros = 1; 
+        unsigned char c = endereco[i];
+        if (isalnum(c) || c == ' ' || c == ',' || c == '.' || c == '-') {
+            if (isalnum(c)) {
+                letrasOuNumeros = 1;
+            }
+            continue;
         }
-        
-        if (!isalnum((unsigned char)endereco[i]) &&
-            endereco[i] != ' ' && endereco[i] != ',' &&
-            endereco[i] != '.' && endereco[i] != '-') {
-            return 0;
+
+        if (c >= 128) {
+            letrasOuNumeros = 1;
+            continue;
         }
-    } 
+        return 0;
+    }
+
     if (!letrasOuNumeros) return 0;
-    return 1; 
+    return 1;
 }
+
 int validarDataNascimento(const char *data) {
     int dia, mes, ano; 
     if (strlen(data) < 8 || strlen(data) > 10) return 0;
