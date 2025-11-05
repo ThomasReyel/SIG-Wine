@@ -24,5 +24,6 @@
     void excluirAssinaturaArquivo(int);
     void alterarAssinaturaArquivo(int);
     void atualizarCampoAssinatura(int, const char*, int);
+    void listarAssinaturas();
 
 #endif

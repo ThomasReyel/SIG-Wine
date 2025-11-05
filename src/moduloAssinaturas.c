@@ -36,6 +36,9 @@ void menuAssinaturas(){
             excluirAssinatura();
         break;
         case '5':
+            listarAssinaturas();
+        break;
+        case '6':
             crtlAssinatura = 0;
         break; 
        default:
@@ -61,13 +64,13 @@ void telaAssinaturas(){
     printf("║   " AMARELO "2." BRANCO " Checar Assinaturas                             " CINZA "             ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Assinaturas                            " CINZA "             ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Assinaturas                            " CINZA "             ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "             ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Assinaturas                            " CINZA "              ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                         " CINZA "             ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
 
-    printf(BRANCO "Digite sua escolha: " RESET);
-    printf("Digite sua escolha: \n");
+    printf(BRANCO "Digite sua escolha: \n" RESET);
 }
 
 void cadastroAssinatura(){
@@ -477,4 +480,49 @@ void atualizarCampoAssinatura(int idCom, const char* novoValor, int campo) {
     printf("Assinatura não encontrada!\n");
     free(assinatura);
     fclose(arqAssinaturas);
+}
+void listarAssinaturas(void) {
+    FILE *arqAssinaturas;
+    Assinatura* assinatura;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      LISTAGEM DE ASSINATURAS                     ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "rb");
+    if (arqAssinaturas == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de assinaturas!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    int encontrou = 0;
+
+    while (fread(assinatura, sizeof(Assinatura), 1, arqAssinaturas)) {
+        if (assinatura->status == True) {
+            encontrou = 1;
+            printf(CIANO "ID da Assinatura: " RESET "%d\n", assinatura->id);
+            printf("ID do Assinante: %s\n", assinatura->idAssinante);
+            printf("ID do Plano: %s\n", assinatura->idPlano);
+            printf("Data da Assinatura: %s\n", assinatura->dataAssinatura);
+            printf("Período de Vencimento: %s\n", assinatura->periodoVencimento);
+            printf("--------------------------------------------------------------\n");
+        }
+    }
+
+    if (!encontrou) {
+        printf(AMARELO "Nenhuma assinatura encontrada.\n" RESET);
+    }
+
+    fclose(arqAssinaturas);
+    free(assinatura);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }
