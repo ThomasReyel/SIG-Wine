@@ -277,22 +277,16 @@ int confirmarInfoAss(const Assinante* assinante){
 
 Assinante* salvarAssinantes() {
     Assinante* a = criarAssinante();
-    if (a == NULL) {
+    if (!a) {
         fprintf(stderr, "Erro ao alocar memória!\n");
         return NULL;
     }
 
-    preencherAssinante(a);
-
-    if (!validarAssinante(a)) {
-        printf("❌ Dados do assinante inválidos!\n");
-        free(a);
-        return NULL;
-    }
-
+    preencherAssinante(a);  
     a->status = True;
     return a;
 }
+
 Assinante* criarAssinante() {
     Assinante* a = (Assinante*) malloc(sizeof(Assinante));
     if (!a) return NULL;
@@ -300,25 +294,24 @@ Assinante* criarAssinante() {
     a->id = recuperarIdAssinantes();
     return a;
 }
+
 void preencherAssinante(Assinante* a) {
-    lerCampo("Insira o nome do Assinante:", a->nome, 100, validarNome);
-    lerCampo("Insira o email:", a->email, 100, validarEmail);
-    lerCampo("Insira o CPF:", a->cpf, 20, validar_cpf);
-    lerCampo("Insira a data de nascimento (dd/mm/aaaa):", a->dataNascimento, 20, validarDataNascimento);
-    lerCampo("Insira o endereço (Cidade, Bairro, Rua, Número):", a->endereco, 100, validarEndereco);
+    lerCampo("Insira o nome do Assinante:", a->nome, 100, validarNome, "❌ Nome inválido! Digite novamente.");
+    lerCampo("Insira o email:", a->email, 100, validarEmail, "❌ Email inválido! Digite novamente.");
+    lerCampo("Insira o CPF:", a->cpf, 20, validar_cpf, "❌ CPF inválido! Digite novamente.");
+    lerCampo("Insira a data de nascimento (dd/mm/aaaa):", a->dataNascimento, 20, validarDataNascimento, "❌ Data inválida! Digite novamente.");
+    lerCampo("Insira o endereço (Cidade, Bairro, Rua, Número):", a->endereco, 100, validarEndereco, "❌ Endereço inválido! Digite novamente.");
 }
-int validarAssinante(const Assinante* a) {
-    return validarNome(a->nome)
-        && validarEmail(a->email)
-        && validar_cpf(a->cpf)
-        && validarDataNascimento(a->dataNascimento)
-        && validarEndereco(a->endereco);
-}
-void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*)) {
+
+
+void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*), const char* msgErro) {
     do {
         printf("%s ", label);
         fgets(destino, max, stdin);
         destino[strcspn(destino, "\n")] = '\0';
+        if (!validar(destino)) {
+            printf("%s\n", msgErro);
+        }
     } while (!validar(destino));
 }
 
