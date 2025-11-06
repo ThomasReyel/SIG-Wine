@@ -488,7 +488,7 @@ int validarDataAssinatura(const char *data) {
     return 1;
 }
 
-int validarPeriodoVencimento(char *periodo) {
+int validarPeriodoVencimento(const char *periodo) {
     int i = 0;    
     while (periodo[i] == ' ' || periodo[i] == '\t') {
         i++;
@@ -496,8 +496,6 @@ int validarPeriodoVencimento(char *periodo) {
     char letra = toupper((unsigned char)periodo[i]);
 
     if ((letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') && periodo[i +1] == '\0') {
-        periodo[0] = letra;
-        periodo[1] = '\0';
         return 1; 
     }
 
@@ -594,4 +592,25 @@ int validarTipo(const char *tipo) {
     }
 
     return 1;
+}
+
+int validarIdAssinante(const char* id) {
+    return validarId(id, 0);
+}
+
+int validarIdPlano(const char* id) {
+    return validarId(id, 1);
+}
+
+void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*), const char* msgErro) {
+    do {
+        printf("%s ", label);
+        fgets(destino, max, stdin);
+        destino[strcspn(destino, "\n")] = '\0'; // remove \n
+        tratarString(destino);
+
+        if (!validar(destino)) {
+            printf("%s\n", msgErro);
+        }
+    } while (!validar(destino));
 }
