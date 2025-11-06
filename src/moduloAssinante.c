@@ -304,20 +304,6 @@ void preencherAssinante(Assinante* a) {
 }
 
 
-void lerCampo(const char* label, char* destino, int max, int (*validar)(const char*), const char* msgErro) {
-    do {
-        printf("%s ", label);
-        fgets(destino, max, stdin);
-        destino[strcspn(destino, "\n")] = '\0';
-        if (!validar(destino)) {
-            printf("%s\n", msgErro);
-        }
-    } while (!validar(destino));
-}
-
-
-
-
 Assinante* recuperarAssinante(int idCom){
     FILE *arqAssinantes;
     Assinante* assinante;

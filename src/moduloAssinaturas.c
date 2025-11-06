@@ -320,45 +320,70 @@ void excluirAssinaturaArquivo(int idCom){
         }
     }
 }
+Assinatura* salvarAssinaturas() {
+    Assinatura* assinatura = criarAssinatura();
+    if (!assinatura) {
+        fprintf(stderr, "Erro ao alocar memória!\n");
+        return NULL;
+    }
 
-Assinatura* salvarAssinaturas(){
-    Assinatura* assinatura;
-    assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-    assinatura->id = recuperarIdAssinaturas();
-    do {
-        printf("Insira o id do assinante:\n");
-        fgets(assinatura->idAssinante, 20, stdin);
-        tratarString(assinatura->idAssinante);
-    } while (!validarId(assinatura->idAssinante, 0));
-
-    do {
-        printf("Insira o id do plano:\n");
-        fgets(assinatura->idPlano, 20, stdin);
-        tratarString(assinatura->idPlano);
-    } while (!validarId(assinatura->idPlano, 1));
-
-    do {
-        printf("Insira a data da assinatura (dd/mm/aaaa):\n");
-        fgets(assinatura->dataAssinatura, 20, stdin);
-        tratarString(assinatura->dataAssinatura);
-
-        if (!validarDataAssinatura(assinatura->dataAssinatura)) {
-            printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
-        }
-    } while (!validarDataAssinatura(assinatura->dataAssinatura));
-
-    do {
-        printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
-        fgets(assinatura->periodoVencimento, 20, stdin);
-        tratarString(assinatura->periodoVencimento);
-
-        if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
-            printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
-        }
-} while (!validarPeriodoVencimento(assinatura->periodoVencimento));
+    preencherAssinatura(assinatura);
     assinatura->status = True;
     return assinatura;
 }
+
+Assinatura* criarAssinatura() {
+    Assinatura* assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    if (!assinatura) return NULL;
+
+    assinatura->id = recuperarIdAssinaturas();
+    return assinatura;
+}
+
+void preencherAssinatura(Assinatura* assinatura) {
+    lerCampo("Insira o id do assinante:", assinatura->idAssinante, 20, validarIdAssinante, "❌ ID do assinante inválido! Digite novamente.");
+    lerCampo("Insira o id do plano:", assinatura->idPlano, 20, validarIdPlano, "❌ ID do plano inválido! Digite novamente.");
+    lerCampo("Insira a data da assinatura (dd/mm/aaaa):", assinatura->dataAssinatura, 20, validarDataAssinatura, "❌ Data inválida! Digite novamente no formato dd/mm/aaaa.");
+    lerCampo("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):", assinatura->periodoVencimento, 20, validarPeriodoVencimento, "❌ Período inválido! Digite apenas M, T, S ou A.");
+}
+// Assinatura* salvarAssinaturas(){
+//     Assinatura* assinatura;
+//     assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+//     assinatura->id = recuperarIdAssinaturas();
+//     do {
+//         printf("Insira o id do assinante:\n");
+//         fgets(assinatura->idAssinante, 20, stdin);
+//         tratarString(assinatura->idAssinante);
+//     } while (!validarId(assinatura->idAssinante, 0));
+
+//     do {
+//         printf("Insira o id do plano:\n");
+//         fgets(assinatura->idPlano, 20, stdin);
+//         tratarString(assinatura->idPlano);
+//     } while (!validarId(assinatura->idPlano, 1));
+
+//     do {
+//         printf("Insira a data da assinatura (dd/mm/aaaa):\n");
+//         fgets(assinatura->dataAssinatura, 20, stdin);
+//         tratarString(assinatura->dataAssinatura);
+
+//         if (!validarDataAssinatura(assinatura->dataAssinatura)) {
+//             printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+//         }
+//     } while (!validarDataAssinatura(assinatura->dataAssinatura));
+
+//     do {
+//         printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+//         fgets(assinatura->periodoVencimento, 20, stdin);
+//         tratarString(assinatura->periodoVencimento);
+
+//         if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
+//             printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
+//         }
+// } while (!validarPeriodoVencimento(assinatura->periodoVencimento));
+//     assinatura->status = True;
+//     return assinatura;
+// }
 
 void alterarAssinaturaArquivo(int idCom){
     char opcao[10];

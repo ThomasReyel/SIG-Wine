@@ -22,10 +22,13 @@
     int validarDataNascimento(const char*);
     int validarId(const char*, int);
     int validarDataAssinatura(const char*);
-    int validarPeriodoVencimento(char*);
+    int validarPeriodoVencimento(const char*);
     int validarNomeObjeto(const char*);
     int validarPreco(const char*);
     int validarMarca(const char*);
     int validarAnoProducao(const char*);
     int validarTipo(const char*);
+    int validarIdAssinante(const char*);
+    int validarIdPlano(const char*);
+    void lerCampo(const char*, char*, int, int (*)(const char*), const char*);
 #endif
