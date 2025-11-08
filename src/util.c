@@ -593,6 +593,9 @@ int validarTipo(const char *tipo) {
 
     return 1;
 }
+int validarIdProduto(const char* id) {
+    return validarId(id, 0);
+}
 
 int validarIdAssinante(const char* id) {
     return validarId(id, 0);

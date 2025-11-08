@@ -317,45 +317,70 @@ void excluirPlanoArquivo(int idCom){
 }
 
 Plano* salvarPlanos() {
-    Plano* plano;
-    plano = (Plano*) malloc(sizeof(Plano));
-    if (!plano) return NULL;
-    plano->id = recuperarIdPlanos();
-    do {
-        printf("Insira o nome:\n");
-        fgets(plano->nome, 20, stdin);
-        tratarString(plano->nome);
-        if (!validarNomeObjeto(plano->nome)) {
-            printf("❌ Nome de produto inválido! Digite novamente.\n");
-        }
-    } while (!validarNomeObjeto(plano->nome));
-    
-    do {
-        printf("Insira o preço (ex: 49.90 ou 49,90):\n");
-        fgets(plano->preco, 20, stdin);
-        tratarString(plano->preco);
-        if (!validarPreco(plano->preco)) {
-            printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
-        }
-    } while (!validarPreco(plano->preco));
-
-    do {
-        printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
-        fgets(plano->periodo, 20, stdin);
-        tratarString(plano->periodo);
-        if (!validarPeriodoVencimento(plano->periodo)) {
-            printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
-        }
-    } while (!validarPeriodoVencimento(plano->periodo));
-    
-    do {
-        printf("Insira o idProduto:\n");
-        fgets(plano->idProduto, 20, stdin);
-        tratarString(plano->idProduto);
-    } while (!validarId(plano->idProduto, 2));
+    Plano* plano = criarPlano();
+    if(!plano) {
+        fprintf(stderr, "Erro ao alocar memória!\n");
+        return NULL;
+    }
+    preencherPlano(plano);
     plano->status = True;
     return plano;
 }
+
+Plano* criarPlano() {
+    Plano* plano = (Plano*) malloc(sizeof(Plano));
+    if(!plano) return NULL;
+
+    plano->id = recuperarIdPlanos();
+    return plano;
+}
+void preencherPlano(Plano* plano) {
+    lerCampo("Insira o nome:", plano->nome, 20, validarNomeObjeto, "❌ Nome de produto inválido! Digite novamente.");
+    lerCampo("Insira o preço (ex: 49.90 ou 49,90):", plano->preco, 20, validarPreco, "❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').");
+    lerCampo("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):", plano->periodo, 20, validarPeriodoVencimento, "❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).");
+    lerCampo("Insira o idProduto:", plano->idProduto, 20, validarIdProduto, "❌ ID do produto inválido! Digite novamente.");
+}
+
+// Plano* salvarPlanos() {
+//     Plano* plano;
+//     plano = (Plano*) malloc(sizeof(Plano));
+//     if (!plano) return NULL;
+//     plano->id = recuperarIdPlanos();
+//     do {
+//         printf("Insira o nome:\n");
+//         fgets(plano->nome, 20, stdin);
+//         tratarString(plano->nome);
+//         if (!validarNomeObjeto(plano->nome)) {
+//             printf("❌ Nome de produto inválido! Digite novamente.\n");
+//         }
+//     } while (!validarNomeObjeto(plano->nome));
+    
+//     do {
+//         printf("Insira o preço (ex: 49.90 ou 49,90):\n");
+//         fgets(plano->preco, 20, stdin);
+//         tratarString(plano->preco);
+//         if (!validarPreco(plano->preco)) {
+//             printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
+//         }
+//     } while (!validarPreco(plano->preco));
+
+//     do {
+//         printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+//         fgets(plano->periodo, 20, stdin);
+//         tratarString(plano->periodo);
+//         if (!validarPeriodoVencimento(plano->periodo)) {
+//             printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
+//         }
+//     } while (!validarPeriodoVencimento(plano->periodo));
+    
+//     do {
+//         printf("Insira o idProduto:\n");
+//         fgets(plano->idProduto, 20, stdin);
+//         tratarString(plano->idProduto);
+//     } while (!validarId(plano->idProduto, 2));
+//     plano->status = True;
+//     return plano;
+// }
 
 void alterarPlanoArquivo(int idCom){
     char opcao[10];
