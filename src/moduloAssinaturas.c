@@ -529,20 +529,25 @@ void listarAssinaturas(void) {
     assinatura = (Assinatura*) malloc(sizeof(Assinatura));
     int encontrou = 0;
 
+    printf("┌────────┬──────────────┬──────────────┬───────────────────────────┐\n");
+    printf("│  ID    │ ID Assinante │ ID Plano     │ Data Assinatura           │\n");
+    printf("├────────┼──────────────┼──────────────┼───────────────────────────┤\n");
+
     while (fread(assinatura, sizeof(Assinatura), 1, arqAssinaturas)) {
         if (assinatura->status == True) {
             encontrou = 1;
-            printf(CIANO "ID da Assinatura: " RESET "%d\n", assinatura->id);
-            printf("ID do Assinante: %s\n", assinatura->idAssinante);
-            printf("ID do Plano: %s\n", assinatura->idPlano);
-            printf("Data da Assinatura: %s\n", assinatura->dataAssinatura);
-            printf("Período de Vencimento: %s\n", assinatura->periodoVencimento);
-            printf("--------------------------------------------------------------\n");
+            printf("│ %-6d │ %-12s │ %-12s │ %-25s │\n",
+                   assinatura->id,
+                   assinatura->idAssinante,
+                   assinatura->idPlano,
+                   assinatura->dataAssinatura);
         }
     }
-
-    if (!encontrou) {
-        printf(AMARELO "Nenhuma assinatura encontrada.\n" RESET);
+    if (encontrou) {
+        printf("└────────┴──────────────┴──────────────┴───────────────────────────┘\n");
+    } else {
+        printf("│ %-56s │\n", "Nenhuma assinatura encontrada.");
+        printf("└──────────────────────────────────────────────────────────┘\n");
     }
 
     fclose(arqAssinaturas);
