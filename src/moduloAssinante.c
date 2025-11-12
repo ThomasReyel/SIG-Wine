@@ -307,7 +307,7 @@ void preencherAssinante(Assinante* a) {
 Assinante* recuperarAssinante(int idCom){
     FILE *arqAssinantes;
     Assinante* assinante;
-    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rt");
+    arqAssinantes = fopen("./dados/dadosAssinantes.dat", "rb");
     if (arqAssinantes == NULL){
         printf("Erro em Abrir o arquivo");
         getchar();
@@ -323,6 +323,7 @@ Assinante* recuperarAssinante(int idCom){
     fclose(arqAssinantes);
     printf("O assinante com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(assinante);
     return NULL;
 }
 
@@ -414,6 +415,7 @@ void alterarAssinanteArquivo(int idCom){
             } while (!validarDataNascimento(dataNascimentoNovo));
             atualizarCampoAssinante(idCom, dataNascimentoNovo, 4);
             controle = 0;
+        break;
         case '5':
             char enderecoNovo[100];
             do {

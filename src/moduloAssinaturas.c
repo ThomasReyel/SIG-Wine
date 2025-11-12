@@ -293,6 +293,7 @@ Assinatura* recuperarAssinatura(int idCom){
     fclose(arqAssinaturas);
     printf("A assinatura com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(assinatura);
     return NULL;
 }
 

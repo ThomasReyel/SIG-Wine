@@ -288,6 +288,7 @@ Plano* recuperarPlano(int idCom){
     fclose(arqPlanos);
     printf("O plano com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(plano);
     return NULL;
 }
 
