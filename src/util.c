@@ -9,6 +9,7 @@
 #include "moduloRelatorios.h"
 #include "moduloFinanceiro.h"
 #include "util.h"
+#include "time.h"
 void tratarString(char string[]){
     int tam = strlen(string);
     string[tam - 1] = '\0';
@@ -324,53 +325,24 @@ int validarNome(const char *nome) {
 
     return 1;
 }
-// peguei do chat gpt 5
-int validar_cpf(const char *cpf) {
-    int i, j, k = 0, soma, resto, digito1, digito2;
-    char numeros[12];
 
-    for (i = 0; cpf[i] != '\0'; i++) {
-        if (isdigit((unsigned char)cpf[i])) {
-            numeros[k++] = cpf[i];
-        }
-    }
-    numeros[k] = '\0';
+int validar_cpf(const char *cpf){
+    int i;
+    int tamanho = strlen(cpf);
 
-    if (strlen(numeros) != 11) {
+    // Só pode ter 11 caracteres
+    if(tamanho != 11){
         return 0;
     }
 
-    int todosIguais = 1;
-    for (i = 1; i < 11; i++) {
-        if (numeros[i] != numeros[0]) {
-            todosIguais = 0;
-            break;
-        }
-    }
-    if (todosIguais) {
-        return 0;
+    for(i = 0; i < tamanho; i++){
+      // Só pode ter número
+      if(!isdigit(cpf[i])){
+          return 0;
+      }
     }
 
-    soma = 0;
-    for (i = 0, j = 10; i < 9; i++, j--) {
-        soma += (numeros[i] - '0') * j;
-    }
-    resto = soma % 11;
-    digito1 = (resto < 2) ? 0 : 11 - resto;
-   
-    soma = 0;
-    for (i = 0, j = 11; i < 10; i++, j--) {
-        soma += (numeros[i] - '0') * j;
-    }
-    resto = soma % 11;
-    digito2 = (resto < 2) ? 0 : 11 - resto;
-
-   
-    if ((numeros[9] - '0') == digito1 && (numeros[10] - '0') == digito2) {
-        return 1; 
-    } else {
-        return 0; 
-    }
+    return 1;
 }
 
 int validarEmail(const char *email) {
@@ -609,11 +581,33 @@ void lerCampo(const char* label, char* destino, int max, int (*validar)(const ch
     do {
         printf("%s ", label);
         fgets(destino, max, stdin);
-        destino[strcspn(destino, "\n")] = '\0'; // remove \n
+        
         tratarString(destino);
 
         if (!validar(destino)) {
             printf("%s\n", msgErro);
         }
     } while (!validar(destino));
+}
+
+// Créditos: Função Adaptada do Projeto Sig-DietPlan: https://github.com/Thiago-braga7/Sig-DietPlan.git
+int calcularIdade(const char *dataNascimento) {
+    int dia, mes, ano;
+    int diaAtual, mesAtual, anoAtual;
+
+    
+    sscanf(dataNascimento, "%d/%d/%d", &dia, &mes, &ano);
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    diaAtual = tm.tm_mday;
+    mesAtual = tm.tm_mon + 1;
+    anoAtual = tm.tm_year + 1900;
+
+    int idade = anoAtual - ano;
+    if (mesAtual < mes || (mesAtual == mes && diaAtual < dia)) {
+        idade--;
+    }
+
+    return idade;
 }

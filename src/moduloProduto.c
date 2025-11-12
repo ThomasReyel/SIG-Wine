@@ -286,6 +286,7 @@ Produto* recuperarProduto(int idCom){
     fclose(arqProdutos);
     printf("O produto com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(produto);
     return NULL;
 }
 
