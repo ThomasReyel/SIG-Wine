@@ -512,15 +512,25 @@ void listarAssinantes(void) {
     assinante = (Assinante*) malloc(sizeof(Assinante));
     int encontrou = 0;
 
+    printf("┌────────┬────────────────────────────┬────────────────────────────┐\n");
+    printf("│   ID   │ Nome                       │ CPF                        │\n");
+    printf("├────────┼────────────────────────────┼────────────────────────────┤\n");
+
     while (fread(assinante, sizeof(Assinante), 1, arqAssinantes)) {
         if (assinante->status == True) {
             encontrou = 1;
-            exibirAssinante(assinante);
+            printf("│ %-6d │ %-26.26s │ %-26.26s │\n",
+                   assinante->id,
+                   assinante->nome,
+                   assinante->cpf);
         }
     }
 
-    if (!encontrou) {
-        printf(AMARELO "Nenhum assinante encontrado.\n" RESET);
+    if (encontrou) {
+        printf("└────────┴────────────────────────────┴────────────────────────────┘\n");
+    } else {
+        printf("│ %-66s │\n", "Nenhum assinante encontrado.");
+        printf("└────────────────────────────────────────────────────────────────────┘\n");
     }
 
     fclose(arqAssinantes);
