@@ -3,5 +3,6 @@
     void telaRelatorios();
     void menuRelatorios();
     void relatorioAssinantesFaixaEtaria();
+    void relatorioAssinaturasPeriodo();
 
 #endif

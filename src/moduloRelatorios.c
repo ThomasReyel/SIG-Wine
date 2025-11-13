@@ -2,7 +2,9 @@
 #include <stdlib.h>
 #include "moduloRelatorios.h"
 #include "moduloAssinantes.h"
+#include "moduloAssinaturas.h"
 #include "util.h"
+#include <ctype.h>
 
 void menuRelatorios(){
     char opcao[10];
@@ -18,9 +20,7 @@ void menuRelatorios(){
             relatorioAssinantesFaixaEtaria();
         break;
         case '2':
-            printf("Em produção...\n");
-            printf("\nPressione Enter para voltar para o menu \n");
-            getchar();
+            relatorioAssinaturasPeriodo();
         break;
         case '3':
             printf("Em produção...\n");
@@ -51,7 +51,7 @@ void telaRelatorios(){
     printf("║           RELATÓRIOS         ║\n");
     printf("╠══════════════════════════════╣\n");
     printf("║ 1. Assinantes(Faixa Etária)  ║\n");
-    printf("║ 2. Planos mais Assinados     ║\n");
+    printf("║ 2. Assinaturas(Período)      ║\n");
     printf("║ 3. Faixa etária              ║\n");
     printf("║ 4. Vinhos mais Utilizados    ║\n");
     printf("║ 5. Sair                      ║\n");
@@ -118,6 +118,7 @@ void relatorioAssinantesFaixaEtaria(){
     assinante = (Assinante*) malloc(sizeof(Assinante));
     if (assinante == NULL) {
         printf("\nErro de memória!\n");
+        printf("\nPressione Enter para voltar...\n");
         fclose(arqAssinantes);
         getchar();
         return;
@@ -140,15 +141,109 @@ void relatorioAssinantesFaixaEtaria(){
             }
         }
     }
-    if (encontrou)
+    if (encontrou){
         printf("└──────┴────────────────────────────┴──────────────┘\n");
-    else
-        printf("│ Nenhum assinante encontrado nessa faixa.         │\n└──────────────────────────────────────────────────┘\n");
-
+    
+    } else{
+        printf("│       Nenhum assinante encontrado nessa faixa.   │\n└──────────────────────────────────────────────────┘\n");
+    }
     fclose(arqAssinantes);
     free(assinante);
 
     printf("\nPressione Enter para voltar ao menu...\n");
     getchar();
+}   
+
+void relatorioAssinaturasPeriodo(){
+	FILE *arqAssinaturas;
+	Assinatura* assinatura;
+	char opcao[10];
+	int encontrou = 0;
+	
+	system("clear||cls");
+	printf("╔════════════════════════════════════════════════════════════╗\n");
+    printf("║          RELATÓRIO DE ASSINATURAS POR PERÍODO              ║\n");
+    printf("╠════════════════════════════════════════════════════════════╣\n");
+    printf("Escolha o Período:\n");
+    printf("M - Mensal\n");
+    printf("T - Trimestral\n");
+    printf("S - Semestral\n");
+    printf("A - Anual\n");
+    printf("\nDigite sua opção: ");
+    fgets(opcao, 10, stdin);
+
+    if (opcao[1] != '\n')
+        opcao[0] = 'x';
     
+    opcao[0] = toupper(opcao[0]);
+
+    switch(opcao[0]) {
+        case 'M':
+            printf("\nVocê escolheu M - Mensal\n");
+        break;
+        case 'T':
+            printf("\nVocê escolheu T - Trimestral\n");
+        break;
+        case 'S':
+            printf("\nVocê escolheu S - Semestral\n");
+        break;
+        case 'A':
+            printf("\nVocê escolheu A - Anual\n");
+        break;
+        default:
+            printf("\n❌ Opção inválida!\n");
+            printf("\nPressione Enter para voltar...\n");
+            getchar();
+            return;
+    }
+
+    arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "rb");
+    if(arqAssinaturas == NULL) {
+        printf("\n❌ Erro ao abrir o arquivo de assinaturas!\n");
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    if (assinatura == NULL) {
+        printf("\nErro de memória!\n");
+        fclose(arqAssinaturas);
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+    system("clear||cls");
+    printf("╔════════════════════════════════════════════════════════════════╗\n");
+    printf("║              LISTAGEM DE ASSINATURAS - PERÍODO: %c             ║\n", toupper(opcao[0]));
+    printf("╠════════════════════════════════════════════════════════════════╣\n");
+
+    printf("┌──────┬──────────────┬───────────────────────────┬──────────────┐\n");
+    printf("│  ID  │ ID Assinante │ Data Assinatura           │ Período      │\n");
+    printf("├──────┼──────────────┼───────────────────────────┼──────────────┤\n");
+   
+
+    while (fread(assinatura, sizeof(Assinatura), 1, arqAssinaturas)) {
+        if (assinatura->status == True && 
+            toupper(assinatura->periodoVencimento[0]) == toupper(opcao[0])) {
+
+            encontrou = 1;
+            printf("│ %-4d │ %-12s │ %-25s │ %-12s │\n",
+                assinatura->id,
+                assinatura->idAssinante,
+                assinatura->dataAssinatura,  
+                assinatura->periodoVencimento);
+        }
+    }
+    if (encontrou){
+        printf("└──────┴──────────────┘───────────────────────────┘──────────────┘\n");
+    
+    } else {
+        printf("│ %-63s │\n", "        Nenhuma assinatura encontrada nesse período.");
+        printf("└────────────────────────────────────────────────────────────────┘\n");
+    }
+    fclose(arqAssinaturas);
+    free(assinatura);
+    printf("\nPressione Enter para voltar ao menu...\n");
+    getchar();
 }
