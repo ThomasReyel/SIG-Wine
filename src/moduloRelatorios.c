@@ -1,13 +1,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <strings.h>
+#include <ctype.h>
+
+
 #include "moduloRelatorios.h"
 #include "moduloAssinantes.h"
 #include "moduloAssinaturas.h"
 #include "moduloPlanos.h"
 #include "moduloProdutos.h"
 #include "util.h"
-#include <ctype.h>
+
 
 void menuRelatorios(){
     char opcao[10];
