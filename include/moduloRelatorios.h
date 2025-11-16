@@ -5,5 +5,6 @@
     void relatorioAssinantesFaixaEtaria();
     void relatorioAssinaturasPeriodo();
     void relatorioPlanosFaixaPreco();
+    void relatorioProdutosPorMarca();
 
 #endif

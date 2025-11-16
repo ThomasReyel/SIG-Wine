@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <strings.h>
 #include "moduloRelatorios.h"
 #include "moduloAssinantes.h"
 #include "moduloAssinaturas.h"
@@ -28,9 +29,7 @@ void menuRelatorios(){
             relatorioPlanosFaixaPreco();
         break;
         case '4':
-            printf("Em produção...\n");
-            printf("\nPressione Enter para voltar para o menu \n");
-            getchar();
+            relatorioProdutosPorMarca();
         break;
         case '5':
             crtlRelatorio = 0;
@@ -53,7 +52,7 @@ void telaRelatorios(){
     printf("║ 1. Assinantes(Faixa Etária)  ║\n");
     printf("║ 2. Assinaturas(Período)      ║\n");
     printf("║ 3. Planos (Faixa de Preço)       ║\n");
-    printf("║ 4. Vinhos mais Utilizados    ║\n");
+    printf("║ 4. Produtos por Marca         ║\n");
     printf("║ 5. Sair                      ║\n");
     printf("╚══════════════════════════════╝\n");
     printf("Digite sua escolha: \n");
@@ -345,6 +344,78 @@ void relatorioPlanosFaixaPreco() {
 
     fclose(arqPlanos);
     free(plano);
+
+    printf("\nPressione Enter para voltar ao menu...\n");
+    getchar();
+}
+
+
+
+void relatorioProdutosPorMarca() {
+    FILE *arqProdutos;
+    Produto* produto;
+    char marcaFiltro[30];
+    int encontrou = 0;
+
+    system("clear||cls");
+    printf("╔════════════════════════════════════════════════════════════╗\n");
+    printf("║                RELATÓRIO DE PRODUTOS POR MARCA            ║\n");
+    printf("╠════════════════════════════════════════════════════════════╣\n");
+
+    printf("Digite a marca que deseja filtrar: ");
+    fgets(marcaFiltro, 30, stdin);
+    tratarString(marcaFiltro);
+
+    if (!validarMarca(marcaFiltro)) {
+        printf("\n❌ Marca inválida! Use apenas letras, números e espaços.\n");
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    arqProdutos = fopen("./dados/dadosProdutos.dat", "rb");
+    if (arqProdutos == NULL) {
+        printf("\n❌ Erro ao abrir o arquivo de produtos!\n");
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    produto = (Produto*) malloc(sizeof(Produto));
+    if (!produto) {
+        printf("\n❌ Erro de memória!\n");
+        fclose(arqProdutos);
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    printf("\n┌──────┬────────────────────────────┬─────────────────────────┐\n");
+    printf("│  ID  │ Nome                       │ Marca                   │\n");
+    printf("├──────┼────────────────────────────┼─────────────────────────┤\n");
+
+    while (fread(produto, sizeof(Produto), 1, arqProdutos)) {
+        if (produto->status == True) {
+            if (strcasecmp(produto->marca, marcaFiltro) == 0) {
+                encontrou = 1;
+                printf("│ %-4d │ %-26s │ %-23s │\n",
+                    produto->id,
+                    produto->nome,
+                    produto->marca
+                );
+            }
+        }
+    }
+
+    if (encontrou) {
+        printf("└──────┴────────────────────────────┴─────────────────────────┘\n");
+    } else {
+        printf("│      Nenhum produto encontrado para essa marca.            │\n");
+        printf("└────────────────────────────────────────────────────────────┘\n");
+    }
+
+    fclose(arqProdutos);
+    free(produto);
 
     printf("\nPressione Enter para voltar ao menu...\n");
     getchar();
