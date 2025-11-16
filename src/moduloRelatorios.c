@@ -3,6 +3,8 @@
 #include "moduloRelatorios.h"
 #include "moduloAssinantes.h"
 #include "moduloAssinaturas.h"
+#include "moduloPlanos.h"
+#include "moduloProdutos.h"
 #include "util.h"
 #include <ctype.h>
 
@@ -23,9 +25,7 @@ void menuRelatorios(){
             relatorioAssinaturasPeriodo();
         break;
         case '3':
-            printf("Em produção...\n");
-            printf("\nPressione Enter para voltar para o menu \n");
-            getchar();
+            relatorioPlanosFaixaPreco();
         break;
         case '4':
             printf("Em produção...\n");
@@ -52,7 +52,7 @@ void telaRelatorios(){
     printf("╠══════════════════════════════╣\n");
     printf("║ 1. Assinantes(Faixa Etária)  ║\n");
     printf("║ 2. Assinaturas(Período)      ║\n");
-    printf("║ 3. Faixa etária              ║\n");
+    printf("║ 3. Planos (Faixa de Preço)       ║\n");
     printf("║ 4. Vinhos mais Utilizados    ║\n");
     printf("║ 5. Sair                      ║\n");
     printf("╚══════════════════════════════╝\n");
@@ -244,6 +244,108 @@ void relatorioAssinaturasPeriodo(){
     }
     fclose(arqAssinaturas);
     free(assinatura);
+    printf("\nPressione Enter para voltar ao menu...\n");
+    getchar();
+}
+
+
+
+
+
+void relatorioPlanosFaixaPreco() {
+    FILE *arqPlanos;
+    Plano* plano;
+    char opcao[10];
+    int encontrou = 0;
+
+    float precoMin = 0.0;
+    float precoMax = 999999.0;
+
+    system("clear||cls");
+    printf("╔════════════════════════════════════════════════════════════╗\n");
+    printf("║               RELATÓRIO DE PLANOS POR PREÇO                ║\n");
+    printf("╠════════════════════════════════════════════════════════════╣\n");
+    printf("Escolha a faixa de preço:\n");
+    printf("1. Até R$ 49,99\n");
+    printf("2. R$ 50,00 a R$ 99,99\n");
+    printf("3. R$ 100,00 a R$ 199,99\n");
+    printf("4. R$ 200,00 ou mais\n");
+    printf("\nDigite sua opção: ");
+    fgets(opcao, 10, stdin);
+
+    if (opcao[1] != '\n')
+        opcao[0] = 'x';
+
+    switch(opcao[0]) {
+        case '1':
+            precoMin = 0.0;
+            precoMax = 49.99;
+        break;
+        case '2':
+            precoMin = 50.00;
+            precoMax = 99.99;
+        break;
+        case '3':
+            precoMin = 100.00;
+            precoMax = 199.99;
+        break;
+        case '4':
+            precoMin = 200.00;
+            precoMax = 999999.0;
+        break;
+        default:
+            printf("\n❌ Opção inválida!\n");
+            printf("\nPressione Enter para voltar...\n");
+            getchar();
+            return;
+    }
+
+    arqPlanos = fopen("./dados/dadosPlanos.dat", "rb");
+    if(arqPlanos == NULL) {
+        printf("\n❌ Erro ao abrir o arquivo de planos!\n");
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    plano = (Plano*) malloc(sizeof(Plano));
+    if (plano == NULL) {
+        printf("\nErro de memória!\n");
+        fclose(arqPlanos);
+        printf("\nPressione Enter para voltar...\n");
+        getchar();
+        return;
+    }
+
+    printf("\n┌──────┬────────────────────────────┬──────────────┐\n");
+    printf("│  ID  │ Nome                       │ Preço (R$)   │\n");
+    printf("├──────┼────────────────────────────┼──────────────┤\n");
+
+    while(fread(plano, sizeof(Plano), 1, arqPlanos)) {
+        if(plano->status == True) {
+            float precoFloat = atof(plano->preco);
+
+            if(precoFloat >= precoMin && precoFloat <= precoMax) {
+                encontrou = 1;
+                printf("│ %-4d │ %-26s │ %-12.2f │\n",
+                    plano->id,
+                    plano->nome,
+                    precoFloat
+                );
+            }
+        }
+    }
+
+    if (encontrou) {
+        printf("└──────┴────────────────────────────┴──────────────┘\n");
+    } else {
+        printf("│ Nenhum plano encontrado nesse intervalo de preço │\n");
+        printf("└──────────────────────────────────────────────────┘\n");
+    }
+
+    fclose(arqPlanos);
+    free(plano);
+
     printf("\nPressione Enter para voltar ao menu...\n");
     getchar();
 }

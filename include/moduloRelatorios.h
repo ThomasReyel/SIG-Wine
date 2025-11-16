@@ -4,5 +4,6 @@
     void menuRelatorios();
     void relatorioAssinantesFaixaEtaria();
     void relatorioAssinaturasPeriodo();
+    void relatorioPlanosFaixaPreco();
 
 #endif
