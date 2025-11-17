@@ -54,8 +54,8 @@ void telaRelatorios(){
     printf("╠══════════════════════════════╣\n");
     printf("║ 1. Assinantes(Faixa Etária)  ║\n");
     printf("║ 2. Assinaturas(Período)      ║\n");
-    printf("║ 3. Planos (Faixa de Preço)       ║\n");
-    printf("║ 4. Produtos por Marca         ║\n");
+    printf("║ 3. Planos (Faixa de Preço)   ║\n");
+    printf("║ 4. Produtos por Marca        ║\n");
     printf("║ 5. Sair                      ║\n");
     printf("╚══════════════════════════════╝\n");
     printf("Digite sua escolha: \n");
@@ -217,7 +217,7 @@ void relatorioAssinaturasPeriodo(){
     }
     system("clear||cls");
     printf("╔════════════════════════════════════════════════════════════════╗\n");
-    printf("║              LISTAGEM DE ASSINATURAS - PERÍODO: %c             ║\n", toupper(opcao[0]));
+    printf("║              LISTAGEM DE ASSINATURAS - PERÍODO: %c              ║\n", toupper(opcao[0]));
     printf("╠════════════════════════════════════════════════════════════════╣\n");
 
     printf("┌──────┬──────────────┬───────────────────────────┬──────────────┐\n");
@@ -362,7 +362,7 @@ void relatorioProdutosPorMarca() {
 
     system("clear||cls");
     printf("╔════════════════════════════════════════════════════════════╗\n");
-    printf("║                RELATÓRIO DE PRODUTOS POR MARCA            ║\n");
+    printf("║                RELATÓRIO DE PRODUTOS POR MARCA             ║\n");
     printf("╠════════════════════════════════════════════════════════════╣\n");
 
     printf("Digite a marca que deseja filtrar: ");
@@ -413,8 +413,8 @@ void relatorioProdutosPorMarca() {
     if (encontrou) {
         printf("└──────┴────────────────────────────┴─────────────────────────┘\n");
     } else {
-        printf("│      Nenhum produto encontrado para essa marca.            │\n");
-        printf("└────────────────────────────────────────────────────────────┘\n");
+        printf("│      Nenhum produto encontrado para essa marca.             │\n");
+        printf("└─────────────────────────────────────────────────────────────┘\n");
     }
 
     fclose(arqProdutos);
