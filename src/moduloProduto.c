@@ -371,7 +371,7 @@ void alterarProdutoArquivo(int idCom){
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n║5. Sair\n");
+        printf("║1. Nome\n║2. Tipo\n║3. Marca\n║4.Ano de Produção\n║5. Sair\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
