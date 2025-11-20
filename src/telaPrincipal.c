@@ -35,12 +35,9 @@ void menuPrincipal() {
                 menuRelatorios();
             break;
             case '6':
-                menuFinanceiro();
-            break; 
-            case '7':
                 exclusaoFisicaMenu();
             break; 
-            case '8':
+            case '7':
                 ctrlMenuPrincipal = 0;
             break;          
         default:
@@ -66,9 +63,8 @@ void telaPrincipal(){
     printf("║   " AMARELO "3." BRANCO " Módulo Planos                                     " CINZA "          ║\n");
     printf("║   " AMARELO "4." BRANCO " Módulo Produtos                                   " CINZA "          ║\n");
     printf("║   " AMARELO "5." BRANCO " Módulo Relatórios                                 " CINZA "          ║\n");
-    printf("║   " AMARELO "6." BRANCO " Módulo Financeiro                                 " CINZA "          ║\n");
-    printf("║   " AMARELO "7." BRANCO " Limpar Registros                                   " CINZA "         ║\n");
-    printf("║   " AMARELO "8." BRANCO " Sair                                               " CINZA "         ║\n");
+    printf("║   " AMARELO "6." BRANCO " Limpar Registros                                   " CINZA "         ║\n");
+    printf("║   " AMARELO "7." BRANCO " Sair                                               " CINZA "         ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");

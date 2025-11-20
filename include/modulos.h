@@ -3,7 +3,6 @@
 
     void menuAssinante();
     void menuAssinaturas();
-    void menuFinanceiro();
     void menuPlanos();
     void menuProdutos();
     void menuRelatorios();

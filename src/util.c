@@ -7,7 +7,6 @@
 #include "moduloPlanos.h"
 #include "moduloProdutos.h"
 #include "moduloRelatorios.h"
-#include "moduloFinanceiro.h"
 #include "util.h"
 #include "time.h"
 void tratarString(char string[]){
