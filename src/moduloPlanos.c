@@ -3,6 +3,7 @@
 #include "moduloPlanos.h"
 #include "util.h"
 #include <string.h>
+#include <ctype.h>
 #define RESET     "\033[0m"
 #define VERMELHO  "\033[1;31m"
 #define CINZA     "\033[1;37m"
@@ -337,10 +338,23 @@ Plano* criarPlano() {
 }
 void preencherPlano(Plano* plano) {
     lerCampo("Insira o nome:", plano->nome, 20, validarNomeObjeto, "❌ Nome de produto inválido! Digite novamente.");
-    lerCampo("Insira o preço (ex: 49.90 ou 49,90):", plano->preco, 20, validarPreco, "❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').");
-    lerCampo("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):", plano->periodo, 20, validarPeriodoVencimento, "❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).");
+    lerCampo("Insira o preço (ex: 49.90 ou 49,90):", plano->preco, 20, validarPreco, "❌ Preço inválido! Digite novamente.");
+
+    lerCampo("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):",
+             plano->periodo, 20, validarPeriodoVencimento,
+             "❌ Período inválido! Digite apenas M, T, S ou A.");
+    char letra = toupper(plano->periodo[0]);
+    switch (letra) {
+        case 'M': strcpy(plano->periodo, "Mensal"); break;
+        case 'T': strcpy(plano->periodo, "Trimestral"); break;
+        case 'S': strcpy(plano->periodo, "Semestral"); break;
+        case 'A': strcpy(plano->periodo, "Anual"); break;
+        default:  strcpy(plano->periodo, "Desconhecido");
+    }
+
     lerCampo("Insira o idProduto:", plano->idProduto, 20, validarIdProduto, "❌ ID do produto inválido! Digite novamente.");
 }
+
 
 // Plano* salvarPlanos() {
 //     Plano* plano;
