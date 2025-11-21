@@ -353,17 +353,16 @@ void preencherPlano(Plano* plano) {
         default:  strcpy(plano->periodo, "Desconhecido");
     }
 
-    int idProd;
+     int idProd;
 
     do {
-        lerCampo("Insira o ID do produto:", plano->idProduto, 20, validarIdProduto,
-                "❌ ID do produto inválido! Digite novamente.");
+        lerCampo("Insira o ID do produto:", plano->idProduto, 20, NULL, "");
 
         idProd = atoi(plano->idProduto);
 
-        if (!existeProduto(idProd)) {
+        if (!existeProduto(idProd))
             printf("❌ Esse produto NÃO existe! Digite novamente.\n");
-        }
+
     } while (!existeProduto(idProd));
 }
 
@@ -539,9 +538,9 @@ void listarPlanos(void) {
     system("clear||cls");
 
     printf(CIANO);
-    printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                      LISTAGEM DE PLANOS                          ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                LISTAGEM DE PLANOS                                                      ║\n");
+    printf("╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n");
     printf(RESET);
 
     arqPlano = fopen("./dados/dadosPlanos.dat", "rb");
@@ -555,15 +554,27 @@ void listarPlanos(void) {
     plano = (Plano*) malloc(sizeof(Plano));
     int encontrou = 0;
 
-    while (fread(plano, sizeof(plano), 1, arqPlano)) {
+    printf("┌────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────┐\n");
+    printf("│   ID   │ Nome                       │ Preço                      │ Período                    │ ID Produto             │\n");
+    printf("├────────┼────────────────────────────┼────────────────────────────┼────────────────────────────┼────────────────────────┤\n");
+
+    while (fread(plano, sizeof(Plano), 1, arqPlano)) {
         if (plano->status == True) {
             encontrou = 1;
-            exibirPlano(plano);
+            printf("│ %-6d │ %-26.26s │ %-26.26s │ %-26.26s │ %-22.22s │\n",
+                   plano->id,
+                   plano->nome,
+                   plano->preco,
+                   plano->periodo,
+                   plano->idProduto);
         }
     }
 
-    if (!encontrou) {
-        printf(AMARELO "Nenhum plano encontrado.\n" RESET);
+    if (encontrou) {
+        printf("└────────┴────────────────────────────┴────────────────────────────┴────────────────────────────┴────────────────────────┘\n");
+    } else {
+        printf("│ %-108s │\n", "Nenhum plano encontrado.");
+        printf("└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘\n");
     }
 
     fclose(arqPlano);

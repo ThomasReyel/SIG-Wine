@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloProdutos.h"
+#include "moduloPlanos.h"
 #include "util.h"
 #include <string.h>
+
 #define VERMELHO "\033[1;31m"
 #define CIANO    "\033[1;36m"
 #define RESET    "\033[0m"
@@ -301,19 +303,29 @@ void excluirProdutoArquivo(int idCom){
     }
     produto = (Produto*) malloc(sizeof(Produto));
     while (fread(produto,sizeof(Produto),1,arqProdutos)){
+
         if((idCom == produto->id) && (produto->status == True)){
             produto->status = False;
-            fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+            fseek(arqProdutos, -1*sizeof(Produto), SEEK_CUR);
             fwrite(produto,sizeof(Produto),1,arqProdutos);
-            printf("Produto Excluído com sucesso\n");
-            printf("Aperte enter para voltar ao menu\n");
-            getchar();
             fclose(arqProdutos);
             free(produto);
+
+            printf("Produto excluído com sucesso.\n");
+            printf("Aperte Enter para voltar ao menu.\n");
+            getchar();
             return;  
         }
     }
+
+    fclose(arqProdutos);
+    free(produto);
 }
+
+
+
+ 
+
 
 Produto* salvarProdutos() {
     Produto* produto;
@@ -493,9 +505,9 @@ void listarProdutos(void) {
     system("clear||cls");
 
     printf(CIANO);
-    printf("╔══════════════════════════════════════════════════════════════════╗\n");
-    printf("║                      LISTAGEM DE PRODUTOS                        ║\n");
-    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                             LISTAGEM DE PRODUTOS                                                       ║\n");
+    printf("╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n");
     printf(RESET);
 
     arqProduto = fopen("./dados/dadosProdutos.dat", "rb");
@@ -509,15 +521,28 @@ void listarProdutos(void) {
     produto = (Produto*) malloc(sizeof(Produto));
     int encontrou = 0;
 
-    while (fread(produto, sizeof(produto), 1, arqProduto)) {
+    printf("┌────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────┐\n");
+    printf("│   ID   │ Nome                       │ Tipo                       │ Marca                      │ Ano de Produção        │\n");
+    printf("├────────┼────────────────────────────┼────────────────────────────┼────────────────────────────┼────────────────────────┤\n");
+
+   
+    while (fread(produto, sizeof(Produto), 1, arqProduto)) {
         if (produto->status == True) {
             encontrou = 1;
-            exibirProduto(produto);
+            printf("│ %-6d │ %-26.26s │ %-26.26s │ %-26.26s │ %-22.22s │\n",
+                   produto->id,
+                   produto->nome,
+                   produto->tipo,
+                   produto->marca,
+                   produto->anoProducao);
         }
     }
 
-    if (!encontrou) {
-        printf(AMARELO "Nenhum produto encontrado.\n" RESET);
+    if (encontrou) {
+        printf("└────────┴────────────────────────────┴────────────────────────────┴────────────────────────────┴────────────────────────┘\n");
+    } else {
+        printf("│ %-108s │\n", "Nenhum produto encontrado.");
+        printf("└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘\n");
     }
 
     fclose(arqProduto);
