@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <strings.h>
 #include <ctype.h>
+#include <string.h>
 
 
 #include "moduloRelatorios.h"
@@ -35,6 +36,9 @@ void menuRelatorios(){
             relatorioProdutosPorMarca();
         break;
         case '5':
+            relatorioPlanosPorProduto();
+        break;
+        case '6':
             crtlRelatorio = 0;
         break; 
        default:
@@ -56,7 +60,8 @@ void telaRelatorios(){
     printf("║ 2. Assinaturas(Período)      ║\n");
     printf("║ 3. Planos (Faixa de Preço)   ║\n");
     printf("║ 4. Produtos por Marca        ║\n");
-    printf("║ 5. Sair                      ║\n");
+    printf("║ 5. Planos por Produtos       ║\n");
+    printf("║ 6. Sair                      ║\n");
     printf("╚══════════════════════════════╝\n");
     printf("Digite sua escolha: \n");
 }
@@ -423,3 +428,87 @@ void relatorioProdutosPorMarca() {
     printf("\nPressione Enter para voltar ao menu...\n");
     getchar();
 }
+
+
+Produto* buscarProdutoPorID(const char* idBuscado) {
+    FILE* fp = fopen("./dados/dadosProdutos.dat", "rb");
+    if (fp == NULL) {
+        return NULL;
+    }
+
+    Produto* prod = (Produto*) malloc(sizeof(Produto));
+
+    while (fread(prod, sizeof(Produto), 1, fp)) {
+        char idConvertido[20];
+        sprintf(idConvertido, "%d", prod->id);
+
+        if (prod->status == True && strcmp(idConvertido, idBuscado) == 0) {
+            fclose(fp);
+            return prod;  
+        }
+    }
+
+    fclose(fp);
+    free(prod);
+    return NULL; 
+}
+
+
+
+void relatorioPlanosPorProduto(void) {
+    FILE* fp = fopen("./dados/dadosPlanos.dat", "rb");
+    if (fp == NULL) {
+        printf("❌ Erro ao abrir o arquivo de planos!\n");
+        return;
+    }
+
+    Plano plano;
+
+    system("clear||cls");
+
+    printf("╔═════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      RELATÓRIO: PLANOS AGRUPADOS POR PRODUTO                            ║\n");
+    printf("╠═════════════════════════════════════════════════════════════════════════════════════════╣\n");
+    printf("║ %-25s | %-10s | %-15s | %-10s | %-15s   ║\n", 
+        "Nome do Produto", "ID Plano", "Nome do Plano", "Preço", "Período");
+    printf("╠═════════════════════════════════════════════════════════════════════════════════════════╣\n");
+
+    while (fread(&plano, sizeof(Plano), 1, fp)) {
+        if (plano.status == True) {
+
+            Produto* prod = buscarProdutoPorID(plano.idProduto);
+
+            char nomeProduto[100];
+            if (prod != NULL) {
+                strcpy(nomeProduto, prod->nome);
+                free(prod);
+            } else {
+                strcpy(nomeProduto, "Produto não encontrado");
+            }
+            printf("║ %-25s | %-10d | %-15s | %-10s | %-15s ║\n",
+                nomeProduto,
+                plano.id,
+                plano.nome,
+                plano.preco,
+                plano.periodo
+            );
+        }
+    }
+
+    printf("╚═════════════════════════════════════════════════════════════════════════════════════════╝\n");
+
+    fclose(fp);
+
+    printf("\nPressione ENTER para continuar...");
+    getchar();
+}
+
+
+
+
+
+
+
+
+
+
