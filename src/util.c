@@ -7,8 +7,8 @@
 #include "moduloPlanos.h"
 #include "moduloProdutos.h"
 #include "moduloRelatorios.h"
-#include "moduloFinanceiro.h"
 #include "util.h"
+#include "time.h"
 void tratarString(char string[]){
     int tam = strlen(string);
     string[tam - 1] = '\0';
@@ -294,7 +294,7 @@ int ehVogal(char c) {
     return 0;
 }
 
-int validarNome(char *nome) {
+int validarNome(const char *nome) {
     int tamanho = strlen(nome);
     int temVogal = 0;
     int repeticoes = 1;
@@ -324,53 +324,24 @@ int validarNome(char *nome) {
 
     return 1;
 }
-// peguei do chat gpt 5
-int validar_cpf(const char *cpf) {
-    int i, j, k = 0, soma, resto, digito1, digito2;
-    char numeros[12];
 
-    for (i = 0; cpf[i] != '\0'; i++) {
-        if (isdigit((unsigned char)cpf[i])) {
-            numeros[k++] = cpf[i];
-        }
-    }
-    numeros[k] = '\0';
+int validar_cpf(const char *cpf){
+    int i;
+    int tamanho = strlen(cpf);
 
-    if (strlen(numeros) != 11) {
+    // Só pode ter 11 caracteres
+    if(tamanho != 11){
         return 0;
     }
 
-    int todosIguais = 1;
-    for (i = 1; i < 11; i++) {
-        if (numeros[i] != numeros[0]) {
-            todosIguais = 0;
-            break;
-        }
-    }
-    if (todosIguais) {
-        return 0;
+    for(i = 0; i < tamanho; i++){
+      // Só pode ter número
+      if(!isdigit(cpf[i])){
+          return 0;
+      }
     }
 
-    soma = 0;
-    for (i = 0, j = 10; i < 9; i++, j--) {
-        soma += (numeros[i] - '0') * j;
-    }
-    resto = soma % 11;
-    digito1 = (resto < 2) ? 0 : 11 - resto;
-   
-    soma = 0;
-    for (i = 0, j = 11; i < 10; i++, j--) {
-        soma += (numeros[i] - '0') * j;
-    }
-    resto = soma % 11;
-    digito2 = (resto < 2) ? 0 : 11 - resto;
-
-   
-    if ((numeros[9] - '0') == digito1 && (numeros[10] - '0') == digito2) {
-        return 1; 
-    } else {
-        return 0; 
-    }
+    return 1;
 }
 
 int validarEmail(const char *email) {
@@ -389,23 +360,30 @@ int validarEmail(const char *email) {
 
 int validarEndereco(const char *endereco) {
     int letrasOuNumeros = 0;
+
     if (strlen(endereco) < 5) {
-        return 0; 
-    }    
+        return 0;
+    }
     for (int i = 0; endereco[i] != '\0'; i++) {
-        if (isalnum((unsigned char)endereco[i])) {
-            letrasOuNumeros = 1; 
+        unsigned char c = endereco[i];
+        if (isalnum(c) || c == ' ' || c == ',' || c == '.' || c == '-') {
+            if (isalnum(c)) {
+                letrasOuNumeros = 1;
+            }
+            continue;
         }
-        
-        if (!isalnum((unsigned char)endereco[i]) &&
-            endereco[i] != ' ' && endereco[i] != ',' &&
-            endereco[i] != '.' && endereco[i] != '-') {
-            return 0;
+
+        if (c >= 128) {
+            letrasOuNumeros = 1;
+            continue;
         }
-    } 
+        return 0;
+    }
+
     if (!letrasOuNumeros) return 0;
-    return 1; 
+    return 1;
 }
+
 int validarDataNascimento(const char *data) {
     int dia, mes, ano; 
     if (strlen(data) < 8 || strlen(data) > 10) return 0;
@@ -481,7 +459,7 @@ int validarDataAssinatura(const char *data) {
     return 1;
 }
 
-int validarPeriodoVencimento(char *periodo) {
+int validarPeriodoVencimento(const char *periodo) {
     int i = 0;    
     while (periodo[i] == ' ' || periodo[i] == '\t') {
         i++;
@@ -489,8 +467,6 @@ int validarPeriodoVencimento(char *periodo) {
     char letra = toupper((unsigned char)periodo[i]);
 
     if ((letra == 'M' || letra == 'T' || letra == 'S' || letra == 'A') && periodo[i +1] == '\0') {
-        periodo[0] = letra;
-        periodo[1] = '\0';
         return 1; 
     }
 
@@ -588,3 +564,111 @@ int validarTipo(const char *tipo) {
 
     return 1;
 }
+int validarIdProduto(const char* id) {
+    return validarId(id, 0);
+}
+
+int validarIdAssinante(const char* id) {
+    return validarId(id, 0);
+}
+
+int validarIdPlano(const char* id) {
+    return validarId(id, 1);
+}
+
+void lerCampo(const char* msg, char* destino, int tam,
+              int (*validar)(const char*), const char* erro) {
+    int valido = 0;
+
+    do {
+        printf("%s ", msg);
+        fgets(destino, tam, stdin);
+
+        
+        destino[strcspn(destino, "\n")] = '\0';
+
+        
+        if (validar == NULL) {
+            valido = 1;
+        }
+        else {
+           
+            if (validar(destino)) {
+                valido = 1;
+            } else {
+                printf("%s\n", erro);
+            }
+        }
+
+    } while (!valido);
+}
+
+
+// Créditos: Função Adaptada do Projeto Sig-DietPlan: https://github.com/Thiago-braga7/Sig-DietPlan.git
+int calcularIdade(const char *dataNascimento) {
+    int dia, mes, ano;
+    int diaAtual, mesAtual, anoAtual;
+
+    
+    sscanf(dataNascimento, "%d/%d/%d", &dia, &mes, &ano);
+
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    diaAtual = tm.tm_mday;
+    mesAtual = tm.tm_mon + 1;
+    anoAtual = tm.tm_year + 1900;
+
+    int idade = anoAtual - ano;
+    if (mesAtual < mes || (mesAtual == mes && diaAtual < dia)) {
+        idade--;
+    }
+
+    return idade;
+}
+
+
+int existeAssinante(int id) {
+    FILE* arq = fopen("./dados/dadosAssinantes.dat", "rb");
+    if (!arq) return 0;
+
+    Assinante aux;
+    while (fread(&aux, sizeof(Assinante), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+    fclose(arq);
+    return 0;
+}
+
+int existePlano(int id) {
+    FILE* arq = fopen("./dados/dadosPlanos.dat", "rb");
+    if (!arq) return 0;
+
+    Plano aux;
+    while (fread(&aux, sizeof(Plano), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+    fclose(arq);
+    return 0;
+}
+int existeProduto(int id) {
+    FILE* arq = fopen("./dados/dadosProdutos.dat", "rb");
+    if (!arq) return 0;
+
+    Produto aux;
+    while (fread(&aux, sizeof(Produto), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+
+    fclose(arq);
+    return 0;
+}
+

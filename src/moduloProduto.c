@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloProdutos.h"
+#include "moduloPlanos.h"
 #include "util.h"
 #include <string.h>
+
 #define VERMELHO "\033[1;31m"
 #define CIANO    "\033[1;36m"
 #define RESET    "\033[0m"
@@ -33,6 +35,9 @@ void menuProdutos(){
             excluirProduto();
         break;
         case '5':
+            listarProdutos();
+        break;
+        case '6':
             crtlProduto = 0;
         break; 
        default:
@@ -58,7 +63,8 @@ void telaProdutos(){
     printf("║   " AMARELO "2." BRANCO " Checar Produtos                                 " CINZA "            ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Produtos                                " CINZA "            ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Produtos                                " CINZA "            ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Produtos                                  " CINZA "           ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                           " CINZA "           ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
@@ -282,6 +288,7 @@ Produto* recuperarProduto(int idCom){
     fclose(arqProdutos);
     printf("O produto com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(produto);
     return NULL;
 }
 
@@ -296,19 +303,29 @@ void excluirProdutoArquivo(int idCom){
     }
     produto = (Produto*) malloc(sizeof(Produto));
     while (fread(produto,sizeof(Produto),1,arqProdutos)){
+
         if((idCom == produto->id) && (produto->status == True)){
             produto->status = False;
-            fseek(arqProdutos,-1*sizeof(Produto), SEEK_CUR);
+            fseek(arqProdutos, -1*sizeof(Produto), SEEK_CUR);
             fwrite(produto,sizeof(Produto),1,arqProdutos);
-            printf("Produto Excluído com sucesso\n");
-            printf("Aperte enter para voltar ao menu\n");
-            getchar();
             fclose(arqProdutos);
             free(produto);
+
+            printf("Produto excluído com sucesso.\n");
+            printf("Aperte Enter para voltar ao menu.\n");
+            getchar();
             return;  
         }
     }
+
+    fclose(arqProdutos);
+    free(produto);
 }
+
+
+
+ 
+
 
 Produto* salvarProdutos() {
     Produto* produto;
@@ -366,7 +383,7 @@ void alterarProdutoArquivo(int idCom){
     system("clear||cls");
     do {
         printf("║Qual campo você quer alterar?\n");
-        printf("║1. Nome\n║2. Preço\n║3. Período\n║4.Id do Produto\n║5. Sair\n");
+        printf("║1. Nome\n║2. Tipo\n║3. Marca\n║4.Ano de Produção\n║5. Sair\n");
         fgets(opcao,10,stdin);
         if (opcao[1] != '\n'){
             opcao[0] = 'l';
@@ -478,4 +495,59 @@ void atualizarCampoProduto(int idCom, const char* novoValor, int tipoCampo) {
     printf("Produto não encontrado!\n");
     free(produto);
     fclose(arqProdutos);
+}
+
+
+void listarProdutos(void) {
+    FILE *arqProduto;
+    Produto* produto;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                             LISTAGEM DE PRODUTOS                                                     ║\n");
+    printf("╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqProduto = fopen("./dados/dadosProdutos.dat", "rb");
+    if (arqProduto == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de produtos!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    produto = (Produto*) malloc(sizeof(Produto));
+    int encontrou = 0;
+
+    printf("┌────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────┐\n");
+    printf("│   ID   │ Nome                       │ Tipo                       │ Marca                      │ Ano de Produção        │\n");
+    printf("├────────┼────────────────────────────┼────────────────────────────┼────────────────────────────┼────────────────────────┤\n");
+
+   
+    while (fread(produto, sizeof(Produto), 1, arqProduto)) {
+        if (produto->status == True) {
+            encontrou = 1;
+            printf("│ %-6d │ %-26.26s │ %-26.26s │ %-26.26s │ %-22.22s │\n",
+                   produto->id,
+                   produto->nome,
+                   produto->tipo,
+                   produto->marca,
+                   produto->anoProducao);
+        }
+    }
+
+    if (encontrou) {
+        printf("└────────┴────────────────────────────┴────────────────────────────┴────────────────────────────┴────────────────────────┘\n");
+    } else {
+        printf("│ %-108s │\n", "Nenhum produto encontrado.");
+        printf("└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘\n");
+    }
+
+    fclose(arqProduto);
+    free(produto);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }

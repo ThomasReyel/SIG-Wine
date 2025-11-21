@@ -1,8 +1,10 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloPlanos.h"
+#include "moduloProdutos.h"
 #include "util.h"
 #include <string.h>
+#include <ctype.h>
 #define RESET     "\033[0m"
 #define VERMELHO  "\033[1;31m"
 #define CINZA     "\033[1;37m"
@@ -33,6 +35,9 @@ void menuPlanos(){
             excluirPlano();
         break;
         case '5':
+            listarPlanos();
+        break;
+        case '6':
             crtlPlano = 0;
         break; 
        default:
@@ -58,7 +63,8 @@ void telaPlano(){
     printf("║   " AMARELO "2." BRANCO " Checar Planos                                  " CINZA "             ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Plano                                   " CINZA "            ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Plano                                   " CINZA "            ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                           " CINZA "           ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Planos                                    " CINZA "           ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                           " CINZA "           ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
@@ -236,7 +242,7 @@ char confirmarInfoPlano(const Plano* plano){
         printf("║ Nome: %s \n", plano->nome);
         printf("║ Preço: %s \n", plano->preco);
         printf("║ Período: %s \n", plano->periodo);
-        printf("║ Id do produto: %s dias\n", plano->idProduto);
+        printf("║ Id do produto: %s \n", plano->idProduto);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -284,6 +290,7 @@ Plano* recuperarPlano(int idCom){
     fclose(arqPlanos);
     printf("O plano com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(plano);
     return NULL;
 }
 
@@ -313,45 +320,93 @@ void excluirPlanoArquivo(int idCom){
 }
 
 Plano* salvarPlanos() {
-    Plano* plano;
-    plano = (Plano*) malloc(sizeof(Plano));
-    if (!plano) return NULL;
-    plano->id = recuperarIdPlanos();
-    do {
-        printf("Insira o nome:\n");
-        fgets(plano->nome, 20, stdin);
-        tratarString(plano->nome);
-        if (!validarNomeObjeto(plano->nome)) {
-            printf("❌ Nome de produto inválido! Digite novamente.\n");
-        }
-    } while (!validarNomeObjeto(plano->nome));
-    
-    do {
-        printf("Insira o preço (ex: 49.90 ou 49,90):\n");
-        fgets(plano->preco, 20, stdin);
-        tratarString(plano->preco);
-        if (!validarPreco(plano->preco)) {
-            printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
-        }
-    } while (!validarPreco(plano->preco));
-
-    do {
-        printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
-        fgets(plano->periodo, 20, stdin);
-        tratarString(plano->periodo);
-        if (!validarPeriodoVencimento(plano->periodo)) {
-            printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
-        }
-    } while (!validarPeriodoVencimento(plano->periodo));
-    
-    do {
-        printf("Insira o idProduto:\n");
-        fgets(plano->idProduto, 20, stdin);
-        tratarString(plano->idProduto);
-    } while (!validarId(plano->idProduto, 2));
+    Plano* plano = criarPlano();
+    if(!plano) {
+        fprintf(stderr, "Erro ao alocar memória!\n");
+        return NULL;
+    }
+    preencherPlano(plano);
     plano->status = True;
     return plano;
 }
+
+Plano* criarPlano() {
+    Plano* plano = (Plano*) malloc(sizeof(Plano));
+    if(!plano) return NULL;
+
+    plano->id = recuperarIdPlanos();
+    return plano;
+}
+void preencherPlano(Plano* plano) {
+    lerCampo("Insira o nome:", plano->nome, 20, validarNomeObjeto, "❌ Nome de produto inválido! Digite novamente.");
+    lerCampo("Insira o preço (ex: 49.90 ou 49,90):", plano->preco, 20, validarPreco, "❌ Preço inválido! Digite novamente.");
+
+    lerCampo("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):",
+             plano->periodo, 20, validarPeriodoVencimento,
+             "❌ Período inválido! Digite apenas M, T, S ou A.");
+    char letra = toupper(plano->periodo[0]);
+    switch (letra) {
+        case 'M': strcpy(plano->periodo, "Mensal"); break;
+        case 'T': strcpy(plano->periodo, "Trimestral"); break;
+        case 'S': strcpy(plano->periodo, "Semestral"); break;
+        case 'A': strcpy(plano->periodo, "Anual"); break;
+        default:  strcpy(plano->periodo, "Desconhecido");
+    }
+
+     int idProd;
+
+    do {
+        lerCampo("Insira o ID do produto:", plano->idProduto, 20, NULL, "");
+
+        idProd = atoi(plano->idProduto);
+
+        if (!existeProduto(idProd))
+            printf("❌ Esse produto NÃO existe! Digite novamente.\n");
+
+    } while (!existeProduto(idProd));
+}
+
+
+// Plano* salvarPlanos() {
+//     Plano* plano;
+//     plano = (Plano*) malloc(sizeof(Plano));
+//     if (!plano) return NULL;
+//     plano->id = recuperarIdPlanos();
+//     do {
+//         printf("Insira o nome:\n");
+//         fgets(plano->nome, 20, stdin);
+//         tratarString(plano->nome);
+//         if (!validarNomeObjeto(plano->nome)) {
+//             printf("❌ Nome de produto inválido! Digite novamente.\n");
+//         }
+//     } while (!validarNomeObjeto(plano->nome));
+    
+//     do {
+//         printf("Insira o preço (ex: 49.90 ou 49,90):\n");
+//         fgets(plano->preco, 20, stdin);
+//         tratarString(plano->preco);
+//         if (!validarPreco(plano->preco)) {
+//             printf("❌ Preço inválido! Digite apenas números e no máximo um separador decimal (',' ou '.').\n");
+//         }
+//     } while (!validarPreco(plano->preco));
+
+//     do {
+//         printf("Insira o período (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+//         fgets(plano->periodo, 20, stdin);
+//         tratarString(plano->periodo);
+//         if (!validarPeriodoVencimento(plano->periodo)) {
+//             printf("❌ Período inválido! Digite apenas M, T, S ou A (ou o nome completo, ex: Mensal).\n");
+//         }
+//     } while (!validarPeriodoVencimento(plano->periodo));
+    
+//     do {
+//         printf("Insira o idProduto:\n");
+//         fgets(plano->idProduto, 20, stdin);
+//         tratarString(plano->idProduto);
+//     } while (!validarId(plano->idProduto, 2));
+//     plano->status = True;
+//     return plano;
+// }
 
 void alterarPlanoArquivo(int idCom){
     char opcao[10];
@@ -471,4 +526,60 @@ void atualizarCampoPlano(int idCom, const char* novoValor, int campo) {
     printf("Plano não encontrado!\n");
     free(plano);
     fclose(arqPlanos);
+}
+
+
+
+
+void listarPlanos(void) {
+    FILE *arqPlano;
+    Plano* plano;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗\n");
+    printf("║                                                LISTAGEM DE PLANOS                                                      ║\n");
+    printf("╠════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqPlano = fopen("./dados/dadosPlanos.dat", "rb");
+    if (arqPlano == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de planos!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    plano = (Plano*) malloc(sizeof(Plano));
+    int encontrou = 0;
+
+    printf("┌────────┬────────────────────────────┬────────────────────────────┬────────────────────────────┬────────────────────────┐\n");
+    printf("│   ID   │ Nome                       │ Preço                      │ Período                    │ ID Produto             │\n");
+    printf("├────────┼────────────────────────────┼────────────────────────────┼────────────────────────────┼────────────────────────┤\n");
+
+    while (fread(plano, sizeof(Plano), 1, arqPlano)) {
+        if (plano->status == True) {
+            encontrou = 1;
+            printf("│ %-6d │ %-26.26s │ %-26.26s │ %-26.26s │ %-22.22s │\n",
+                   plano->id,
+                   plano->nome,
+                   plano->preco,
+                   plano->periodo,
+                   plano->idProduto);
+        }
+    }
+
+    if (encontrou) {
+        printf("└────────┴────────────────────────────┴────────────────────────────┴────────────────────────────┴────────────────────────┘\n");
+    } else {
+        printf("│ %-108s │\n", "Nenhum plano encontrado.");
+        printf("└──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘\n");
+    }
+
+    fclose(arqPlano);
+    free(plano);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }

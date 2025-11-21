@@ -19,11 +19,14 @@
     void alterarPlano(void);
     void excluirPlano(void);
     char confirmarInfoPlano(const Plano*);
-    Plano* salvarPlanos(void);
-    Plano* recuperarPlano(int);
+    Plano* salvarPlanos();
+    Plano* recuperarPlano();
+    Plano* criarPlano();
+    void preencherPlano(Plano* plano);
     void excluirPlanoArquivo(int);
     void alterarPlanoArquivo(int);
     void atualizarCampoPlano(int, const char*, int);
+    void listarPlanos(void);
 
 
 #endif

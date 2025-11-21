@@ -36,6 +36,9 @@ void menuAssinaturas(){
             excluirAssinatura();
         break;
         case '5':
+            listarAssinaturas();
+        break;
+        case '6':
             crtlAssinatura = 0;
         break; 
        default:
@@ -61,13 +64,13 @@ void telaAssinaturas(){
     printf("║   " AMARELO "2." BRANCO " Checar Assinaturas                             " CINZA "             ║\n");
     printf("║   " AMARELO "3." BRANCO " Alterar Assinaturas                            " CINZA "             ║\n");
     printf("║   " AMARELO "4." BRANCO " Excluir Assinaturas                            " CINZA "             ║\n");
-    printf("║   " AMARELO "5." BRANCO " Voltar                                         " CINZA "             ║\n");
+    printf("║   " AMARELO "5." BRANCO " Listar Assinaturas                            " CINZA "              ║\n");
+    printf("║   " AMARELO "6." BRANCO " Voltar                                         " CINZA "             ║\n");
 
     printf("╚══════════════════════════════════════════════════════════════════╝\n");
     printf(RESET "\n");
 
-    printf(BRANCO "Digite sua escolha: " RESET);
-    printf("Digite sua escolha: \n");
+    printf(BRANCO "Digite sua escolha: \n" RESET);
 }
 
 void cadastroAssinatura(){
@@ -290,6 +293,7 @@ Assinatura* recuperarAssinatura(int idCom){
     fclose(arqAssinaturas);
     printf("A assinatura com o ID %d não foi encontrado\n", idCom);
     getchar();
+    free(assinatura);
     return NULL;
 }
 
@@ -317,45 +321,91 @@ void excluirAssinaturaArquivo(int idCom){
         }
     }
 }
+Assinatura* salvarAssinaturas() {
+    Assinatura* assinatura = criarAssinatura();
+    if (!assinatura) {
+        fprintf(stderr, "Erro ao alocar memória!\n");
+        return NULL;
+    }
 
-Assinatura* salvarAssinaturas(){
-    Assinatura* assinatura;
-    assinatura = (Assinatura*) malloc(sizeof(Assinatura));
-    assinatura->id = recuperarIdAssinaturas();
-    do {
-        printf("Insira o id do assinante:\n");
-        fgets(assinatura->idAssinante, 20, stdin);
-        tratarString(assinatura->idAssinante);
-    } while (!validarId(assinatura->idAssinante, 0));
-
-    do {
-        printf("Insira o id do plano:\n");
-        fgets(assinatura->idPlano, 20, stdin);
-        tratarString(assinatura->idPlano);
-    } while (!validarId(assinatura->idPlano, 1));
-
-    do {
-        printf("Insira a data da assinatura (dd/mm/aaaa):\n");
-        fgets(assinatura->dataAssinatura, 20, stdin);
-        tratarString(assinatura->dataAssinatura);
-
-        if (!validarDataAssinatura(assinatura->dataAssinatura)) {
-            printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
-        }
-    } while (!validarDataAssinatura(assinatura->dataAssinatura));
-
-    do {
-        printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
-        fgets(assinatura->periodoVencimento, 20, stdin);
-        tratarString(assinatura->periodoVencimento);
-
-        if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
-            printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
-        }
-} while (!validarPeriodoVencimento(assinatura->periodoVencimento));
+    preencherAssinatura(assinatura);
     assinatura->status = True;
     return assinatura;
 }
+
+Assinatura* criarAssinatura() {
+    Assinatura* assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    if (!assinatura) return NULL;
+
+    assinatura->id = recuperarIdAssinaturas();
+    return assinatura;
+}
+
+void preencherAssinatura(Assinatura* assinatura) {
+    int idAss, idPlan;
+
+    do {
+        lerCampo("Insira o id do assinante:", assinatura->idAssinante, 20, validarIdAssinante, "❌ ID inválido!");
+        idAss = atoi(assinatura->idAssinante);
+
+        if (!existeAssinante(idAss)) {
+            printf("❌ Esse assinante NÃO existe! Digite novamente.\n");
+        }
+    } while (!existeAssinante(idAss));
+
+    do {
+        lerCampo("Insira o id do plano:", assinatura->idPlano, 20, validarIdPlano, "❌ ID inválido!");
+        idPlan = atoi(assinatura->idPlano);
+
+        if (!existePlano(idPlan)) {
+            printf("❌ Esse plano NÃO existe! Digite novamente.\n");
+        }
+    } while (!existePlano(idPlan));
+
+    lerCampo("Insira a data da assinatura (dd/mm/aaaa):", assinatura->dataAssinatura,
+             20, validarDataAssinatura, "❌ Data inválida!");
+
+    lerCampo("Insira o período de vencimento (M/T/S/A):", assinatura->periodoVencimento,
+             20, validarPeriodoVencimento, "❌ Período inválido!");
+}
+// Assinatura* salvarAssinaturas(){
+//     Assinatura* assinatura;
+//     assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+//     assinatura->id = recuperarIdAssinaturas();
+//     do {
+//         printf("Insira o id do assinante:\n");
+//         fgets(assinatura->idAssinante, 20, stdin);
+//         tratarString(assinatura->idAssinante);
+//     } while (!validarId(assinatura->idAssinante, 0));
+
+//     do {
+//         printf("Insira o id do plano:\n");
+//         fgets(assinatura->idPlano, 20, stdin);
+//         tratarString(assinatura->idPlano);
+//     } while (!validarId(assinatura->idPlano, 1));
+
+//     do {
+//         printf("Insira a data da assinatura (dd/mm/aaaa):\n");
+//         fgets(assinatura->dataAssinatura, 20, stdin);
+//         tratarString(assinatura->dataAssinatura);
+
+//         if (!validarDataAssinatura(assinatura->dataAssinatura)) {
+//             printf("❌ Data inválida! Digite novamente no formato dd/mm/aaaa.\n");
+//         }
+//     } while (!validarDataAssinatura(assinatura->dataAssinatura));
+
+//     do {
+//         printf("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):\n");
+//         fgets(assinatura->periodoVencimento, 20, stdin);
+//         tratarString(assinatura->periodoVencimento);
+
+//         if (!validarPeriodoVencimento(assinatura->periodoVencimento)) {
+//             printf("❌ Período inválido! Digite apenas M, T, S ou A.\n");
+//         }
+// } while (!validarPeriodoVencimento(assinatura->periodoVencimento));
+//     assinatura->status = True;
+//     return assinatura;
+// }
 
 void alterarAssinaturaArquivo(int idCom){
     char opcao[10];
@@ -477,4 +527,54 @@ void atualizarCampoAssinatura(int idCom, const char* novoValor, int campo) {
     printf("Assinatura não encontrada!\n");
     free(assinatura);
     fclose(arqAssinaturas);
+}
+void listarAssinaturas(void) {
+    FILE *arqAssinaturas;
+    Assinatura* assinatura;
+
+    system("clear||cls");
+
+    printf(CIANO);
+    printf("╔══════════════════════════════════════════════════════════════════╗\n");
+    printf("║                      LISTAGEM DE ASSINATURAS                     ║\n");
+    printf("╠══════════════════════════════════════════════════════════════════╣\n");
+    printf(RESET);
+
+    arqAssinaturas = fopen("./dados/dadosAssinaturas.dat", "rb");
+    if (arqAssinaturas == NULL) {
+        printf(VERMELHO "❌ Erro ao abrir o arquivo de assinaturas!\n" RESET);
+        printf("Pressione Enter para voltar.\n");
+        getchar();
+        return;
+    }
+
+    assinatura = (Assinatura*) malloc(sizeof(Assinatura));
+    int encontrou = 0;
+
+    printf("┌────────┬──────────────┬──────────────┬───────────────────────────┐\n");
+    printf("│  ID    │ ID Assinante │ ID Plano     │ Data Assinatura           │\n");
+    printf("├────────┼──────────────┼──────────────┼───────────────────────────┤\n");
+
+    while (fread(assinatura, sizeof(Assinatura), 1, arqAssinaturas)) {
+        if (assinatura->status == True) {
+            encontrou = 1;
+            printf("│ %-6d │ %-12s │ %-12s │ %-25s │\n",
+                   assinatura->id,
+                   assinatura->idAssinante,
+                   assinatura->idPlano,
+                   assinatura->dataAssinatura);
+        }
+    }
+    if (encontrou) {
+        printf("└────────┴──────────────┴──────────────┴───────────────────────────┘\n");
+    } else {
+        printf("│ %-56s │\n", "Nenhuma assinatura encontrada.");
+        printf("└──────────────────────────────────────────────────────────┘\n");
+    }
+
+    fclose(arqAssinaturas);
+    free(assinatura);
+
+    printf("\nPressione Enter para voltar ao menu.\n");
+    getchar();
 }

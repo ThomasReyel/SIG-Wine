@@ -55,17 +55,25 @@ char telaSair(){
 
 void telaEquipe() {
     system("clear||cls");
-    printf("╔═══════════════════════════════════╗\n");
-    printf("║              EQUIPE               ║\n");
-    printf("╠═══════════════════════════════════╣\n");
-    printf("║ Guilherme Fernandes e Silva       ║\n");
-    printf("║ Email:                            ║\n");
-    printf("║ Git:                              ║\n");
-    printf("║                                   ║\n");
-    printf("║ Thomas Reyel da Silva Morais      ║\n");
-    printf("║ Email:thomasreyel2231@gmail.com   ║\n");
-    printf("║ Git:https://github.com/ThomasReyel║\n");
-    printf("╚═══════════════════════════════════╝\n");
+    printf("╔══════════════════════════════════════╗\n");
+    printf("║                 EQUIPE               ║\n");
+    printf("╠══════════════════════════════════════╣\n");
+    printf("║ Guilherme Fernandes e Silva          ║\n");
+    printf("║ Email:                               ║\n");
+    printf("║ Git:                                 ║\n");
+    printf("║                                      ║\n");
+    printf("║ Thomas Reyel da Silva Morais         ║\n");
+    printf("║ Email:thomasreyel2231@gmail.com      ║\n");
+    printf("║ Git:https://github.com/ThomasReyel   ║\n");
+    printf("║                                      ║\n");
+    printf("║ Thiago Alexandre Braga de Medeiros   ║\n");
+    printf("║ Email:thiagobraga2a@gmail.com        ║\n");
+    printf("║ Git:https://github.com/thiagobraga77 ║\n");
+    printf("║                                      ║\n");
+    printf("║ Gabriel Samir Costa Uchoa Monteiro   ║\n");
+    printf("║ Email:samirgabriel282@gmail.com      ║\n");
+    printf("║ Git:https://github.com/GabrielUchoa17║\n");
+    printf("╚═════════════════════════════════════╝\n");
     printf("\n");
     printf(">>> Tecle <ENTER> para continuar...\n");
     getchar();
