@@ -610,3 +610,50 @@ int calcularIdade(const char *dataNascimento) {
 
     return idade;
 }
+
+
+int existeAssinante(int id) {
+    FILE* arq = fopen("./dados/dadosAssinantes.dat", "rb");
+    if (!arq) return 0;
+
+    Assinante aux;
+    while (fread(&aux, sizeof(Assinante), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+    fclose(arq);
+    return 0;
+}
+
+int existePlano(int id) {
+    FILE* arq = fopen("./dados/dadosPlanos.dat", "rb");
+    if (!arq) return 0;
+
+    Plano aux;
+    while (fread(&aux, sizeof(Plano), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+    fclose(arq);
+    return 0;
+}
+int existeProduto(int id) {
+    FILE* arq = fopen("./dados/dadosProdutos.dat", "rb");
+    if (!arq) return 0;
+
+    Produto aux;
+    while (fread(&aux, sizeof(Produto), 1, arq)) {
+        if (aux.id == id && aux.status == True) {
+            fclose(arq);
+            return 1;
+        }
+    }
+
+    fclose(arq);
+    return 0;
+}
+

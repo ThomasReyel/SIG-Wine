@@ -342,10 +342,31 @@ Assinatura* criarAssinatura() {
 }
 
 void preencherAssinatura(Assinatura* assinatura) {
-    lerCampo("Insira o id do assinante:", assinatura->idAssinante, 20, validarIdAssinante, "❌ ID do assinante inválido! Digite novamente.");
-    lerCampo("Insira o id do plano:", assinatura->idPlano, 20, validarIdPlano, "❌ ID do plano inválido! Digite novamente.");
-    lerCampo("Insira a data da assinatura (dd/mm/aaaa):", assinatura->dataAssinatura, 20, validarDataAssinatura, "❌ Data inválida! Digite novamente no formato dd/mm/aaaa.");
-    lerCampo("Insira o período de vencimento (M - Mensal, T - Trimestral, S - Semestral, A - Anual):", assinatura->periodoVencimento, 20, validarPeriodoVencimento, "❌ Período inválido! Digite apenas M, T, S ou A.");
+    int idAss, idPlan;
+
+    do {
+        lerCampo("Insira o id do assinante:", assinatura->idAssinante, 20, validarIdAssinante, "❌ ID inválido!");
+        idAss = atoi(assinatura->idAssinante);
+
+        if (!existeAssinante(idAss)) {
+            printf("❌ Esse assinante NÃO existe! Digite novamente.\n");
+        }
+    } while (!existeAssinante(idAss));
+
+    do {
+        lerCampo("Insira o id do plano:", assinatura->idPlano, 20, validarIdPlano, "❌ ID inválido!");
+        idPlan = atoi(assinatura->idPlano);
+
+        if (!existePlano(idPlan)) {
+            printf("❌ Esse plano NÃO existe! Digite novamente.\n");
+        }
+    } while (!existePlano(idPlan));
+
+    lerCampo("Insira a data da assinatura (dd/mm/aaaa):", assinatura->dataAssinatura,
+             20, validarDataAssinatura, "❌ Data inválida!");
+
+    lerCampo("Insira o período de vencimento (M/T/S/A):", assinatura->periodoVencimento,
+             20, validarPeriodoVencimento, "❌ Período inválido!");
 }
 // Assinatura* salvarAssinaturas(){
 //     Assinatura* assinatura;

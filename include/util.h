@@ -33,4 +33,7 @@
     int validarIdProduto(const char*);
     void lerCampo(const char*, char*, int, int (*)(const char*), const char*);
     int calcularIdade(const char *);
+    int existeAssinante(int id);
+    int existePlano(int id);
+    int existeProduto(int id);
 #endif

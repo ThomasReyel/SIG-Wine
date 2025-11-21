@@ -1,6 +1,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 #include "moduloPlanos.h"
+#include "moduloProdutos.h"
 #include "util.h"
 #include <string.h>
 #include <ctype.h>
@@ -241,7 +242,7 @@ char confirmarInfoPlano(const Plano* plano){
         printf("║ Nome: %s \n", plano->nome);
         printf("║ Preço: %s \n", plano->preco);
         printf("║ Período: %s \n", plano->periodo);
-        printf("║ Id do produto: %s dias\n", plano->idProduto);
+        printf("║ Id do produto: %s \n", plano->idProduto);
         printf("╠═════════════════════════════╗\n");
         printf("║ Deseja manter essas infos?  ║\n");
         printf("║ 1. Sim                      ║\n");
@@ -352,7 +353,18 @@ void preencherPlano(Plano* plano) {
         default:  strcpy(plano->periodo, "Desconhecido");
     }
 
-    lerCampo("Insira o idProduto:", plano->idProduto, 20, validarIdProduto, "❌ ID do produto inválido! Digite novamente.");
+    int idProd;
+
+    do {
+        lerCampo("Insira o ID do produto:", plano->idProduto, 20, validarIdProduto,
+                "❌ ID do produto inválido! Digite novamente.");
+
+        idProd = atoi(plano->idProduto);
+
+        if (!existeProduto(idProd)) {
+            printf("❌ Esse produto NÃO existe! Digite novamente.\n");
+        }
+    } while (!existeProduto(idProd));
 }
 
 
